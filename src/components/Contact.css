@@ -1,0 +1,52 @@
+/* Contact Section Custom Styles */
+
+.contact-card-3d {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.contact-card-inner {
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.contact-card-3d:hover .contact-card-inner {
+  transform: rotateY(5deg) rotateX(2deg);
+}
+
+.focus-glow-cyan:focus {
+  box-shadow: 0 0 15px rgba(184, 242, 230, 0.3);
+  border-color: #b8f2e6 !important;
+}
+
+.glass-card-contact {
+  background: rgba(184, 242, 230, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(184, 242, 230, 0.1);
+}
+
+.dark .glass-card-contact {
+  background: rgba(184, 242, 230, 0.05);
+  border-color: rgba(184, 242, 230, 0.2);
+}
+
+@keyframes float-icon {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.floating-social-icon {
+  animation: float-icon 3s ease-in-out infinite;
+}
+
+.contact-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(184, 242, 230, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(184, 242, 230, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+  pointer-events: none;
+  z-index: -1;
+}

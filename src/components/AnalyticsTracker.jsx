@@ -6,7 +6,10 @@ export default function AnalyticsTracker() {
   const location = useLocation();
 
   useEffect(() => {
-    ReactGA.send({ hitType: "pageview", page: location.pathname });
+    const gaId = import.meta.env.VITE_GA_MEASUREMENT_ID;
+    if (gaId) {
+      ReactGA.send({ hitType: "pageview", page: location.pathname });
+    }
   }, [location]);
 
   return null;

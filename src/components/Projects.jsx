@@ -1,168 +1,143 @@
-import { motion } from 'motion/react';
+import { useState, useContext } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import ProjectCard from './ProjectCard';
-import { useContext } from 'react';
-import { ThemeContext } from '../App';
+import { ThemeContext } from '../context/ThemeContext';
+
+const CATEGORIES = ['All', 'HTML/CSS'];
+
+const PROJECTS_DATA = [
+    {
+        id: 1,
+        title: 'Nansen AI',
+        description: 'First HTML & CSS clone project assignment focusing on structural layout and fundamental styling.',
+        category: 'HTML/CSS',
+        image: 'https://cdn.prod.website-files.com/60118ca1c2eab61d24bcf151/6254dfc86e4d48156c78c48d_JRZ7q9k4LKnSzadnpwB509TSjBmRzEB9h9VqxR_Mwk50aV2dQH5-_ih9D01YosaAHgYSrhUctRLsXDK3W4GveNmhgvhoc7oqgHAqqlXvpwMbNSMwDo0_l-Ko8aZ-X35uL-AFedih.png', 
+        liveLink: 'https://css-clone-website.netlify.app/hw-1/',
+        codeLink: 'https://github.com/vedantxy/css-clone-by-vedant-patel/tree/main/hw-1',
+    },
+    {
+        id: 2,
+        title: 'Myntra',
+        description: 'Second HTML & CSS clone project assignment exploring more complex structural layouts.',
+        category: 'HTML/CSS',
+        image: 'https://img-cdn.publive.online/fit-in/640x360/filters:format(webp)/entrackr/media/post_attachments/wp-content/uploads/2017/12/myntra-image-3.jpg', 
+        liveLink: 'https://css-clone-website.netlify.app/hw-2/',
+        codeLink: 'https://github.com/vedantxy/css-clone-by-vedant-patel/tree/main/hw-2',
+    },
+    {
+        id: 3,
+        title: 'RoadPilot',
+        description: 'Third HTML & CSS clone project assignment implementing responsive design principles.',
+        category: 'HTML/CSS',
+        image: 'https://roadpilot.co.in/assets/images/frontend/blog/thumb_660e1184789ab1712198020.png', 
+        liveLink: 'https://css-clone-website.netlify.app/hw-3/',
+        codeLink: 'https://github.com/vedantxy/css-clone-by-vedant-patel/tree/main/hw-3',
+    },
+    {
+        id: 4,
+        title: 'Cronos',
+        description: 'Fourth HTML & CSS clone project assignment featuring advanced CSS techniques.',
+        category: 'HTML/CSS',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQtqa34IUaE9dUXJPW9Ej1eMSQqBm2vGhTeA&s', 
+        liveLink: 'https://css-clone-website.netlify.app/hw-4/',
+        codeLink: 'https://github.com/vedantxy/css-clone-by-vedant-patel/tree/main/hw-4',
+    },
+    {
+        id: 5,
+        title: 'Bombay Closet Cleanse',
+        description: 'Fifth HTML & CSS clone project assignment demonstrating comprehensive styling skills.',
+        category: 'HTML/CSS',
+        image: 'https://bombayclosetcleanse.in/cdn/shop/files/Banner_03.png?v=1711542578&width=3840', 
+        liveLink: 'https://css-clone-website.netlify.app/hw-5/',
+        codeLink: 'https://github.com/vedantxy/css-clone-by-vedant-patel/tree/main/hw-5',
+    },
+    {
+        id: 6,
+        title: 'XRP Ledger',
+        description: 'Sixth HTML & CSS clone project assignment. (Note: using hw-5 link provided).',
+        category: 'HTML/CSS',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxL6eEDei0PxcmF5XUr8w8HpsY2y6euYGPFw&s', 
+        liveLink: 'https://css-clone-website.netlify.app/hw-6/',
+        codeLink: 'https://github.com/vedantxy/css-clone-by-vedant-patel/tree/main/hw-6',
+    }
+];
 
 function Projects() {
-    const { theme } = useContext(ThemeContext);
-    
-    const projects = [
-        {
-            title: 'Budget Buddy',
-            description: 'Developed a responsive personal finance web application that enables users to set monthly budgets, track categorized expenses, and monitor spending in real time.',
-            tags: ['HTML5', 'CSS3', 'JavaScript'],
-            link: 'https://my-budget-buddy-app.netlify.app/', 
-            github: 'https://github.com/A23droid/budget-buddy' 
-        },
-        {
-            title: 'Quick Talk',
-            description: 'A sleek, responsive real-time chat app built with React and TailwindCSS. Supports light/dark themes, smooth animations, and keyboard shortcuts.',
-            tags: ['React', 'TailwindCSS'],
-            link: 'https://quick-talk-red.vercel.app/', 
-            github: 'https://github.com/A23droid/quick-talk'
-        },
-        {
-            title: 'The LogBook',
-            description: 'Built a developer-focused blog featuring dynamic routing, tag-based filtering, and Markdown-driven content. Implemented a consistent dark-theme UI and deployed the production build on Vercel.',
-            tags: ['Astro', 'React', 'TailwindCSS'],
-            link: 'https://the-logbook-seven.vercel.app/',
-            github: 'https://github.com/A23droid/the-logbook'
-        }
-    ];
+    const { theme, isTransitioning } = useContext(ThemeContext);
+    const [activeCategory, setActiveCategory] = useState('All');
 
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.15,
-                delayChildren: 0.2
-            }
-        }
-    };
+    const filteredProjects = PROJECTS_DATA.filter(project => 
+        activeCategory === 'All' ? true : project.category === activeCategory
+    );
 
     return (
-        <section
-            id="projects"
-            className={`py-24 px-6 relative overflow-hidden bg-transparent`}
-        >
-            {/* Animated background elements */}
+        <section id="projects" className="py-24 px-6 relative overflow-hidden bg-transparent">
+            {/* Background blob elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <motion.div
-                    animate={{
-                        scale: [1, 1.2, 1],
-                        x: [0, 30, 0],
-                        y: [0, 50, 0],
-                    }}
-                    transition={{
-                        duration: 20,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                    className={`absolute top-40 right-20 w-96 h-96 rounded-full blur-3xl opacity-10 ${
-                        theme === "dark" ? "bg-[#b8f2e6]" : "bg-[#aed9e0]"
-                    }`}
+                <motion.div 
+                    animate={{ scale: [1, 1.2, 1], x: [0, 30, 0], y: [0, 50, 0] }} 
+                    transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }} 
+                    className={`absolute top-40 right-20 w-96 h-96 rounded-full blur-3xl opacity-10 ${theme === "dark" ? "bg-cyan-400" : "bg-cyan-600"}`} 
                 />
-                <motion.div
-                    animate={{
-                        scale: [1, 1.3, 1],
-                        x: [0, -40, 0],
-                        y: [0, 30, 0],
-                    }}
-                    transition={{
-                        duration: 25,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                    className={`absolute bottom-40 left-20 w-80 h-80 rounded-full blur-3xl opacity-10 ${
-                        theme === "dark" ? "bg-[#b8f2e6]" : "bg-[#aed9e0]"
-                    }`}
+                <motion.div 
+                    animate={{ scale: [1, 1.3, 1], x: [0, -40, 0], y: [0, 30, 0] }} 
+                    transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }} 
+                    className={`absolute bottom-40 left-20 w-80 h-80 rounded-full blur-3xl opacity-10 ${theme === "dark" ? "bg-purple-500" : "bg-blue-400"}`} 
                 />
             </div>
 
             <div className="max-w-7xl mx-auto relative z-10">
-                {/* Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
+                <motion.div 
+                    initial={{ opacity: 0, y: -20 }} 
+                    whileInView={{ opacity: 1, y: 0 }} 
+                    viewport={{ once: true }} 
+                    transition={{ duration: 0.6 }} 
                     className="text-center mb-16"
                 >
-                    <motion.h2
-                        className={`text-5xl md:text-6xl font-bold mb-4 ${
-                            theme === "dark" ? "text-[#b8f2e6]" : "text-[#5e6472]"
-                        }`}
-                    >
+                    <h2 className={`text-5xl md:text-6xl font-bold mb-6 text-morph ${isTransitioning ? 'text-morph-active' : ''} ${theme === "dark" ? "text-[#b8f2e6]" : "text-[#5e6472]"}`}>
                         Projects
-                    </motion.h2>
+                    </h2>
                     <motion.div
                         initial={{ width: 0 }}
                         whileInView={{ width: "6rem" }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.3 }}
-                        className={`h-1 mx-auto rounded-full mb-6 ${
+                        className={`h-1.5 mx-auto rounded-full mb-12 ${
                             theme === "dark" ? "bg-[#b8f2e6]" : "bg-[#aed9e0]"
                         }`}
                     />
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.5 }}
-                        className={`text-lg max-w-2xl mx-auto ${
-                            theme === "dark" ? "text-[#aed9e0]" : "text-[#5e6472]"
-                        } opacity-90`}
-                    >
-                        Here are some of my recent projects that showcase my skills and passion for web development
-                    </motion.p>
+                    {/* Category Filters */}
+                    <div className="flex flex-wrap justify-center gap-3 lg:gap-4 text-morph ${isTransitioning ? 'opacity-0' : ''} transition-opacity duration-300">
+                        {CATEGORIES.map(cat => (
+                            <button
+                                key={cat}
+                                onClick={() => setActiveCategory(cat)}
+                                className={`px-6 py-2 rounded-full border transition-all duration-300 font-medium ${
+                                    activeCategory === cat 
+                                    ? "bg-[#00e5ff] border-[#00e5ff] text-black shadow-[0_0_15px_rgba(0,229,255,0.4)]" 
+                                    : theme === 'dark' 
+                                        ? "border-gray-500 text-gray-300 hover:border-[#00e5ff] hover:text-[#00e5ff]" 
+                                        : "border-gray-400 text-gray-600 hover:border-[#00cce6] hover:text-[#00cce6]"
+                                }`}
+                            >
+                                {cat}
+                            </button>
+                        ))}
+                    </div>
                 </motion.div>
 
                 {/* Projects Grid */}
-                <motion.div
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-100px" }}
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-                >
-                    {projects.map((project, i) => (
-                        <ProjectCard key={i} {...project} />
-                    ))}
-                </motion.div>
-
-                {/* View More Section */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.8 }}
-                    className="text-center mt-16"
-                >
-                    <motion.a
-                        href="https://github.com/A23droid"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.05, y: -2 }}
-                        whileTap={{ scale: 0.95 }}
-                        className={`inline-flex items-center gap-3 px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 ${
-                            theme === "dark"
-                                ? "bg-[#b8f2e6]/10 text-[#b8f2e6] border-2 border-[#b8f2e6]/30 hover:bg-[#b8f2e6]/20 hover:border-[#b8f2e6]/50"
-                                : "bg-[#aed9e0]/20 text-[#5e6472] border-2 border-[#aed9e0]/40 hover:bg-[#aed9e0]/30 hover:border-[#aed9e0]/60"
-                        }`}
-                    >
-                        <span>View More Projects</span>
-                        <motion.svg
-                            className="w-5 h-5"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            animate={{ x: [0, 5, 0] }}
-                            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                        >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </motion.svg>
-                    </motion.a>
+                <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <AnimatePresence>
+                        {filteredProjects.map((project, idx) => (
+                            <ProjectCard 
+                                key={project.id} 
+                                project={project} 
+                                theme={theme} 
+                                delay={idx * 50}
+                            />
+                        ))}
+                    </AnimatePresence>
                 </motion.div>
             </div>
         </section>

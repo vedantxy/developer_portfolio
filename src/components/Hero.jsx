@@ -1,24 +1,18 @@
 import { motion } from 'motion/react';
-import { ThemeContext } from '../App';
+import { ThemeContext } from '../context/ThemeContext';
 import { useContext, useMemo } from 'react';
 import ReactGA from 'react-ga4';
-import { FileText, Mail } from 'lucide-react';
+import { LayoutGrid, Mail } from 'lucide-react';
 
 function Hero() {
-  const { theme } = useContext(ThemeContext);
+  const { theme, isTransitioning } = useContext(ThemeContext);
 
-  const handleResume = () => {
-    ReactGA.event({
-      category: "Resume",
-      action: "View",
-      label: "Resume PDF",
+  const handleProjectScroll = (e) => {
+    e.preventDefault();
+    document.getElementById('projects')?.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
     });
-    
-    window.open(
-      "https://drive.google.com/file/d/1b7_xr5SbCWuRyOd_We0x1UAxb0btyLfl/view?usp=sharing",
-      "_blank",
-      "noopener,noreferrer"
-    );
   };
 
   const handleContactScroll = (e) => {
@@ -30,12 +24,12 @@ function Hero() {
   };
 
   // Memoize name letters to prevent re-computation
-  const nameLetters = useMemo(() => "Aditya Pillai".split(""), []);
+  const nameLetters = useMemo(() => "Vedant Patel".split(""), []);
 
   return (
     <section
       id="home"
-      className={`min-h-screen flex items-center justify-center px-6 py-20 relative overflow-hidden ${
+      className={`min-h-screen flex items-center justify-center px-6 py-20 relative overflow-hidden transition-colors duration-500 ${
         theme === "dark" ? "bg-[#1c1c1c]" : "bg-[#fafafa]"
       }`}
     >
@@ -78,18 +72,18 @@ function Hero() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="text-center relative z-10 max-w-5xl mx-auto"
+        className={`text-center relative z-10 max-w-5xl mx-auto card-theme-animation ${isTransitioning ? 'theme-transition-tilt' : ''}`}
       >
         {/* Greeting */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className={`text-base md:text-lg mb-6 font-medium tracking-wide ${
+          className={`text-base md:text-lg mb-6 font-medium tracking-wide text-morph ${isTransitioning ? 'text-morph-active' : ''} ${
             theme === "dark" ? "text-[#aed9e0]/70" : "text-[#5e6472]/60"
           }`}
         >
-          Hello! I'm
+          Hello! I&apos;m
         </motion.div>
 
         {/* Name - Optimized with reduced animations */}
@@ -97,7 +91,7 @@ function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="relative inline-block group/name mb-8 cursor-default"
+          className={`relative inline-block group/name mb-8 cursor-default text-morph ${isTransitioning ? 'text-morph-active' : ''}`}
         >
           <span className={`text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight ${
             theme === "dark" ? "text-[#b8f2e6]" : "text-[#5e6472]"
@@ -138,7 +132,7 @@ function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className={`text-xl md:text-2xl lg:text-3xl mb-10 font-light leading-relaxed ${
+          className={`text-xl md:text-2xl lg:text-3xl mb-10 font-light leading-relaxed text-morph ${isTransitioning ? 'text-morph-active' : ''} ${
             theme === "dark" ? "text-[#aed9e0]/90" : "text-[#5e6472]/80"
           }`}
         >
@@ -164,7 +158,7 @@ function Hero() {
         >
           {/* Primary CTA */}
           <motion.button
-            onClick={handleResume}
+            onClick={handleProjectScroll}
             whileHover={{ y: -4 }}
             whileTap={{ scale: 0.98 }}
             transition={{ duration: 0.2 }}
@@ -181,7 +175,7 @@ function Hero() {
                 : "hover:shadow-[#aed9e0]/40"
               }
             `}
-            aria-label="View Resume"
+            aria-label="View Projects"
           >
             {/* Shine effect */}
             <motion.div
@@ -202,8 +196,8 @@ function Hero() {
             />
             
             <span className="relative z-10 flex items-center gap-2.5">
-              <FileText size={20} className="flex-shrink-0" />
-              View Resume
+              <LayoutGrid size={20} className="flex-shrink-0" />
+              Project
             </span>
           </motion.button>
 
@@ -231,14 +225,6 @@ function Hero() {
           </motion.a>
         </motion.div>
 
-        {/* Scroll indicator - Optimized animation */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 1.5 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:block"
-        >
-        </motion.div>
       </motion.div>
     </section>
   );

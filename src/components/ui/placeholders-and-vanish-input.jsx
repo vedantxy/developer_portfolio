@@ -11,32 +11,29 @@ export function PlaceholdersAndVanishInput({
 }) {
   const [currentPlaceholder, setCurrentPlaceholder] = useState(0);
 
-  const intervalRef = useRef(null);
-  const startAnimation = () => {
-    intervalRef.current = setInterval(() => {
+  const startAnimation = useCallback(() => {
+    const interval = setInterval(() => {
       setCurrentPlaceholder((prev) => (prev + 1) % placeholders.length);
     }, 3000);
-  };
-  const handleVisibilityChange = () => {
-    if (document.visibilityState !== "visible" && intervalRef.current) {
-      clearInterval(intervalRef.current); // Clear the interval when the tab is not visible
-      intervalRef.current = null;
-    } else if (document.visibilityState === "visible") {
-      startAnimation(); // Restart the interval when the tab becomes visible
-    }
-  };
+    return interval;
+  }, [placeholders.length]);
 
   useEffect(() => {
-    startAnimation();
+    const interval = startAnimation();
+    const handleVisibilityChange = () => {
+      if (document.visibilityState !== "visible") {
+        clearInterval(interval);
+      } else {
+        startAnimation();
+      }
+    };
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
+      clearInterval(interval);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [placeholders]);
+  }, [placeholders, startAnimation]);
 
   const canvasRef = useRef(null);
   const newDataRef = useRef([]);
@@ -100,7 +97,7 @@ export function PlaceholdersAndVanishInput({
     draw();
   }, [value, draw]);
 
-  const animate = (start) => {
+  const animate = useCallback((start) => {
     const animateFrame = (pos = 0) => {
       requestAnimationFrame(() => {
         const newArr = [];
@@ -143,30 +140,32 @@ export function PlaceholdersAndVanishInput({
       });
     };
     animateFrame(start);
-  };
+  }, []);
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !animating) {
-      vanishAndSubmit();
-    }
-  };
-
-  const vanishAndSubmit = () => {
-    setAnimating(true);
-    draw();
-
-    const value = inputRef.current?.value || "";
-    if (value && inputRef.current) {
-      const maxX = newDataRef.current.reduce((prev, current) => (current.x > prev ? current.x : prev), 0);
-      animate(maxX);
+      setAnimating(true);
+      draw();
+      const value = inputRef.current?.value || "";
+      if (value && inputRef.current) {
+        const maxX = newDataRef.current.reduce((prev, current) => (current.x > prev ? current.x : prev), 0);
+        animate(maxX);
+      }
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    vanishAndSubmit();
+    setAnimating(true);
+    draw();
+    const value = inputRef.current?.value || "";
+    if (value && inputRef.current) {
+      const maxX = newDataRef.current.reduce((prev, current) => (current.x > prev ? current.x : prev), 0);
+      animate(maxX);
+    }
     onSubmit && onSubmit(e);
   };
+
   return (
     <form
       className={cn(
