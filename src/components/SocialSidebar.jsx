@@ -1,10 +1,33 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 import { FaLinkedinIn, FaGithub, FaYoutube } from 'react-icons/fa';
 import { SiLeetcode } from 'react-icons/si';
 
 const SocialSidebar = () => {
   const { theme } = useContext(ThemeContext);
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const heroSection = document.getElementById('home');
+    if (!heroSection) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.2, // Show when at least 20% of hero is visible
+      }
+    );
+
+    observer.observe(heroSection);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   const socialLinks = [
     {
@@ -46,7 +69,11 @@ const SocialSidebar = () => {
   ];
 
   return (
-    <div className="fixed left-0 top-1/2 -translate-y-1/2 z-[100] hidden lg:flex flex-col gap-8 ml-6 group/sidebar perspective-1000">
+    <div 
+      className={`fixed left-0 top-1/2 -translate-y-1/2 z-[100] hidden lg:flex flex-col gap-8 ml-6 group/sidebar perspective-1000 transition-all duration-500 ${
+        isVisible ? 'opacity-100 pointer-events-auto translate-x-0' : 'opacity-0 pointer-events-none -translate-x-10'
+      }`}
+    >
       {socialLinks.map((link) => (
         <a
           key={link.id}
