@@ -14,6 +14,7 @@ import SocialSidebar from './components/SocialSidebar.jsx';
 import { Analytics } from '@vercel/analytics/react';
 import { ThemeContext } from './context/ThemeContext';
 import ThemeTransitionOverlay from './components/ThemeTransitionOverlay';
+import CustomCursor from './components/CustomCursor.jsx';
 
 function App() {
   const particlesContainerRef = useRef(null);
@@ -117,6 +118,7 @@ function App() {
 
   return (
     <div className="relative min-h-screen w-full bg-transparent">
+      <CustomCursor />
       <div
         id="tsparticles"
         ref={particlesContainerRef}

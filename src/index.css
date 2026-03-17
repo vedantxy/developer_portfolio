@@ -125,3 +125,12 @@
 .min-h-screen, html, body, .dark {
   background: transparent !important;
 }
+
+/* Custom Cursor Global Styles */
+html, body, * {
+  cursor: none !important;
+}
+
+a, button, [role="button"], input, textarea, select {
+  cursor: none !important;
+}

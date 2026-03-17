@@ -1,7 +1,6 @@
 import emailjs from '@emailjs/browser';
 import { motion, AnimatePresence } from 'motion/react';
 import { useContext, useState, useEffect, useRef } from 'react';
-import ReactGA from 'react-ga4';
 import { ThemeContext } from '../context/ThemeContext';
 import {
   FaLinkedinIn,
@@ -13,10 +12,6 @@ import {
 } from 'react-icons/fa';
 import './Contact.css';
 
-// Simple input sanitization function
-const sanitizeInput = (input) => {
-  return input.replace(/[<>&"']/g, '').trim();
-};
 
 // Email format validation
 const isValidEmail = (email) => {
@@ -78,7 +73,9 @@ function Contact() {
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         formRef.current,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        {
+          publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+        }
       )
       .then(
         () => {

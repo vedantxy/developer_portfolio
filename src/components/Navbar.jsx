@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { ThemeContext } from '../context/ThemeContext';
-import { useContext, useState, useEffect, useRef } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Menu, X, Moon, Sun } from 'lucide-react';
 import vpLogo from '../assets/logo.png';
 
@@ -26,7 +26,6 @@ function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [particles, setParticles] = useState([]);
-  const toggleButtonRef = useRef(null);
 
   const navItems = ['Home', 'About', 'Skills', 'Projects', 'Certificates', 'Education', 'Contact'];
 
@@ -116,7 +115,8 @@ function Navbar() {
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="relative group px-1 flex items-center"
+              onClick={(e) => handleNavClick(e, 'Home')}
+              className="relative group px-1 flex items-center cursor-pointer"
             >
               <img 
                 src={vpLogo}
