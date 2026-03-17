@@ -1,7 +1,7 @@
 import { motion, useMotionValue, useSpring } from 'motion/react';
 import { useContext, useRef } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
-import ProfileDark from "./../assets/profileDark.jpg"
+import ProfileDark from "./../assets/Web_Photo_Editor.jpg"
 import { Server, Layout, Zap, Rocket } from 'lucide-react';
 
 function InterestCard({ icon: MyIcon, title, index, theme }) {

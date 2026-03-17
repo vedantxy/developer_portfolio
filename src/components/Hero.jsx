@@ -2,17 +2,13 @@ import { motion } from 'motion/react';
 import { ThemeContext } from '../context/ThemeContext';
 import { useContext, useMemo } from 'react';
 import ReactGA from 'react-ga4';
-import { LayoutGrid, Mail } from 'lucide-react';
+import { Mail, FileText } from 'lucide-react';
 
 function Hero() {
   const { theme, isTransitioning } = useContext(ThemeContext);
 
-  const handleProjectScroll = (e) => {
-    e.preventDefault();
-    document.getElementById('projects')?.scrollIntoView({ 
-      behavior: 'smooth',
-      block: 'start'
-    });
+  const handleResumeClick = () => {
+    window.open('/css_certificate.pdf', '_blank');
   };
 
   const handleContactScroll = (e) => {
@@ -156,9 +152,9 @@ function Hero() {
           transition={{ duration: 0.5, delay: 1.1, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col sm:flex-row gap-5 justify-center items-center"
         >
-          {/* Primary CTA */}
+          {/* Primary CTA - Resume */}
           <motion.button
-            onClick={handleProjectScroll}
+            onClick={handleResumeClick}
             whileHover={{ y: -4 }}
             whileTap={{ scale: 0.98 }}
             transition={{ duration: 0.2 }}
@@ -175,7 +171,7 @@ function Hero() {
                 : "hover:shadow-[#aed9e0]/40"
               }
             `}
-            aria-label="View Projects"
+            aria-label="View Resume"
           >
             {/* Shine effect */}
             <motion.div
@@ -196,8 +192,8 @@ function Hero() {
             />
             
             <span className="relative z-10 flex items-center gap-2.5">
-              <LayoutGrid size={20} className="flex-shrink-0" />
-              Project
+              <FileText size={20} className="flex-shrink-0" />
+              Resume
             </span>
           </motion.button>
 

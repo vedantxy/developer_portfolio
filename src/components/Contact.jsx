@@ -1,6 +1,6 @@
 import emailjs from '@emailjs/browser';
 import { motion, AnimatePresence } from 'motion/react';
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect, useRef } from 'react';
 import ReactGA from 'react-ga4';
 import { ThemeContext } from '../context/ThemeContext';
 import {
@@ -24,12 +24,14 @@ const isValidEmail = (email) => {
   return emailRegex.test(email);
 };
 
+
 function Contact() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
+    from_name: '',
+    from_email: '',
     message: ''
   });
+  const formRef = useRef();
   const [isLoading, setIsLoading] = useState(false);
   const [toast, setToast] = useState(null);
   const { theme = 'light', isTransitioning } = useContext(ThemeContext);
@@ -42,8 +44,8 @@ function Contact() {
   }, [toast]);
 
   const validateForm = () => {
-    if (!formData.name.trim()) return false;
-    if (!formData.email.trim() || !isValidEmail(formData.email)) return false;
+    if (!formData.from_name.trim()) return false;
+    if (!formData.from_email.trim() || !isValidEmail(formData.from_email)) return false;
     if (!formData.message.trim()) return false;
     return true;
   };
@@ -56,11 +58,6 @@ function Contact() {
     }
 
     setIsLoading(true);
-    const sanitizedData = {
-      name: sanitizeInput(formData.name),
-      email: sanitizeInput(formData.email),
-      message: sanitizeInput(formData.message),
-    };
 
     const isEmailJSConfigured = 
       import.meta.env.VITE_EMAILJS_SERVICE_ID && 
@@ -72,23 +69,21 @@ function Contact() {
 
     if (!isEmailJSConfigured) {
       setIsLoading(false);
-      setToast({ type: 'error', message: 'Setup Required: Please add EmailJS keys to your .env file.' });
+      setToast({ type: 'error', message: 'Setup Required: EmailJS keys are missing in the Environment Variables.' });
       return;
     }
 
     emailjs
-      .send(
+      .sendForm(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        sanitizedData,
-        {
-          publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-        }
+        formRef.current,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       )
       .then(
         () => {
           setIsLoading(false);
-          setFormData({ name: '', email: '', message: '' });
+          setFormData({ from_name: '', from_email: '', message: '' });
           setToast({ type: 'success', message: 'Message sent successfully!' });
         },
         (err) => {
@@ -151,7 +146,7 @@ function Contact() {
                       <item.icon size={22} />
                     </div>
                     <div>
-                      <p className="text-xs uppercase tracking-widest opacity-50 mb-1 text-morph ${isTransitioning ? 'text-morph-active' : ''}">{item.label}</p>
+                      <p className={`text-xs uppercase tracking-widest opacity-50 mb-1 text-morph ${isTransitioning ? 'text-morph-active' : ''} ${theme === 'dark' ? 'text-white' : 'text-[#5e6472]'}`}>{item.label}</p>
                       <p className={`font-medium text-morph ${isTransitioning ? 'text-morph-active' : ''} ${theme === 'dark' ? 'text-[#b8f2e6]' : 'text-[#5e6472]'}`}>
                         {item.value}
                       </p>
@@ -163,7 +158,7 @@ function Contact() {
 
             {/* Social Icons Strip */}
             <div className="pt-10">
-              <p className="text-sm font-bold uppercase tracking-widest opacity-40 mb-6 text-morph ${isTransitioning ? 'text-morph-active' : ''}">Socials</p>
+              <p className={`text-sm font-bold uppercase tracking-widest opacity-40 mb-6 text-morph ${isTransitioning ? 'text-morph-active' : ''} ${theme === 'dark' ? 'text-white' : 'text-[#5e6472]'}`}>Socials</p>
               <div className="flex gap-4">
                 {socialLinks.map((social, i) => (
                   <motion.a
@@ -194,42 +189,42 @@ function Contact() {
               viewport={{ once: true }}
               className={`glass-card-contact p-8 md:p-12 rounded-[2.5rem] relative card-theme-animation ${isTransitioning ? 'theme-transition-tilt' : ''}`}
             >
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className={`text-sm font-bold opacity-60 ml-2 text-morph ${isTransitioning ? 'text-morph-active' : ''}`}>Your Name</label>
+                    <label className={`text-sm font-bold opacity-60 ml-2 text-morph ${isTransitioning ? 'text-morph-active' : ''} ${theme === 'dark' ? 'text-white' : 'text-[#5e6472]'}`}>Your Name</label>
                     <input
                       type="text"
-                      name="name"
-                      value={formData.name}
+                      name="from_name"
+                      value={formData.from_name}
                       onChange={handleChange}
                       placeholder="Vedant Patel"
-                      className={`w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus-glow-cyan outline-none transition-all ${isTransitioning ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      className={`w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus-glow-cyan outline-none transition-all ${isTransitioning ? 'opacity-50 cursor-not-allowed' : ''} ${theme === 'dark' ? 'text-white placeholder:text-white/50' : 'text-[#5e6472] placeholder:text-[#5e6472]/50'}`}
                       disabled={isTransitioning}
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className={`text-sm font-bold opacity-60 ml-2 text-morph ${isTransitioning ? 'text-morph-active' : ''}`}>Your Email</label>
+                    <label className={`text-sm font-bold opacity-60 ml-2 text-morph ${isTransitioning ? 'text-morph-active' : ''} ${theme === 'dark' ? 'text-white' : 'text-[#5e6472]'}`}>Your Email</label>
                     <input
                       type="email"
-                      name="email"
-                      value={formData.email}
+                      name="from_email"
+                      value={formData.from_email}
                       onChange={handleChange}
                       placeholder="vedant@example.com"
-                      className={`w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus-glow-cyan outline-none transition-all ${isTransitioning ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      className={`w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus-glow-cyan outline-none transition-all ${isTransitioning ? 'opacity-50 cursor-not-allowed' : ''} ${theme === 'dark' ? 'text-white placeholder:text-white/50' : 'text-[#5e6472] placeholder:text-[#5e6472]/50'}`}
                       disabled={isTransitioning}
                     />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className={`text-sm font-bold opacity-60 ml-2 text-morph ${isTransitioning ? 'text-morph-active' : ''}`}>Message</label>
+                  <label className={`text-sm font-bold opacity-60 ml-2 text-morph ${isTransitioning ? 'text-morph-active' : ''} ${theme === 'dark' ? 'text-white' : 'text-[#5e6472]'}`}>Message</label>
                   <textarea
                     rows="5"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     placeholder="Let's build something amazing together!"
-                    className={`w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus-glow-cyan outline-none transition-all resize-none ${isTransitioning ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    className={`w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus-glow-cyan outline-none transition-all resize-none ${isTransitioning ? 'opacity-50 cursor-not-allowed' : ''} ${theme === 'dark' ? 'text-white placeholder:text-white/50' : 'text-[#5e6472] placeholder:text-[#5e6472]/50'}`}
                     disabled={isTransitioning}
                   />
                 </div>

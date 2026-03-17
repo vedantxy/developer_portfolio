@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ThemeContext } from '../context/ThemeContext';
 import { useContext, useState, useEffect, useRef } from 'react';
 import { Menu, X, Moon, Sun } from 'lucide-react';
+import vpLogo from '../assets/logo.png';
 
 const Particle = ({ x, y, color }) => {
   const angle = Math.random() * Math.PI * 2;
@@ -115,15 +116,13 @@ function Navbar() {
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="relative group px-1"
+              className="relative group px-1 flex items-center"
             >
-              <motion.div
-                className={`text-3xl font-black tracking-tighter ${
-                  theme === 'dark' ? 'text-[#b8f2e6]' : 'text-[#5e6472]'
-                }`}
-              >
-                V<span className="text-[#00d4ff]">P</span><span className="text-purple-500">.</span>
-              </motion.div>
+              <img 
+                src={vpLogo}
+                alt="VP Logo" 
+                className="h-10 w-auto rounded-lg object-contain"
+              />
               <motion.div
                 className={`absolute -bottom-1 left-0 h-0.5 ${
                   theme === 'dark' ? 'bg-[#b8f2e6]' : 'bg-[#aed9e0]'
