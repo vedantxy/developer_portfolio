@@ -9,7 +9,7 @@ const PROJECTS_DATA = [
     {
         id: 1,
         title: 'Nansen AI',
-        description: 'First HTML & CSS clone project assignment focusing on structural layout and fundamental styling.',
+        description: 'Built a responsive clone of the Nansen AI website using HTML & CSS.Focused on clean UI, layout accuracy, and modern design.',
         category: 'HTML/CSS',
         image: 'https://cdn.prod.website-files.com/60118ca1c2eab61d24bcf151/6254dfc86e4d48156c78c48d_JRZ7q9k4LKnSzadnpwB509TSjBmRzEB9h9VqxR_Mwk50aV2dQH5-_ih9D01YosaAHgYSrhUctRLsXDK3W4GveNmhgvhoc7oqgHAqqlXvpwMbNSMwDo0_l-Ko8aZ-X35uL-AFedih.png', 
         liveLink: 'https://css-clone-website.netlify.app/hw-1/',
@@ -18,7 +18,7 @@ const PROJECTS_DATA = [
     {
         id: 2,
         title: 'Myntra',
-        description: 'Second HTML & CSS clone project assignment exploring more complex structural layouts.',
+        description: 'Recreated the shopping experience of the Myntra website with a clean and responsive UI Designed interactive sections like navigation, banners, and product categories using HTML & CSS.',
         category: 'HTML/CSS',
         image: 'https://img-cdn.publive.online/fit-in/640x360/filters:format(webp)/entrackr/media/post_attachments/wp-content/uploads/2017/12/myntra-image-3.jpg', 
         liveLink: 'https://css-clone-website.netlify.app/hw-2/',
@@ -27,7 +27,7 @@ const PROJECTS_DATA = [
     {
         id: 3,
         title: 'RoadPilot',
-        description: 'Third HTML & CSS clone project assignment implementing responsive design principles.',
+        description: 'Built a responsive frontend clone of the RoadPilot logistics platform using HTML & CSS.Focused on designing a structured layout with navigation, pricing sections, and service-based UI.',
         category: 'HTML/CSS',
         image: 'https://roadpilot.co.in/assets/images/frontend/blog/thumb_660e1184789ab1712198020.png', 
         liveLink: 'https://css-clone-website.netlify.app/hw-3/',
@@ -36,7 +36,7 @@ const PROJECTS_DATA = [
     {
         id: 4,
         title: 'Cronos',
-        description: 'Fourth HTML & CSS clone project assignment featuring advanced CSS techniques.',
+        description: 'Built a modern frontend clone of the Cronos website with a sleek dark-themed UI.Focused on animations, structured content sections, and visually engaging design elements.',
         category: 'HTML/CSS',
         image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQtqa34IUaE9dUXJPW9Ej1eMSQqBm2vGhTeA&s', 
         liveLink: 'https://css-clone-website.netlify.app/hw-4/',
@@ -45,7 +45,7 @@ const PROJECTS_DATA = [
     {
         id: 5,
         title: 'Bombay Closet Cleanse',
-        description: 'Fifth HTML & CSS clone project assignment demonstrating comprehensive styling skills.',
+        description: 'Built a responsive clone of Bombay Closet Cleanse using HTML & CSS.Focused on clean UI, product grids, and mobile-friendly design.',
         category: 'HTML/CSS',
         image: 'https://bombayclosetcleanse.in/cdn/shop/files/Banner_03.png?v=1711542578&width=3840', 
         liveLink: 'https://css-clone-website.netlify.app/hw-5/',
@@ -54,7 +54,7 @@ const PROJECTS_DATA = [
     {
         id: 6,
         title: 'XRP Ledger',
-        description: 'Sixth HTML & CSS clone project assignment. (Note: using hw-5 link provided).',
+        description: 'Built a responsive clone of the XRP Ledger website using HTML & CSS. Focused on structured layouts, navigation design, and clean UI components.',
         category: 'HTML/CSS',
         image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxL6eEDei0PxcmF5XUr8w8HpsY2y6euYGPFw&s', 
         liveLink: 'https://css-clone-website.netlify.app/hw-6/',

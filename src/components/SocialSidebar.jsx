@@ -70,7 +70,7 @@ const SocialSidebar = () => {
 
   return (
     <div 
-      className={`fixed left-0 top-1/2 -translate-y-1/2 z-[100] hidden lg:flex flex-col gap-8 ml-6 group/sidebar perspective-1000 transition-all duration-500 ${
+      className={`fixed left-2 sm:left-6 top-1/2 -translate-y-1/2 z-[100] flex flex-col gap-4 sm:gap-8 group/sidebar perspective-1000 transition-all duration-500 ${
         isVisible ? 'opacity-100 pointer-events-auto translate-x-0' : 'opacity-0 pointer-events-none -translate-x-10'
       }`}
     >
@@ -82,8 +82,8 @@ const SocialSidebar = () => {
           rel="noopener noreferrer"
           className={`
             group flex items-center gap-3
-            p-3 rounded-full 
-            w-[48px] hover:w-[130px]
+            p-2 sm:p-3 rounded-full 
+            w-[40px] sm:w-[48px] lg:hover:w-[130px]
             transition-all duration-300 ease-in-out overflow-hidden
             ${theme === 'dark' ? 'bg-[#2a2a2a]/80 text-[#aed9e0]/80 shadow-[#b8f2e6]/5 border-white/10' 
               : 'bg-white/80 text-[#5e6472]/80 shadow-black/5 border-black/5'}

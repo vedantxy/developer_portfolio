@@ -11,7 +11,6 @@ import Skills from './components/Skills.jsx';
 import Contact from './components/Contact.jsx';
 import AnalyticsTracker from './components/AnalyticsTracker.jsx';
 import SocialSidebar from './components/SocialSidebar.jsx';
-import { Analytics } from '@vercel/analytics/react';
 import { ThemeContext } from './context/ThemeContext';
 import ThemeTransitionOverlay from './components/ThemeTransitionOverlay';
 import CustomCursor from './components/CustomCursor.jsx';
@@ -125,7 +124,6 @@ function App() {
         className="absolute inset-0 w-full h-full particles-canvas"
         style={{ minHeight: '100vh', zIndex: -10 }}
       />
-      <Analytics />
       <AnalyticsTracker />
       <SocialSidebar />
       <Navbar />

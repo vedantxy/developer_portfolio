@@ -34,6 +34,11 @@ function SkillItem({ skill }) {
   const { theme, isTransitioning } = useContext(ThemeContext);
   const isDark = theme === 'dark';
   const Icon = skill.icon;
+  
+  // Adjusted color for light mode if the default is white
+  const displayColor = (!isDark && (skill.color === '#ffffff' || skill.color === '#FFFFFF')) 
+    ? '#000000' 
+    : skill.color;
 
   return (
     <motion.div 
@@ -44,14 +49,14 @@ function SkillItem({ skill }) {
       <div 
         className="skill-icon-wrapper transition-all duration-300 relative"
         style={{ 
-          color: skill.color,
-          backgroundColor: `${skill.color}10`, // 10% opacity hex
+          color: displayColor,
+          backgroundColor: `${displayColor}10`, // 10% opacity hex
         }}
       >
         <Icon size={32} className="relative z-10" />
         <div 
           className="absolute inset-0 blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-300"
-          style={{ backgroundColor: skill.color }}
+          style={{ backgroundColor: displayColor }}
         />
       </div>
       <span className={`skill-name tracking-wide transition-colors duration-300 text-morph ${isTransitioning ? 'text-morph-active' : ''} ${isDark ? 'text-gray-400 group-hover:text-white' : 'text-gray-600 group-hover:text-gray-900'}`}>
