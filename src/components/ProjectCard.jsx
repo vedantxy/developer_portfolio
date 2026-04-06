@@ -24,11 +24,11 @@ function ProjectCard({ project, theme, delay = 0 }) {
             } transition-all duration-300 group shadow-lg`}
         >
             {/* Image Section */}
-            <div className="relative h-56 overflow-hidden">
+            <div className="relative aspect-video overflow-hidden bg-gray-900/10">
                 <img 
                     src={project.image} 
                     alt={project.title} 
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                 />
             </div>
 

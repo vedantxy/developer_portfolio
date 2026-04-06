@@ -105,7 +105,7 @@ function EducationCard({ data, index, isTransitioning }) {
 
 function Education() {
     const containerRef = useRef(null);
-    const { theme, isTransitioning } = useContext(ThemeContext);
+    const { isTransitioning } = useContext(ThemeContext);
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start end", "end end"]

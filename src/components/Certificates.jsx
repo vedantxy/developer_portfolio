@@ -7,13 +7,13 @@ import cssCert from '../assets/css_certificate.jpg';
 const CERTIFICATES_DATA = [
   {
     id: 1,
-    title: 'Problem Solving (Intermediate)',
-    org: 'HackerRank',
-    date: 'May 2025',
-    description: 'Successfully tackled complex algorithmic challenges and advanced data structural manipulations.',
-    tags: ['Algorithms', 'Data Structures'],
+    title: 'ArtPark_CodeForge_Hackathon',
+    org: ' IISc Bangalore',
+    date: 'march 2026',
+    description: 'Demonstrated strong problem-solving by implementing optimized algorithms and data structure techniques under time constraints.',
+    tags: ['Full-Stack Development','Teamwork & Collaboration', 'Data Structures'],
     recipient: 'Vedant Patel',
-    link: '#'
+    link: 'https://res.cloudinary.com/dv7bazp5k/image/upload/q_auto/f_auto/v1775489564/73e7cdda-ea5d-4ca9-84ab-77fe49695dcb_jkapar.jpg'
   },
   {
     id: 2,

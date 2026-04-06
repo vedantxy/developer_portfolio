@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from 'motion/react';
 import ProjectCard from './ProjectCard';
 import { ThemeContext } from '../context/ThemeContext';
 
-const CATEGORIES = ['All', 'HTML/CSS'];
+
+const CATEGORIES = ['All', 'HTML/CSS', 'MERN Stack', 'Figma'];
 
 const PROJECTS_DATA = [
     {
@@ -59,7 +60,49 @@ const PROJECTS_DATA = [
         image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxL6eEDei0PxcmF5XUr8w8HpsY2y6euYGPFw&s', 
         liveLink: 'https://css-clone-website.netlify.app/hw-6/',
         codeLink: 'https://github.com/vedantxy/css-clone-by-vedant-patel/tree/main/hw-6',
-    }
+    },
+    {
+        id: 7,
+        title: ' CodeForge AI',
+        description: 'Developed an AI-powered solution at CodeForge Hackathon, leveraging intelligent algorithms and modern technologies to solve real-world problems efficiently.',
+        category: 'MERN Stack',
+        image: 'https://res.cloudinary.com/dv7bazp5k/image/upload/q_auto/f_auto/v1775490626/free-ai-resume-analyzer_bbilhn.jpg', 
+        liveLink: 'https://art-park-code-forge-hackathon-nine.vercel.app/',
+        codeLink: 'https://github.com/vedantxy/ArtPark_CodeForge_Hackathon',
+    },  {
+        id: 8,
+        title: 'CleanPulse',
+        description: 'CleanPulse is a smart waste management system designed to optimize collection and promote environmental sustainability using modern web technologies.',
+        category: 'MERN Stack',
+        image: 'https://www.lingayasvidyapeeth.edu.in/sanmax/wp-content/uploads/2024/02/Solid-Waste-Management-in-Smart-Cities.webp', 
+        liveLink: 'https://clean-pulse-taupe.vercel.app/',
+        codeLink: 'https://github.com/vedantxy/cleanPulse',
+    },
+    {
+        id: 9,
+        title: 'oberoi mall',
+        description: 'Designed a user-centric UI/UX for Oberoi Mall, enhancing navigation, accessibility, and overall digital shopping experience through modern and responsive design principles.',
+        category: 'Figma',
+        image: 'https://res.cloudinary.com/dv7bazp5k/image/upload/q_auto/f_auto/v1775491841/mall_tpukvr.webp', 
+        liveLink: 'https://www.figma.com/design/KxdacndljNmlOhHl1HTTVM/Untitled?node-id=330-4&t=EGvzuftVaFx2AJkE-1',
+    },
+     {
+        id: 10,
+        title: 'Red Bus',
+        description: 'Designed a user-centric bus booking UI/UX, optimizing search, seat selection, and checkout flow to deliver a fast, intuitive, and seamless travel booking experience.',
+        category: 'Figma',
+        image: 'https://res.cloudinary.com/dv7bazp5k/image/upload/q_auto/f_auto/v1775492336/red_bus_vhsyr4.webp', 
+        liveLink: 'https://www.figma.com/design/KxdacndljNmlOhHl1HTTVM/Untitled?node-id=63-2&t=EGvzuftVaFx2AJkE-1',
+    },
+     {
+        id: 11,
+        title: 'Coding Gita',
+        description: 'CodingGita is a modern tech education platform offering industry-focused full-stack development programs that bridge the gap between academic learning and real-world skills.',
+        category: 'Figma',
+        image: 'https://res.cloudinary.com/dv7bazp5k/image/upload/q_auto/f_auto/v1775493029/codinggita_lzg7gv.png', 
+        liveLink: 'https://www.figma.com/design/KxdacndljNmlOhHl1HTTVM/Untitled?node-id=79-2&t=EGvzuftVaFx2AJkE-1',
+    },
+    
 ];
 
 function Projects() {

@@ -8,7 +8,7 @@ function Hero() {
   const { theme, isTransitioning } = useContext(ThemeContext);
 
   const handleResumeClick = () => {
-    window.open('/css_certificate.pdf', '_blank');
+    window.open('https://drive.google.com/file/d/1YFi7wZHKKj8DRVWcL4FBWq8gsH5BHpFS/view?usp=sharing', '_blank');
   };
 
   const handleContactScroll = (e) => {

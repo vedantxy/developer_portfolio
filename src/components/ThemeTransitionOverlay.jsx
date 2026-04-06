@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 import { motion, AnimatePresence } from 'motion/react';
 

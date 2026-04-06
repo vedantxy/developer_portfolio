@@ -1,0 +1,14 @@
+﻿
+C:\Users\vedant\OneDrive\Desktop\react js for portfolio\portfolio\src\components\Education.jsx
+  108:13  error  'theme' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]|motion/u  no-unused-vars
+
+C:\Users\vedant\OneDrive\Desktop\react js for portfolio\portfolio\src\components\Projects.jsx
+  5:8  error  'projectFigma' is defined but never used. Allowed unused vars must match /^[A-Z_]|motion/u  no-unused-vars
+  6:8  error  'projectMern' is defined but never used. Allowed unused vars must match /^[A-Z_]|motion/u   no-unused-vars
+
+C:\Users\vedant\OneDrive\Desktop\react js for portfolio\portfolio\src\components\ThemeTransitionOverlay.jsx
+  1:22  error  'useEffect' is defined but never used. Allowed unused vars must match /^[A-Z_]|motion/u  no-unused-vars
+  1:33  error  'useState' is defined but never used. Allowed unused vars must match /^[A-Z_]|motion/u   no-unused-vars
+
+Γ£û 5 problems (5 errors, 0 warnings)
+
