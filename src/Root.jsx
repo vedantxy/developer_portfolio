@@ -5,20 +5,10 @@ import SplashLoader from './components/SplashLoader.jsx'
 import App from './App.jsx'
 
 const Root = () => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2500); // 2.5-second delay for the loader
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <ThemeProvider>
       <BrowserRouter>
-        {isLoading ? <SplashLoader /> : <App />}
+        <App />
       </BrowserRouter>
     </ThemeProvider>
   );

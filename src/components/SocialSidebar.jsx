@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 import { FaLinkedinIn, FaGithub, FaYoutube } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 import { SiLeetcode } from 'react-icons/si';
 
 const SocialSidebar = () => {
@@ -65,6 +66,15 @@ const SocialSidebar = () => {
       color: 'group-hover:text-white',
       bgHover: 'focus:ring-[#ff0000] group-hover:bg-[#ff0000]',
       shadowHover: 'group-hover:shadow-[0_0_20px_rgba(255,0,0,0.6)]',
+    },
+    {
+      id: 5,
+      name: 'Twitter',
+      icon: <FaXTwitter size={20} />,
+      url: 'https://x.com/VedantPate1601',
+      color: 'group-hover:text-white',
+      bgHover: 'focus:ring-[#000000] group-hover:bg-[#000000]',
+      shadowHover: 'group-hover:shadow-[0_0_20px_rgba(0,0,0,0.6)]',
     },
   ];
 

@@ -1,89 +1,128 @@
-/* Education Section Styles */
+/* 
+  Education Section Styling
+  Modern, Clean, and Premium Academic Showcase
+*/
+
+:root {
+  --edu-bg: #fdfaf7; /* Very light warm beige */
+  --edu-card-bg: #ffffff;
+  --edu-grid: rgba(0, 0, 0, 0.04);
+  --edu-text-primary: #1e293b;
+  --edu-text-secondary: #64748b;
+  --edu-text-muted: #94a3b8;
+  --edu-accent: #6366f1;
+  --edu-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+  --edu-shadow-hover: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
+}
+
+.dark .education-section {
+  --edu-bg: #0f172a;
+  --edu-card-bg: #1e293b;
+  --edu-grid: rgba(255, 255, 255, 0.03);
+  --edu-text-primary: #f8fafc;
+  --edu-text-secondary: #94a3b8;
+  --edu-text-muted: #64748b;
+}
+
+.neon .education-section {
+  --edu-bg: #000000;
+  --edu-card-bg: #0a0a0a;
+  --edu-grid: rgba(255, 255, 255, 0.05);
+  --edu-text-primary: #ffffff;
+  --edu-text-secondary: rgba(255, 255, 255, 0.7);
+  --edu-text-muted: rgba(255, 255, 255, 0.4);
+}
 
 .education-section {
-    background-color: #0d0f1a;
-    position: relative;
-    overflow: hidden;
+  background-color: var(--edu-bg);
+  background-image: 
+    linear-gradient(var(--edu-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--edu-grid) 1px, transparent 1px);
+  background-size: 40px 40px;
+  position: relative;
 }
 
-/* Glowing Timeline Line */
-.timeline-line {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 4px;
-    height: 100%;
-    background: linear-gradient(to bottom, #00d4ff, #8a2be2);
-    box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
-    z-index: 1;
+.education-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, transparent 0%, var(--edu-bg) 80%);
+  pointer-events: none;
 }
 
-/* Background Particles */
-.bg-particles {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
+/* Typography */
+.edu-script {
+  font-family: 'Caveat', cursive;
+  font-weight: 500;
+  letter-spacing: -0.01em;
 }
 
-.particle {
-    position: absolute;
-    background: white;
-    border-radius: 50%;
-    opacity: 0.1;
-    animation: float 20s infinite linear;
+.header-blue-grey {
+  color: #7d9bbd;
 }
 
-@keyframes float {
-    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-    50% { opacity: 0.2; }
-    100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+.subtitle-blue-grey {
+  color: #6a88ab;
 }
 
-/* Timeline Nodes */
-.timeline-node {
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, -20px);
-    width: 48px;
-    height: 48px;
-    background: #0d0f1a;
-    border: 3px solid #00d4ff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-    box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
-    color: #00d4ff;
+.edu-sans {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-/* Constellation Pattern Background */
-.constellation-bg {
-    position: absolute;
-    inset: 0;
-    background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0);
-    background-size: 40px 40px;
-    z-index: 0;
+/* Card Effects */
+.edu-main-card {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(0, 0, 0, 0.03);
 }
 
-/* Card Glow Effect */
-.education-card {
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+.edu-main-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--edu-shadow-hover);
+  border-color: rgba(99, 102, 241, 0.1);
 }
 
-.education-card:hover {
-    box-shadow: 0 10px 30px -10px rgba(0, 212, 255, 0.2);
+.edu-side-card {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Mobile Responsive Adjustments */
-@media (max-width: 768px) {
-    .timeline-line {
-        left: 30px;
-    }
-    .timeline-node {
-        left: 30px;
-        width: 40px;
-        height: 40px;
-    }
+.edu-side-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--edu-shadow-hover);
+}
+
+.edu-side-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--edu-text-muted) 0.5px, transparent 0.5px);
+  background-size: 8px 8px;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+/* Progress Bar Anim */
+@keyframes edu-progress {
+  from { width: 0; }
+  to { width: 98.1%; }
+}
+
+.edu-progress-fill {
+  animation: edu-progress 1.5s ease-out forwards;
+}
+
+/* Responsive Gaps */
+@media (max-width: 1024px) {
+  .education-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .education-section {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
 }

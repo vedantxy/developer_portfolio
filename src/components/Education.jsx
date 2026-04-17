@@ -1,189 +1,236 @@
-import { motion, useScroll, useSpring } from 'motion/react';
-import { useRef, useContext, useMemo } from 'react';
-import { GraduationCap, Building2, MapPin, Calendar, CheckCircle2 } from 'lucide-react';
+import { useContext } from 'react';
+import { motion } from 'motion/react';
 import { ThemeContext } from '../context/ThemeContext';
 import './Education.css';
 
-const EDUCATION_DATA = [
-    {
-        id: 1,
-        degree: "Computer Science",
-        institution: "Swaminarayan University",
-        location: "Kalol, Gandhinagar, India",
-        duration: "Aug 2025 – Aug 2029",
-        highlights: [
-            "Strong foundation in Frontend and Backend Web Development",
-            "Proficient in HTML, CSS, JavaScript, React, Node.js, Express, MongoDB",
-            "Skilled in UI/UX design and database management",
-            "Currently pursuing B.Tech in Computer Science"
-        ]
-    },
-    {
-        id: 2,
-        degree: "Higher Secondary Education (Science)",
-        institution: "B.M High School",
-        location: "Patan, Gujarat, India",
-        duration: "Jun 2023 – Mar 2025",
-        highlights: [
-            "Completed 12th grade with Physics, Chemistry, Mathematics",
-            "Achieved 82.75% and 82.15 percentile in board examinations",
-            "Built strong academic foundation for engineering and computer science"
-        ]
-    },
-    {
-        id: 3,
-        degree: "Secondary School Certificate (SSC)",
-        institution: "B.M High School",
-        location: "Patan, Gujarat, India",
-        duration: "Jun 2022 – Mar 2023",
-        highlights: [
-            "Achieved 80% and 92.65 percentile in board examinations",
-            "Demonstrated strong aptitude in Mathematics and Science",
-            "Recognized for discipline and consistent academic excellence"
-        ]
-    }
-];
-
-function EducationCard({ data, index, isTransitioning }) {
-    const isEven = index % 2 === 0;
-
-    return (
-        <div className={`flex flex-col md:flex-row w-full mb-16 relative ${isEven ? 'md:flex-row-reverse' : ''}`}>
-            {/* Timeline Node */}
-            <div className={`timeline-node transition-all duration-300 ${isTransitioning ? 'scale-0' : 'scale-100'}`}>
-                <GraduationCap size={24} />
-            </div>
-
-            {/* Content Card */}
-            <motion.div
-                initial={{ opacity: 0, x: isEven ? 50 : -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                style={{ transitionDelay: `${index * 50}ms` }}
-                className={`w-full md:w-[45%] education-card p-8 rounded-3xl border bg-[#1a1f2e] border-gray-800 hover:border-[#00d4ff]/30 shadow-xl ml-12 md:ml-0 card-theme-animation ${isTransitioning ? 'theme-transition-tilt' : ''}`}
-            >
-                <div className="flex flex-col gap-4">
-                    <div>
-                        <h3 className={`text-2xl md:text-3xl font-black text-[#00d4ff] mb-2 text-morph ${isTransitioning ? 'text-morph-active' : ''}`}>
-                            {data.degree}
-                        </h3>
-                        <div className={`flex items-center gap-2 text-gray-400 font-bold mb-1 text-morph ${isTransitioning ? 'text-morph-active' : ''}`}>
-                            <Building2 size={16} />
-                            <span>{data.institution}</span>
-                        </div>
-                    </div>
-
-                    <div className={`flex flex-wrap gap-4 text-sm text-gray-500 font-medium text-morph ${isTransitioning ? 'text-morph-active' : ''}`}>
-                        <div className="flex items-center gap-1.5">
-                            <MapPin size={14} className="text-purple-500" />
-                            <span>{data.location}</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                            <Calendar size={14} className="text-cyan-500" />
-                            <span>{data.duration}</span>
-                        </div>
-                    </div>
-
-                    <div className="h-[1px] w-full bg-gray-800/50 my-2"></div>
-
-                    <ul className="space-y-3">
-                        {data.highlights.map((item, idx) => (
-                            <li key={idx} className="flex items-start gap-3">
-                                <CheckCircle2 size={16} className="text-[#00d4ff] mt-1 shrink-0" />
-                                <p className={`text-gray-300 text-sm leading-relaxed font-medium text-morph ${isTransitioning ? 'text-morph-active' : ''}`}>
-                                    {item}
-                                </p>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </motion.div>
-        </div>
-    );
-}
-
 function Education() {
-    const containerRef = useRef(null);
-    const { isTransitioning } = useContext(ThemeContext);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start end", "end end"]
-    });
+  const { theme } = useContext(ThemeContext);
+  const isDark = theme === 'dark';
 
-    const particles = useMemo(() => {
-        return [...Array(15)].map((_, i) => ({
-            id: i,
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            width: `${Math.random() * 3 + 1}px`,
-            height: `${Math.random() * 3 + 1}px`,
-            delay: `${Math.random() * 10}s`,
-            duration: `${Math.random() * 10 + 10}s`
-        }));
-    }, []);
+  return (
+    <section id="education" className="education-section py-20 md:py-32 px-6 overflow-hidden">
+      <div className="max-w-[1280px] mx-auto relative z-10">
+        
+        {/* Header Section */}
+        <div className="mb-16 md:mb-24">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="edu-script text-6xl mb-2 header-blue-grey"
+          >
+            Education
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-[17px] mb-6 tracking-wide subtitle-blue-grey"
+          >
+            My academic journey and achievements
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-3xl md:text-4xl font-bold edu-sans"
+            style={{ color: 'var(--edu-text-primary)' }}
+          >
+            Academic Background
+          </motion.h2>
+        </div>
 
-    const scaleY = useSpring(scrollYProgress, {
-        stiffness: 100,
-        damping: 30,
-        restDelta: 0.001
-    });
-
-    return (
-        <section id="education" ref={containerRef} className="education-section py-32 px-6">
-            {/* Background Effects */}
-            <div className="constellation-bg"></div>
-            <div className="bg-particles">
-                {particles.map((p) => (
-                    <div 
-                        key={p.id} 
-                        className="particle" 
-                        style={{
-                            left: p.left,
-                            top: p.top,
-                            width: p.width,
-                            height: p.height,
-                            animationDelay: p.delay,
-                            animationDuration: p.duration
-                        }}
-                    ></div>
-                ))}
-            </div>
-
-            <div className="max-w-7xl mx-auto relative z-10 w-full">
-                <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-center mb-24"
-                >
-                    <h2 className={`text-5xl md:text-7xl font-black text-white mb-6 text-morph ${isTransitioning ? 'text-morph-active' : ''}`}>
-                        Education <span className="text-[#00d4ff]">Journal</span>
-                    </h2>
-                    <div className="h-2 w-24 bg-gradient-to-r from-[#00d4ff] to-purple-600 mx-auto rounded-full"></div>
-                </motion.div>
-
-                <div className="relative">
-                    {/* Glowing Sequential Timeline Line */}
-                    <motion.div 
-                        className={`timeline-line origin-top transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
-                        style={{ scaleY }}
-                    />
-
-                    <div className="flex flex-col">
-                        {EDUCATION_DATA.map((item, index) => (
-                            <EducationCard 
-                                key={item.id} 
-                                data={item} 
-                                index={index} 
-                                isTransitioning={isTransitioning}
-                            />
-                        ))}
-                    </div>
+        {/* Grid Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1.8fr_1fr] gap-10 md:gap-16 items-start">
+          
+          {/* Left Column: Main Cards */}
+          <div className="space-y-8">
+            
+            {/* BTech Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="edu-main-card rounded-3xl p-8 md:p-10 shadow-sm relative overflow-hidden"
+              style={{ background: 'var(--edu-card-bg)' }}
+            >
+              <div className="flex justify-between items-start mb-6">
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-bold mb-2" style={{ color: 'var(--edu-text-primary)' }}>
+                    BTech in Computer Science
+                  </h3>
+                  <p className="font-medium" style={{ color: 'var(--edu-text-secondary)' }}>
+                    Swaminarayan University
+                  </p>
+                  <p className="text-sm mt-1" style={{ color: 'var(--edu-text-muted)' }}>
+                    2025 – Present
+                  </p>
                 </div>
-            </div>
-        </section>
-    );
+                <span className="px-4 py-1.5 text-xs font-bold rounded-full uppercase tracking-wider" style={{ background: 'var(--edu-bg)', color: 'var(--edu-text-secondary)' }}>
+                  Current
+                </span>
+              </div>
+
+              <div className="space-y-6">
+                <p className="text-lg font-semibold" style={{ color: 'var(--edu-text-primary)' }}>
+                  1st Year, CGPA 9.48
+                </p>
+                
+                <div className="space-y-4">
+                  <p className="text-sm font-bold uppercase tracking-widest" style={{ color: 'var(--edu-text-primary)' }}>Highlights</p>
+                  <ul className="space-y-3">
+                    {['Core Subjects: React, AngularJS, DBMS, DSA', 'Class Representative', 'Hackathon Participant'].map((item, i) => (
+                      <li key={i} className="flex items-center gap-3 text-[15px]" style={{ color: 'var(--edu-text-secondary)' }}>
+                        <span className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--edu-text-muted)' }} />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* HSC Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="edu-main-card rounded-3xl p-8 md:p-10 shadow-sm relative overflow-hidden"
+              style={{ background: 'var(--edu-card-bg)' }}
+            >
+              <div className="flex justify-between items-start mb-6">
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-bold mb-2" style={{ color: 'var(--edu-text-primary)' }}>
+                    Higher Secondary Education
+                  </h3>
+                  <p className="font-medium" style={{ color: 'var(--edu-text-secondary)' }}>
+                    B.M High Schools
+                  </p>
+                  <p className="text-sm mt-1" style={{ color: 'var(--edu-text-muted)' }}>
+                    2023 – 2025
+                  </p>
+                </div>
+                <span className="px-4 py-1.5 text-xs font-bold rounded-full uppercase tracking-wider" style={{ background: 'var(--edu-bg)', color: 'var(--edu-text-secondary)' }}>
+                  Completed
+                </span>
+              </div>
+
+              <div className="space-y-6">
+                <p className="leading-relaxed text-[15px]" style={{ color: 'var(--edu-text-secondary)' }}>
+                  Completed Higher Secondary Certificate (HSC) with a focus on Science stream, building a strong foundation in Mathematics and Computer Science. Gained fundamental knowledge of programming and problem-solving techniques. Developed analytical and logical thinking skills through coursework and practical exercises. Engaged in Artificial Intelligence and Machine Learning. Prepared for advanced studies in Computer Science and emerging technologies.
+                </p>
+                
+                <div className="space-y-4">
+                  <p className="text-sm font-bold uppercase tracking-widest" style={{ color: 'var(--edu-text-primary)' }}>Highlights</p>
+                  <ul className="space-y-3">
+                    {['JEE Mains: 85 PR', 'Board Examinations: 82.85%'].map((item, i) => (
+                      <li key={i} className="flex items-center gap-3 text-[15px]" style={{ color: 'var(--edu-text-secondary)' }}>
+                        <span className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--edu-text-muted)' }} />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Right Column: Side Info Cards */}
+          <div className="flex flex-col gap-6 md:gap-8">
+            
+            {/* Academic Record Card */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="edu-side-card rounded-3xl p-6 md:p-8 shadow-sm"
+              style={{ background: 'var(--edu-card-bg)' }}
+            >
+              <h4 className="edu-script text-2xl mb-6" style={{ color: 'var(--edu-text-primary)' }}>Academic Record</h4>
+              <div className="space-y-6">
+                <div className="flex justify-between items-end">
+                  <p className="text-sm font-medium" style={{ color: 'var(--edu-text-secondary)' }}>Current CGPA</p>
+                  <p className="text-lg font-black" style={{ color: 'var(--edu-text-primary)' }}>9.48/10</p>
+                </div>
+                <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--edu-bg)' }}>
+                  <div className="edu-progress-fill h-full rounded-full" style={{ background: 'var(--edu-accent)', opacity: 0.6 }} />
+                </div>
+                <div className="space-y-4 pt-2">
+                  {[
+                    { label: 'Academic Year', value: '1st Year' },
+                    { label: 'Projects Completed', value: '6+' },
+                    { label: 'Specialization', value: 'Computer Science', isBold: true }
+                  ].map((stat, i) => (
+                    <div key={i} className="flex justify-between items-center text-sm">
+                      <p style={{ color: 'var(--edu-text-secondary)' }}>{stat.label}</p>
+                      <p className={`${stat.isBold ? 'font-black' : 'font-semibold'}`} style={{ color: 'var(--edu-text-primary)' }}>{stat.value}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Core Subjects Card */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="edu-side-card rounded-3xl p-6 md:p-8 shadow-sm"
+              style={{ background: 'var(--edu-card-bg)' }}
+            >
+              <h4 className="edu-script text-2xl mb-6" style={{ color: 'var(--edu-text-primary)' }}>Core Subjects</h4>
+              <div className="space-y-4">
+                {[
+                  { name: 'React Development', tag: 'Frontend' },
+                  { name: 'AngularJS', tag: 'Framework' },
+                  { name: 'Database Management', tag: 'DBMS' },
+                  { name: 'Data Structures', tag: 'DSA' }
+                ].map((subject, i) => (
+                  <div key={i} className="flex justify-between items-center p-3 rounded-xl" style={{ background: 'var(--edu-bg)' }}>
+                    <p className="text-sm font-medium" style={{ color: 'var(--edu-text-secondary)' }}>{subject.name}</p>
+                    <span className="text-[10px] font-black uppercase tracking-tighter px-2 py-1 rounded-md border shadow-sm" style={{ background: 'var(--edu-card-bg)', color: 'var(--edu-text-muted)', borderColor: 'var(--edu-grid)' }}>
+                      {subject.tag}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Achievements Card */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="edu-side-card rounded-3xl p-6 md:p-8 shadow-sm"
+              style={{ background: 'var(--edu-card-bg)' }}
+            >
+              <h4 className="edu-script text-2xl mb-6" style={{ color: 'var(--edu-text-primary)' }}>Achievements</h4>
+              <div className="space-y-6">
+                <div>
+                  <p className="text-sm font-bold mb-1" style={{ color: 'var(--edu-text-primary)' }}>JEE Mains</p>
+                  <p className="text-xs" style={{ color: 'var(--edu-text-muted)' }}>85 Percentile</p>
+                </div>
+                <div>
+                  <p className="text-sm font-bold mb-1" style={{ color: 'var(--edu-text-primary)' }}>Board Examinations</p>
+                  <p className="text-xs" style={{ color: 'var(--edu-text-muted)' }}>82.85% Grade</p>
+                </div>
+                <div>
+                  <p className="text-sm font-bold mb-1" style={{ color: 'var(--edu-text-primary)' }}>Leadership Role</p>
+                  <p className="text-xs" style={{ color: 'var(--edu-text-muted)' }}>Class Representative</p>
+                </div>
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 export default Education;

@@ -1,24 +1,21 @@
 import emailjs from '@emailjs/browser';
 import { motion, AnimatePresence } from 'motion/react';
-import { useContext, useState, useEffect, useRef } from 'react';
-import { ThemeContext } from '../context/ThemeContext';
+import { useState, useEffect, useRef } from 'react';
 import {
   FaLinkedinIn,
   FaGithub,
-  FaInstagram,
-  FaPhoneAlt,
   FaEnvelope,
-  FaMapMarkerAlt
+  FaMapMarkerAlt,
+  FaYoutube
 } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
+import { SiLeetcode } from 'react-icons/si';
 import './Contact.css';
 
-
-// Email format validation
 const isValidEmail = (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 };
-
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -29,7 +26,6 @@ function Contact() {
   const formRef = useRef();
   const [isLoading, setIsLoading] = useState(false);
   const [toast, setToast] = useState(null);
-  const { theme = 'light', isTransitioning } = useContext(ThemeContext);
 
   useEffect(() => {
     if (toast) {
@@ -38,16 +34,14 @@ function Contact() {
     }
   }, [toast]);
 
-  const validateForm = () => {
-    if (!formData.from_name.trim()) return false;
-    if (!formData.from_email.trim() || !isValidEmail(formData.from_email)) return false;
-    if (!formData.message.trim()) return false;
-    return true;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!validateForm()) {
+    if (!formData.from_name.trim() || !isValidEmail(formData.from_email.trim()) || !formData.message.trim()) {
       setToast({ type: 'error', message: 'Please fill in all fields correctly.' });
       return;
     }
@@ -56,15 +50,12 @@ function Contact() {
 
     const isEmailJSConfigured = 
       import.meta.env.VITE_EMAILJS_SERVICE_ID && 
-      import.meta.env.VITE_EMAILJS_SERVICE_ID !== 'your_service_id_here' &&
       import.meta.env.VITE_EMAILJS_TEMPLATE_ID && 
-      import.meta.env.VITE_EMAILJS_TEMPLATE_ID !== 'your_template_id_here' &&
-      import.meta.env.VITE_EMAILJS_PUBLIC_KEY && 
-      import.meta.env.VITE_EMAILJS_PUBLIC_KEY !== 'your_public_key_here';
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
     if (!isEmailJSConfigured) {
       setIsLoading(false);
-      setToast({ type: 'error', message: 'Setup Required: EmailJS keys are missing in the Environment Variables.' });
+      setToast({ type: 'error', message: 'EmailJS keys are missing in Environment Variables.' });
       return;
     }
 
@@ -85,160 +76,163 @@ function Contact() {
         },
         (err) => {
           setIsLoading(false);
-          console.error('EmailJS Error:', err);
-          setToast({ type: 'error', message: 'Failed to send. Please check your EmailJS keys.' });
+          setToast({ type: 'error', message: 'Failed to send message.' });
         }
       );
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
   const socialLinks = [
-    { name: 'LinkedIn', icon: FaLinkedinIn, url: 'https://www.linkedin.com/in/vedant-patel-3b6a4636a/', color: '#0077b5' },
-    { name: 'GitHub', icon: FaGithub, url: 'https://github.com/vedantxy', color: theme === 'dark' ? '#fff' : '#333' },
-    { name: 'Instagram', icon: FaInstagram, url: 'https://www.instagram.com/vedant_5301/?hl=en', color: '#E1306C' },
+    { name: 'LinkedIn', icon: FaLinkedinIn, url: 'https://www.linkedin.com/in/vedant-patel-3b6a4636a/' },
+    { name: 'GitHub', icon: FaGithub, url: 'https://github.com/vedantxy' },
+    { name: 'Twitter', icon: FaXTwitter, url: 'https://x.com/VedantPate1601' },
+    { name: 'LeetCode', icon: SiLeetcode, url: 'https://leetcode.com/vedant_patel_01/' },
+    { name: 'YouTube', icon: FaYoutube, url: '#' },
   ];
 
   return (
-    <section id="contact" className="py-24 px-6 relative overflow-hidden bg-transparent">
-      <div className="contact-grid-overlay" />
+    <section id="contact" className="contact-section pt-16 pb-8 px-6 md:px-12">
+      <div className="contact-grid" />
+      <div className="contact-blob top-[-10%] right-[-10%]" />
+      <div className="contact-blob bottom-[-10%] left-[-10%]" style={{ background: 'radial-gradient(circle, rgba(107, 133, 166, 0.08) 0%, transparent 70%)' }} />
 
-      <div className="max-w-7xl mx-auto relative z-10 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-20"
-        >
-          <h2 className={`text-5xl md:text-7xl font-bold mb-4 text-morph ${isTransitioning ? 'text-morph-active' : ''} ${theme === 'dark' ? 'text-[#b8f2e6]' : 'text-[#5e6472]'}`}>
-            Contact
-          </h2>
-          <div className={`h-1.5 w-24 mx-auto rounded-full ${theme === 'dark' ? 'bg-[#b8f2e6]' : 'bg-[#aed9e0]'}`} />
-        </motion.div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          {/* Left: Contact Info & Cards */}
-          <div className="lg:col-span-5 space-y-8">
-            <h3 className={`text-3xl font-bold text-morph ${isTransitioning ? 'text-morph-active' : ''} ${theme === 'dark' ? 'text-white' : 'text-[#5e6472]'}`}>
-              Get In Touch
-            </h3>
-
-            <div className="space-y-4">
-              {[
-                { label: 'Phone', value: '+91 9875051366', icon: FaPhoneAlt, color: '#b8f2e6' },
-                { label: 'Email', value: 'vedantpatelxy12@gmail.com', icon: FaEnvelope, color: '#aed9e0' },
-                { label: 'Location', value: 'Gujarat, India', icon: FaMapMarkerAlt, color: '#b8f2e6' },
-              ].map((item, i) => (
-                <motion.div
-                  key={i}
-                  whileHover={{ scale: 1.02, x: 10 }}
-                  style={{ transitionDelay: `${i * 50}ms` }}
-                  className={`contact-card-3d card-theme-animation ${isTransitioning ? 'theme-transition-tilt' : ''}`}
-                >
-                  <div className={`contact-card-inner glass-card-contact p-6 rounded-2xl flex items-center gap-5 transition-colors duration-500`}>
-                    <div className="p-3 rounded-xl bg-white/5" style={{ color: item.color }}>
-                      <item.icon size={22} />
-                    </div>
-                    <div>
-                      <p className={`text-xs uppercase tracking-widest opacity-50 mb-1 text-morph ${isTransitioning ? 'text-morph-active' : ''} ${theme === 'dark' ? 'text-white' : 'text-[#5e6472]'}`}>{item.label}</p>
-                      <p className={`font-medium text-morph ${isTransitioning ? 'text-morph-active' : ''} ${theme === 'dark' ? 'text-[#b8f2e6]' : 'text-[#5e6472]'}`}>
-                        {item.value}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Social Icons Strip */}
-            <div className="pt-10">
-              <p className={`text-sm font-bold uppercase tracking-widest opacity-40 mb-6 text-morph ${isTransitioning ? 'text-morph-active' : ''} ${theme === 'dark' ? 'text-white' : 'text-[#5e6472]'}`}>Socials</p>
-              <div className="flex gap-4">
-                {socialLinks.map((social, i) => (
-                  <motion.a
-                    key={i}
-                    href={social.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    style={{ 
-                      transitionDelay: `${(3 + i) * 50}ms`,
-                      color: social.color 
-                    }}
-                    whileHover={{ scale: 1.2, y: -5 }}
-                    className={`p-4 rounded-xl glass-card-contact floating-social-icon transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}
-                  >
-                    <social.icon size={24} />
-                  </motion.a>
-                ))}
-              </div>
-            </div>
-
-          </div>
-
-          {/* Right: Modern Form */}
-          <div className="lg:col-span-7">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className={`glass-card-contact p-8 md:p-12 rounded-[2.5rem] relative card-theme-animation ${isTransitioning ? 'theme-transition-tilt' : ''}`}
-            >
-              <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className={`text-sm font-bold opacity-60 ml-2 text-morph ${isTransitioning ? 'text-morph-active' : ''} ${theme === 'dark' ? 'text-white' : 'text-[#5e6472]'}`}>Your Name</label>
-                    <input
-                      type="text"
-                      name="from_name"
-                      value={formData.from_name}
-                      onChange={handleChange}
-                      placeholder="Vedant Patel"
-                      className={`w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus-glow-cyan outline-none transition-all ${isTransitioning ? 'opacity-50 cursor-not-allowed' : ''} ${theme === 'dark' ? 'text-white placeholder:text-white/50' : 'text-[#5e6472] placeholder:text-[#5e6472]/50'}`}
-                      disabled={isTransitioning}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className={`text-sm font-bold opacity-60 ml-2 text-morph ${isTransitioning ? 'text-morph-active' : ''} ${theme === 'dark' ? 'text-white' : 'text-[#5e6472]'}`}>Your Email</label>
-                    <input
-                      type="email"
-                      name="from_email"
-                      value={formData.from_email}
-                      onChange={handleChange}
-                      placeholder="vedant@example.com"
-                      className={`w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus-glow-cyan outline-none transition-all ${isTransitioning ? 'opacity-50 cursor-not-allowed' : ''} ${theme === 'dark' ? 'text-white placeholder:text-white/50' : 'text-[#5e6472] placeholder:text-[#5e6472]/50'}`}
-                      disabled={isTransitioning}
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className={`text-sm font-bold opacity-60 ml-2 text-morph ${isTransitioning ? 'text-morph-active' : ''} ${theme === 'dark' ? 'text-white' : 'text-[#5e6472]'}`}>Message</label>
-                  <textarea
-                    rows="5"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Let's build something amazing together!"
-                    className={`w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 focus-glow-cyan outline-none transition-all resize-none ${isTransitioning ? 'opacity-50 cursor-not-allowed' : ''} ${theme === 'dark' ? 'text-white placeholder:text-white/50' : 'text-[#5e6472] placeholder:text-[#5e6472]/50'}`}
-                    disabled={isTransitioning}
-                  />
-                </div>
-                <motion.button
-                  type="submit"
-                  disabled={isLoading || isTransitioning}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className={`w-full py-5 rounded-2xl font-black text-xl tracking-widest uppercase transition-all flex items-center justify-center gap-3 ${theme === 'dark' ? 'bg-[#b8f2e6] text-[#1c1c1c]' : 'bg-[#5e6472] text-[#fff]'
-                    } shadow-2xl shadow-cyan-500/20 ${isTransitioning ? 'opacity-50' : ''}`}
-                >
-                  {isLoading ? 'Sending...' : 'Send Magic'}
-                </motion.button>
-              </form>
-            </motion.div>
-          </div>
+      <div className="max-w-[1000px] mx-auto relative z-10">
+        
+        {/* Header */}
+        <div className="text-center mb-10">
+          <motion.h2 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="contact-script text-6xl md:text-7xl text-[#4a5568] mb-2"
+          >
+            Let’s Talk
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-slate-500 font-medium tracking-wide text-sm uppercase"
+          >
+            Any question or remarks? Just write me a message!
+          </motion.p>
         </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-start">
+          
+          {/* Left Column: Info */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="space-y-10"
+          >
+            <div>
+              <h3 className="text-3xl font-bold text-slate-800 mb-6">Get in touch</h3>
+              <p className="text-slate-600 leading-[1.8] max-w-md">
+                I'm always open to discussing new projects, creative ideas or original opportunities to be part of your visions.
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              <ContactItem 
+                icon={<FaEnvelope size={18} />} 
+                label="Email" 
+                value="vedantpatelxy12@gmail.com" 
+              />
+              <ContactItem 
+                icon={<FaMapMarkerAlt size={18} />} 
+                label="Location" 
+                value="Gujarat, India" 
+              />
+            </div>
+          </motion.div>
+
+          {/* Right Column: Form Card */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="bg-white p-8 md:p-10 rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.04)] border border-black/[0.04]"
+          >
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+              <div className="space-y-1.5">
+                <label className="text-[13px] font-bold text-slate-500 ml-1">Name</label>
+                <input
+                  type="text"
+                  name="from_name"
+                  value={formData.from_name}
+                  onChange={handleChange}
+                  placeholder="Your full name"
+                  className="contact-form-input w-full bg-[#f9fafb] border border-[#e5e7eb] rounded-xl px-5 py-3.5 outline-none transition-all placeholder:text-slate-400 text-slate-700"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-[13px] font-bold text-slate-500 ml-1">Email</label>
+                <input
+                  type="email"
+                  name="from_email"
+                  value={formData.from_email}
+                  onChange={handleChange}
+                  placeholder="your@email.com"
+                  className="contact-form-input w-full bg-[#f9fafb] border border-[#e5e7eb] rounded-xl px-5 py-3.5 outline-none transition-all placeholder:text-slate-400 text-slate-700"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-[13px] font-bold text-slate-500 ml-1">Message</label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  rows="5"
+                  placeholder="What's on your mind?"
+                  className="contact-form-input w-full bg-[#f9fafb] border border-[#e5e7eb] rounded-xl px-5 py-3.5 outline-none transition-all resize-none placeholder:text-slate-400 text-slate-700"
+                />
+              </div>
+
+              <motion.button
+                type="submit"
+                disabled={isLoading}
+                whileHover={{ scale: 1.01, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full bg-[#6b85a6] text-white py-4 rounded-xl font-bold tracking-wide shadow-lg shadow-blue-gray-200 transition-all flex items-center justify-center gap-2"
+              >
+                {isLoading ? 'Sending...' : 'Send Message'}
+              </motion.button>
+            </form>
+          </motion.div>
+
+        </div>
+
+        {/* Footer Area */}
+        <div className="mt-16 pt-8 border-t border-black/[0.05] text-center">
+
+          <p className="contact-script text-[20px] md:text-[24px] text-slate-700 mb-8 max-w-2xl mx-auto leading-relaxed">
+            "I'm Vedant — not just a developer, but a builder, a thinker, and a curious learner. Thanks for flipping through my pages."
+          </p>
+          
+          <div className="flex justify-center gap-5 mb-6">
+            {socialLinks.map((social) => (
+              <a 
+                key={social.name} 
+                href={social.url} 
+                target="_blank" 
+                rel="noreferrer"
+                className="social-icon-btn text-slate-400 hover:text-slate-800 transition-all duration-300"
+                aria-label={social.name}
+              >
+                <social.icon size={28} />
+              </a>
+            ))}
+          </div>
+
+          <p className="text-slate-400 text-[12px] tracking-widest">
+            © 2026 Vedant Patel. All rights reserved.
+          </p>
+        </div>
+
       </div>
 
       {/* Toast Notification */}
@@ -248,14 +242,27 @@ function Contact() {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
-            className={`fixed bottom-10 right-10 px-8 py-4 rounded-2xl shadow-2xl font-bold z-[100] ${toast.type === 'success' ? 'bg-[#b8f2e6] text-black' : 'bg-red-500 text-white'
-              }`}
+            className={`fixed bottom-10 left-1/2 -translate-x-1/2 px-8 py-4 rounded-2xl shadow-2xl font-bold z-[100] ${toast.type === 'success' ? 'bg-[#6b85a6] text-white' : 'bg-red-500 text-white'}`}
           >
             {toast.message}
           </motion.div>
         )}
       </AnimatePresence>
     </section>
+  );
+}
+
+function ContactItem({ icon, label, value }) {
+  return (
+    <div className="contact-info-item flex items-center gap-5 group cursor-default">
+      <div className="contact-info-circle text-slate-500 group-hover:text-slate-800">
+        {icon}
+      </div>
+      <div>
+        <p className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 mb-0.5">{label}</p>
+        <p className="text-slate-700 font-medium">{value}</p>
+      </div>
+    </div>
   );
 }
 

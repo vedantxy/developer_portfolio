@@ -10,85 +10,72 @@ import Education from './components/Education.jsx';
 import Skills from './components/Skills.jsx';
 import Contact from './components/Contact.jsx';
 import AnalyticsTracker from './components/AnalyticsTracker.jsx';
-import SocialSidebar from './components/SocialSidebar.jsx';
+
+import Hackathon from './components/Hackathon.jsx';
+import Achievements from './components/Achievements.jsx';
+import Resume from './components/Resume.jsx';
+
 import { ThemeContext } from './context/ThemeContext';
 import ThemeTransitionOverlay from './components/ThemeTransitionOverlay';
 import CustomCursor from './components/CustomCursor.jsx';
+
+// Monochrome Gray+White particle configs per theme
+const getParticleOptions = (theme) => {
+  const isMono = theme !== 'neon';
+  return {
+    background: { color: { value: 'transparent' } },
+    fpsLimit: 60,
+    particles: {
+      number: { value: theme === 'neon' ? 100 : 60, density: { enable: true, value_area: 900 } },
+      color: { value: '#ffffff' },
+      shape: { type: 'circle' },
+      opacity: {
+        value: theme === 'dark' ? 0.18 : theme === 'light' ? 0.12 : 0.35,
+        random: true,
+        anim: { enable: true, speed: 0.3, opacity_min: 0.05, sync: false },
+      },
+      size: { value: { min: 1, max: 2.5 }, random: true },
+      links: {
+        enable: true,
+        distance: 170,
+        color: '#ffffff',
+        opacity: theme === 'dark' ? 0.07 : theme === 'light' ? 0.05 : 0.18,
+        width: 0.8,
+      },
+      move: {
+        enable: true,
+        speed: theme === 'neon' ? 1.2 : 0.5,
+        direction: 'none',
+        random: true,
+        straight: false,
+        out_mode: 'out',
+      },
+    },
+    interactivity: {
+      events: {
+        onHover: { enable: true, mode: 'grab' },
+        onClick: { enable: false },
+        resize: { enable: true },
+      },
+      modes: {
+        grab: {
+          distance: 160,
+          line_linked: { opacity: 0.25, color: '#ffffff' },
+        },
+      },
+    },
+    detectRetina: true,
+  };
+};
+
+
+import EntrySequence from './components/EntrySequence.jsx';
 
 function App() {
   const particlesContainerRef = useRef(null);
   const { theme } = useContext(ThemeContext);
 
-  const particlesOptions = useMemo(() => {
-    return {
-      background: {
-        color: theme === 'dark' ? '#1c1c1c' : '#fafafa',
-      },
-      fpsLimit: 60,
-      particles: {
-        number: {
-          value: 80,
-          density: { enable: true, value_area: 800 },
-        },
-        color: { value: theme === 'dark' ? '#ffffff' : '#000000' },
-        shape: { type: 'circle' },
-        opacity: {
-          value: { min: 0.3, max: 0.6 },
-          random: true,
-          anim: { enable: true, speed: 0.5, opacity_min: 0.1, sync: false },
-        },
-        size: {
-          value: { min: 2.5, max: 3},
-          random: true,
-          anim: { enable: true, speed: 2, size_min: 1, sync: false },
-        },
-        links: {
-           enable: true,
-          distance: 180,
-          color: theme === 'dark' ? '#00BFFF' : '#1a73e8',
-          opacity: 0.2,
-          width: 1,
-        },
-        move: {
-          enable: true,
-          speed: 1,
-          direction: 'none',
-          random: true,
-          straight: false,
-          out_mode: 'out',
-        },
-      },
-      interactivity: {
-        events: {
-          onHover: {
-            enable: true,
-            mode: ['bubble', 'grab'],
-          },
-          onClick: {
-            enable: false,
-          },
-          resize: { enable: true },
-        },
-        modes: {
-          grab: {
-            distance: 150,
-            line_linked: {
-              opacity: 0.2,
-              color: '#00BFFF',
-            },
-          },
-          bubble: {
-            distance: 100,
-            size: 6,
-            opacity: 0.8,
-            duration: 2,
-            color: '#00BFFF'
-          },
-        },
-      },
-      detectRetina: true,
-    };
-  }, [theme]);
+  const particlesOptions = useMemo(() => getParticleOptions(theme), [theme]);
 
   useEffect(() => {
     const initParticles = async () => {
@@ -104,37 +91,47 @@ function App() {
         console.error('tsParticles failed to load:', error);
       }
     };
-
     initParticles();
-
     return () => {
       const container = tsParticles.dom().find((c) => c.id === 'tsparticles');
-      if (container) {
-        container.destroy();
-      }
+      if (container) container.destroy();
     };
   }, [particlesOptions]);
 
   return (
-    <div className="relative min-h-screen w-full bg-transparent">
-      <CustomCursor />
+    <EntrySequence>
       <div
-        id="tsparticles"
-        ref={particlesContainerRef}
-        className="absolute inset-0 w-full h-full particles-canvas"
-        style={{ minHeight: '100vh', zIndex: -10 }}
-      />
-      <AnalyticsTracker />
-      <SocialSidebar />
-      <Navbar />
-      <Hero />
-      <AboutMe />
-      <Skills />
-      <Projects />
-      <Certificates />
-      <Education />
-      <Contact />
-    </div>
+        className="relative min-h-screen w-full"
+        style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }}
+      >
+        <CustomCursor />
+
+        {/* Particle background */}
+        <div
+          id="tsparticles"
+          ref={particlesContainerRef}
+          className="absolute inset-0 w-full h-full particles-canvas"
+          style={{ minHeight: '100vh', zIndex: -10 }}
+        />
+
+        <AnalyticsTracker />
+        <Navbar />
+
+        {/* Page sections */}
+        <Hero />
+        <AboutMe />
+        <Skills />
+        <Projects />
+        <Education />
+        <Achievements />
+        <Certificates />
+        <Hackathon />
+        <Resume />
+        <Contact />
+
+
+      </div>
+    </EntrySequence>
   );
 }
 

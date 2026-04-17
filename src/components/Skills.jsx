@@ -1,124 +1,183 @@
 import { motion } from 'motion/react';
-import { useContext } from 'react';
-import { ThemeContext } from '../context/ThemeContext';
 import { 
-  FaHtml5, FaCss3Alt, FaReact, FaNodeJs, FaGitAlt, FaFigma, FaLaptopCode
+  FaServer, FaCode, FaPaintBrush, FaMagic, FaLaptopCode
 } from 'react-icons/fa';
 import { 
-  SiJavascript, SiTailwindcss, SiMongodb, SiVite, SiExpress
+  SiReact, SiJavascript, SiTailwindcss, SiFramer, SiHtml5, 
+  SiNodedotjs, SiExpress, SiCplusplus, SiGithub, SiVite, SiFigma 
 } from 'react-icons/si';
-import './Skills.css';
 
-const SKILLS_DATA = {
-  "Frontend": [
-    { name: 'HTML5', icon: FaHtml5, color: '#E34F26' },
-    { name: 'CSS3', icon: FaCss3Alt, color: '#1572B6' },
-    { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
-    { name: 'React', icon: FaReact, color: '#61DAFB' },
-    { name: 'Tailwind', icon: SiTailwindcss, color: '#06B6D4' },
-    { name: 'Vite', icon: SiVite, color: '#646CFF' },
-  ],
-  "Backend": [
-    { name: 'Node.js', icon: FaNodeJs, color: '#339933' },
-    { name: 'Express', icon: SiExpress, color: '#ffffff' },
-  ],
-  "Database & Design": [
-    { name: 'MongoDB', icon: SiMongodb, color: '#47A248' },
-    { name: 'Git', icon: FaGitAlt, color: '#F05032' },
-    { name: 'GitHub', icon: FaLaptopCode, color: '#ffffff' },
-    { name: 'Figma', icon: FaFigma, color: '#F24E1E' },
-  ]
-};
+// Defining specific icons for tools to avoid import mismatch, using generic fallbacks if specific doesn't exist
+import { DiVisualstudio } from 'react-icons/di';
 
-function SkillItem({ skill }) {
-  const { theme, isTransitioning } = useContext(ThemeContext);
-  const isDark = theme === 'dark';
-  const Icon = skill.icon;
-  
-  // Adjusted color for light mode if the default is white
-  const displayColor = (!isDark && (skill.color === '#ffffff' || skill.color === '#FFFFFF')) 
-    ? '#000000' 
-    : skill.color;
+const SKILLS_DATA = [
+  {
+    category: "Frontend Development",
+    color: "#3B82F6", // Blue
+    skills: [
+      { name: "React.js", icon: SiReact, level: "Advanced", description: "Building complex, interactive web UIs", color: "#00b2e8" },
+      { name: "JavaScript (ES6+)", icon: SiJavascript, level: "Advanced", description: "Core logic and DOM manipulation", color: "#d1b300" },
+      { name: "Tailwind CSS", icon: SiTailwindcss, level: "Advanced", description: "Utility-first rapid responsive styling", color: "#319795" },
+      { name: "Framer Motion", icon: SiFramer, level: "Proficient", description: "Fluid, physics-based web animations", color: "#E902B5" },
+      { name: "HTML5 & CSS3", icon: SiHtml5, level: "Advanced", description: "Semantic markup and core styling", color: "#E34F26" }
+    ]
+  },
+  {
+    category: "Backend Development",
+    color: "#10B981", // Green
+    skills: [
+      { name: "Node.js", icon: SiNodedotjs, level: "Proficient", description: "Scalable server-side execution", color: "#2f8c2f" },
+      { name: "Express.js", icon: SiExpress, level: "Proficient", description: "Robust backend routing frameworks", color: "#000000" },
+      { name: "REST APIs", icon: FaServer, level: "Advanced", description: "Designing secure data endpoints", color: "#006bd6" }
+    ]
+  },
+  {
+    category: "Programming Languages",
+    color: "#8B5CF6", // Purple
+    skills: [
+      { name: "C++", icon: SiCplusplus, level: "Advanced", description: "High-performance systems logic", color: "#00599C" },
+      { name: "JavaScript", icon: SiJavascript, level: "Advanced", description: "Full-stack application logic", color: "#d1b300" }
+    ]
+  },
+  {
+    category: "Tools & Technologies",
+    color: "#F59E0B", // Yellow
+    skills: [
+      { name: "Git & GitHub", icon: SiGithub, level: "Advanced", description: "Version control and CI/CD pipelines", color: "#000000" },
+      { name: "VS Code", icon: DiVisualstudio, level: "Advanced", description: "Primary IDE and environment setup", color: "#007ACC" },
+      { name: "Vite", icon: SiVite, level: "Proficient", description: "Next-generation frontend tooling", color: "#646CFF" },
+      { name: "Figma", icon: SiFigma, level: "Proficient", description: "UI/UX design and wireframing", color: "#F24E1E" }
+    ]
+  },
+  {
+    category: "Design & UI/UX",
+    color: "#EC4899", // Pink
+    skills: [
+      { name: "Responsive Design", icon: FaLaptopCode, level: "Advanced", description: "Mobile-first layout architectures", color: "#0891b2" },
+      { name: "UI Prototyping", icon: FaPaintBrush, level: "Proficient", description: "Interactive high-fidelity prototypes", color: "#9333ea" },
+      { name: "Animation", icon: FaMagic, level: "Proficient", description: "Micro-interactions and UX flow", color: "#e11d48" }
+    ]
+  }
+];
 
+const SkillCard = ({ skill, delay }) => {
   return (
     <motion.div 
-      whileHover={{ y: -8, scale: 1.05 }}
-      transition={{ type: "spring", stiffness: 400, damping: 10 }}
-      className={`skill-item group card-theme-animation ${isTransitioning ? 'theme-transition-tilt' : ''}`}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6, delay: delay * 0.1, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -6, scale: 1.02 }}
+      className="relative p-5 rounded-2xl bg-white/70 border border-[#E2E8F0] backdrop-blur-xl overflow-hidden group cursor-default transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_15px_40px_rgba(0,0,0,0.1)] flex flex-col min-h-[130px]"
     >
+      {/* Background Hover Glow Mapping For Light Theme */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
       <div 
-        className="skill-icon-wrapper transition-all duration-300 relative"
-        style={{ 
-          color: displayColor,
-          backgroundColor: `${displayColor}10`, // 10% opacity hex
-        }}
-      >
-        <Icon size={32} className="relative z-10" />
-        <div 
-          className="absolute inset-0 blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-300"
-          style={{ backgroundColor: displayColor }}
-        />
+        className="absolute -top-12 -right-12 w-32 h-32 rounded-full blur-[40px] opacity-0 group-hover:opacity-[0.15] transition-opacity duration-500 pointer-events-none" 
+        style={{ backgroundColor: skill.color }} 
+      />
+      
+      <div className="relative z-10 flex flex-col h-full">
+        <div className="mb-3">
+          <div className="flex items-start justify-between mb-4">
+            <div 
+              className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 shadow-sm transition-colors duration-300 group-hover:bg-slate-100" 
+              style={{ color: skill.color }}
+            >
+               <skill.icon size={22} />
+            </div>
+            <span className="text-[10px] font-mono font-bold tracking-widest uppercase text-slate-500 bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200 group-hover:text-slate-700 transition-colors">
+              {skill.level}
+            </span>
+          </div>
+          <h4 className="text-[#0F172A] font-bold text-lg tracking-wide">{skill.name}</h4>
+        </div>
+        
+        <div className="mt-auto pt-1.5">
+          <p className="text-[13px] text-slate-500 font-medium leading-snug group-hover:text-slate-700 transition-colors duration-300">
+            {skill.description}
+          </p>
+        </div>
       </div>
-      <span className={`skill-name tracking-wide transition-colors duration-300 text-morph ${isTransitioning ? 'text-morph-active' : ''} ${isDark ? 'text-gray-400 group-hover:text-white' : 'text-gray-600 group-hover:text-gray-900'}`}>
-        {skill.name}
-      </span>
     </motion.div>
   );
 }
 
-function Skills() {
-  const { theme, isTransitioning } = useContext(ThemeContext);
-  const isDark = theme === 'dark';
+export default function Skills() {
 
   return (
-    <section id="skills" className="skills-section py-24 px-6 relative overflow-hidden">
-      {/* Soft Background Glow */}
-      <div className="skills-bg-glow" />
+    <section id="skills" className="py-24 px-6 md:px-12 lg:px-24 flex items-center relative overflow-hidden bg-transparent">
+      
+      {/* Light Premium Background Ecosystem */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Subtle dot pattern grid */}
+        <div className="absolute inset-0 opacity-[0.5]" style={{ backgroundImage: "radial-gradient(#cbd5e1 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+        
+        {/* Deep background ambient glows for light bg */}
+        <div className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-300/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-10 left-10 w-[400px] h-[400px] bg-purple-300/10 rounded-full blur-[120px]" />
+      </div>
 
-      <div className="max-w-7xl mx-auto relative z-10 w-full">
+      <div className="max-w-[1400px] mx-auto w-full relative z-10">
+        
+        {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          transition={{ duration: 0.8 }}
+          className="mb-16 text-center lg:text-left flex flex-col items-center lg:items-start"
         >
-          <div className="skills-decorated-header">
-            <h2 className={`text-5xl md:text-7xl font-black text-morph ${isTransitioning ? 'text-morph-active' : ''} ${isDark ? 'text-white' : 'text-gray-800'}`}>
-              Tools <span className="text-[#b8f2e6]">&</span> Skills
-            </h2>
+          <div className="inline-block px-4 py-1.5 mb-6 rounded-full border border-indigo-100 bg-indigo-50/50 backdrop-blur-md">
+             <span className="text-[10px] font-black tracking-[0.3em] uppercase text-indigo-600">Technical Arsenal</span>
           </div>
+          <h2 className="text-5xl md:text-7xl font-black tracking-tight mb-6 text-[#0F172A]">
+            Skills & <br className="hidden md:block" />
+            <span className="italic font-serif opacity-30">Expertise.</span>
+          </h2>
+          <p className="text-lg text-slate-500 font-medium max-w-xl leading-relaxed">
+            Engineering high-performance web experiences with modern frameworks, scalable architectures, and pixel-perfect design.
+          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-          {Object.entries(SKILLS_DATA).map(([category, skills], categoryIndex) => (
-            <motion.div
-              key={category}
-              initial={{ opacity: 0, y: 30 }}
+        {/* Structured Grid Layout per Category */}
+        <div className="flex flex-col gap-16">
+          {SKILLS_DATA.map((categoryGroup) => (
+            <motion.div 
+              key={categoryGroup.category}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: categoryIndex * 0.1 }}
-              style={{ transitionDelay: `${categoryIndex * 100}ms` }}
-              className={`skill-category-card card-theme-animation ${isTransitioning ? 'theme-transition-tilt' : ''}`}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6 }}
+              className="flex flex-col relative"
             >
-              <div className="flex items-center gap-4 mb-8">
-                <div className={`h-8 w-1.5 rounded-full bg-gradient-to-b from-[#00d4ff] to-purple-600`} />
-                <h3 className={`text-xl font-black uppercase tracking-[0.2em] text-morph ${isTransitioning ? 'text-morph-active' : ''} ${isDark ? 'text-white' : 'text-gray-800'}`}>
-                  {category}
+              {/* Category Header with Colored Accent */}
+              <div className="flex items-center gap-5 mb-8">
+                <div className="w-1.5 h-6 rounded-full shadow-sm" style={{ backgroundColor: categoryGroup.color }} />
+                <h3 className="text-2xl font-black text-[#0F172A] tracking-tight">
+                  {categoryGroup.category}
                 </h3>
+                <div className="flex-1 h-px bg-gradient-to-r from-slate-200 to-transparent ml-4" />
               </div>
-              
-              <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 md:gap-6">
-                {skills.map((skill, idx) => (
-                  <SkillItem key={idx} skill={skill} />
+
+              {/* Responsive Cards Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+                {categoryGroup.skills.map((skill, sIndex) => (
+                  <SkillCard key={skill.name} skill={skill} delay={sIndex} />
                 ))}
               </div>
             </motion.div>
           ))}
         </div>
+
       </div>
+      
+      <style dangerouslySetInnerHTML={{ __html: `
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,900&display=swap');
+        .font-serif {
+          font-family: 'Playfair Display', serif !important;
+        }
+      `}} />
     </section>
   );
 }
-
-export default Skills;

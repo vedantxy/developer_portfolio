@@ -1,229 +1,203 @@
+import { useContext } from 'react';
 import { motion } from 'motion/react';
 import { ThemeContext } from '../context/ThemeContext';
-import { useContext, useMemo } from 'react';
-import ReactGA from 'react-ga4';
-import { Mail, FileText } from 'lucide-react';
+import { FileText, Mail, ArrowDown } from 'lucide-react';
+import { FaLinkedinIn, FaGithub, FaYoutube } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
+import { SiLeetcode } from 'react-icons/si';
+import profilePhoto from '../assets/Web_Photo_Editor.jpg';
 
-function Hero() {
-  const { theme, isTransitioning } = useContext(ThemeContext);
+export default function Hero() {
+  const { isTransitioning } = useContext(ThemeContext);
 
-  const handleResumeClick = () => {
-    window.open('https://drive.google.com/file/d/1YFi7wZHKKj8DRVWcL4FBWq8gsH5BHpFS/view?usp=sharing', '_blank');
+  const handleScrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleContactScroll = (e) => {
-    e.preventDefault();
-    document.getElementById('contact')?.scrollIntoView({ 
-      behavior: 'smooth',
-      block: 'start'
-    });
-  };
-
-  // Memoize name letters to prevent re-computation
-  const nameLetters = useMemo(() => "Vedant Patel".split(""), []);
+  const socialLinks = [
+    { id: 1, name: 'GitHub', icon: <FaGithub size={20} />, url: 'https://github.com/vedantxy' },
+    { id: 2, name: 'LinkedIn', icon: <FaLinkedinIn size={20} />, url: 'https://www.linkedin.com/in/vedant-patel-3b6a4636a/' },
+    { id: 3, name: 'YouTube', icon: <FaYoutube size={20} />, url: 'https://www.youtube.com/@VedantPatel-y7k' },
+    { id: 4, name: 'Twitter', icon: <FaXTwitter size={20} />, url: 'https://x.com/VedantPate1601' },
+    { id: 5, name: 'LeetCode', icon: <SiLeetcode size={20} />, url: 'https://leetcode.com/u/Vedant_2403/' },
+  ];
 
   return (
     <section
       id="home"
-      className={`min-h-screen flex items-center justify-center px-6 py-20 relative overflow-hidden transition-colors duration-500 ${
-        theme === "dark" ? "bg-[#1c1c1c]" : "bg-[#fafafa]"
-      }`}
+      className="relative min-h-screen w-full flex flex-col bg-[#f8fafc] overflow-x-clip"
     >
-      {/* Optimized background blobs - reduced opacity for performance */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          animate={{
-            scale: [1, 1.15, 1],
-            x: [0, 80, 0],
-            y: [0, 40, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className={`absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl opacity-[0.15] ${
-            theme === "dark" ? "bg-[#b8f2e6]" : "bg-[#aed9e0]"
-          }`}
-        />
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            x: [0, -60, 0],
-            y: [0, 60, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className={`absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full blur-3xl opacity-[0.15] ${
-            theme === "dark" ? "bg-[#b8f2e6]" : "bg-[#aed9e0]"
-          }`}
-        />
-      </div>
+      {/* Decorative partial ring (Top Left) */}
+      <div className="absolute left-0 top-20 -translate-x-1/2 w-32 h-32 rounded-full border border-slate-300 opacity-60 pointer-events-none z-0" />
 
-      {/* Content */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className={`text-center relative z-10 max-w-5xl mx-auto card-theme-animation ${isTransitioning ? 'theme-transition-tilt' : ''}`}
-      >
-        {/* Greeting */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className={`text-base md:text-lg mb-6 font-medium tracking-wide text-morph ${isTransitioning ? 'text-morph-active' : ''} ${
-            theme === "dark" ? "text-[#aed9e0]/70" : "text-[#5e6472]/60"
-          }`}
-        >
-          Hello! I&apos;m
-        </motion.div>
+      {/* ── Background Grid ── */}
+      <div
+        className="absolute inset-0 pointer-events-none z-0"
+        style={{
+          backgroundImage: `
+            linear-gradient(#e2e8f0 1px, transparent 1px),
+            linear-gradient(90deg, #e2e8f0 1px, transparent 1px)
+          `,
+          backgroundSize: '96px 96px',
+        }}
+      />
 
-        {/* Name - Optimized with reduced animations */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className={`relative inline-block group/name mb-8 cursor-default text-morph ${isTransitioning ? 'text-morph-active' : ''}`}
-        >
-          <span className={`text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight ${
-            theme === "dark" ? "text-[#b8f2e6]" : "text-[#5e6472]"
-          }`}>
-            {nameLetters.map((char, i) => (
-              <motion.span
-                key={`${char}-${i}`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{
-                  delay: 0.4 + i * 0.02,
-                  duration: 0.3
-                }}
-                className="inline-block"
-              >
-                {char === " " ? "\u00A0" : char}
-              </motion.span>
-            ))}
-          </span>
+
+
+      {/* ── Main Content Container ── */}
+      <div className="relative z-10 max-w-[1200px] mx-auto w-full px-6 md:px-12 flex flex-col flex-1 py-10 md:py-20 justify-center min-h-screen">
+
+        {/* ── Main Hero Layout ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-[80px] items-center">
           
-          {/* Center-spreading underline */}
-          <motion.div
-            className={`absolute -bottom-2 left-1/2 h-1 rounded-full ${
-              theme === "dark" ? "bg-[#b8f2e6]" : "bg-[#aed9e0]"
-            }`}
-            initial={{ width: 0, x: 0 }}
-            whileHover={{ 
-              width: "100%",
-              x: "-50%",
-              transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] }
-            }}
-            style={{ transformOrigin: "center" }}
-          />
-        </motion.h1>
-
-        {/* Tagline */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className={`text-xl md:text-2xl lg:text-3xl mb-10 font-light leading-relaxed text-morph ${isTransitioning ? 'text-morph-active' : ''} ${
-            theme === "dark" ? "text-[#aed9e0]/90" : "text-[#5e6472]/80"
-          }`}
-        >
-          Full-Stack Developer & Creative Thinker
-        </motion.p>
-
-        {/* Decorative line */}
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 0.8, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className={`h-1 w-48 mx-auto rounded-full mb-12 ${
-            theme === "dark" ? "bg-[#b8f2e6]/50" : "bg-[#aed9e0]/60"
-          }`}
-        />
-
-        {/* CTA Buttons - Optimized layout */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 1.1, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col sm:flex-row gap-5 justify-center items-center"
-        >
-          {/* Primary CTA - Resume */}
-          <motion.button
-            onClick={handleResumeClick}
-            whileHover={{ y: -4 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.2 }}
-            className={`
-              group relative px-8 py-4 rounded-2xl font-semibold text-base md:text-lg
-              transition-all duration-300 overflow-hidden
-              ${theme === "dark" 
-                ? "bg-[#b8f2e6] text-[#1c1c1c]" 
-                : "bg-[#aed9e0] text-[#5e6472]"
-              }
-              shadow-lg hover:shadow-2xl
-              ${theme === "dark"
-                ? "hover:shadow-[#b8f2e6]/30"
-                : "hover:shadow-[#aed9e0]/40"
-              }
-            `}
-            aria-label="View Resume"
-          >
-            {/* Shine effect */}
-            <motion.div
-              className="absolute inset-0 opacity-0 group-hover:opacity-100"
-              style={{
-                background: theme === "dark"
-                  ? 'linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%)'
-                  : 'linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.5) 50%, transparent 100%)'
-              }}
-              animate={{
-                x: ['-100%', '100%'],
-              }}
-              transition={{
-                duration: 0.6,
-                repeat: Infinity,
-                repeatDelay: 2
-              }}
-            />
+          {/* LEFT: Text Content */}
+          <div className="order-2 lg:order-1 flex flex-col items-center lg:items-start text-center lg:text-left">
             
-            <span className="relative z-10 flex items-center gap-2.5">
-              <FileText size={20} className="flex-shrink-0" />
-              Resume
-            </span>
-          </motion.button>
+            {/* Location Tag */}
 
-          {/* Secondary CTA */}
-          <motion.a
-            href="#contact"
-            onClick={handleContactScroll}
-            whileHover={{ y: -4 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.2 }}
-            className={`
-              group px-8 py-4 rounded-2xl font-semibold text-base md:text-lg
-              transition-all duration-300 border-2
-              ${theme === "dark"
-                ? "border-[#b8f2e6]/40 text-[#b8f2e6] hover:bg-[#b8f2e6]/10 hover:border-[#b8f2e6]"
-                : "border-[#5e6472]/30 text-[#5e6472] hover:bg-[#5e6472]/5 hover:border-[#5e6472]"
-              }
-            `}
-            aria-label="Get In Touch"
+
+            {/* Heading Context */}
+            <div className="w-full relative mb-8">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 0.08, x: 0 }}
+                transition={{ duration: 1.5, ease: "easeOut" }}
+                className="font-black text-slate-900 leading-none tracking-tighter select-none pointer-events-none absolute top-0 -left-4 md:-left-8 uppercase whitespace-nowrap"
+                style={{ 
+                  fontSize: 'clamp(100px, 18vw, 280px)',
+                  zIndex: -1
+                }}
+              >
+                PATEL
+              </motion.div>
+              
+              <motion.h1
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                className="text-8xl md:text-[140px] font-black tracking-tighter text-[#0F172A] leading-[0.85] relative z-10 mt-60"
+              >
+                Vedant
+              </motion.h1>
+            </div>
+
+            {/* Subheading & Desc */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+              className="flex flex-col w-full"
+            >
+              <h2 className="text-xl md:text-2xl font-medium text-[#334155] tracking-tight mb-4">
+                Full Stack Developer.
+              </h2>
+              <p className="text-slate-400 font-normal text-lg max-w-[500px] leading-relaxed mb-8 mx-auto lg:mx-0">
+                I build modern, scalable and high-performance web applications.
+              </p>
+            </motion.div>
+
+            {/* Social Icons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7 }}
+              className="flex items-center justify-center lg:justify-start gap-4 mb-8"
+            >
+              {socialLinks.map((link) => (
+                <motion.a
+                  key={link.id}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-magnetic="true"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-12 h-12 rounded-full flex items-center justify-center bg-white border border-slate-100 text-slate-500 hover:text-slate-900 transition-all shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
+                  aria-label={link.name}
+                >
+                  {link.icon}
+                </motion.a>
+              ))}
+            </motion.div>
+
+            {/* CTA's */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9 }}
+              className="flex flex-row items-center justify-center lg:justify-start gap-4 w-full"
+            >
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                data-magnetic="true"
+                data-cursor-text="Resume"
+                onClick={() => window.open('https://drive.google.com/uc?export=download&id=1YFi7wZHKKj8DRVWcL4FBWq8gsH5BHpFS', '_blank')}
+                className="px-8 py-3.5 rounded-full bg-gradient-to-r from-blue-500 to-sky-400 text-white font-bold text-sm transition-all shadow-[0_8px_20px_rgba(59,130,246,0.25)] hover:shadow-[0_12px_24px_rgba(59,130,246,0.35)] flex items-center gap-2"
+              >
+                <FileText size={18} />
+                View Resume
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                data-magnetic="true"
+                data-cursor-text="Contact"
+                onClick={() => handleScrollTo('contact')}
+                className="px-8 py-3.5 rounded-full border border-slate-200 text-slate-600 font-bold text-sm hover:border-slate-300 transition-colors bg-white/60 flex items-center gap-2"
+              >
+                <Mail size={18} />
+                Contact Me
+              </motion.button>
+            </motion.div>
+
+          </div>
+
+          {/* RIGHT: Profile Image */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.4, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="order-1 lg:order-2 flex items-center justify-center lg:justify-end relative mt-0 lg:translate-x-48"
           >
-            <span className="flex items-center gap-2.5">
-              <Mail size={20} className="flex-shrink-0" />
-              Get In Touch
-            </span>
-          </motion.a>
+            {/* Outer Soft Glow */}
+            <div className="absolute w-[350px] h-[350px] md:w-[480px] md:h-[480px] rounded-full bg-blue-100/60 blur-[80px] z-0" />
+            
+            {/* Image Container (Double Ring) */}
+            <div className="relative z-10 w-[320px] h-[320px] md:w-[420px] md:h-[420px] rounded-full p-2.5 bg-white/80 backdrop-blur-md border border-slate-200 shadow-[0_20px_60px_rgba(15,23,42,0.08)] flex items-center justify-center">
+              <div className="w-full h-full rounded-full overflow-hidden border border-slate-100 relative group bg-white shadow-inner">
+                <img
+                  src={profilePhoto}
+                  alt="Vedant Patel"
+                  className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 transition-transform duration-700 hover:scale-105"
+                />
+              </div>
+            </div>
+          </motion.div>
+
+        </div>
+
+        {/* Bottom Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer z-20"
+          onClick={() => handleScrollTo('about')}
+        >
+          <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-slate-400">
+            Scroll to discover
+          </span>
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            className="text-slate-500"
+          >
+            <ArrowDown size={14} />
+          </motion.div>
         </motion.div>
 
-      </motion.div>
+      </div>
     </section>
   );
 }
-
-export default Hero;
