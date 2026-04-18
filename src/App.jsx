@@ -1,21 +1,22 @@
-import { useContext, useEffect, useRef, useMemo } from 'react';
+import { useContext, useEffect, useRef, useMemo, lazy, Suspense } from 'react';
 import { tsParticles } from '@tsparticles/engine';
 import { loadSlim } from '@tsparticles/slim';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero.jsx';
-import Projects from './components/Projects.jsx';
-import Certificates from './components/Certificates.jsx';
 import AboutMe from './components/AboutMe.jsx';
-import Education from './components/Education.jsx';
-import Skills from './components/Skills.jsx';
-import Contact from './components/Contact.jsx';
 import AnalyticsTracker from './components/AnalyticsTracker.jsx';
 import SEO from './components/SEO.jsx';
 
-import Hackathon from './components/Hackathon.jsx';
-import Achievements from './components/Achievements.jsx';
-import Resume from './components/Resume.jsx';
+// Lazy load non-critical sections for performance optimization
+const Projects = lazy(() => import('./components/Projects.jsx'));
+const Certificates = lazy(() => import('./components/Certificates.jsx'));
+const Education = lazy(() => import('./components/Education.jsx'));
+const Skills = lazy(() => import('./components/Skills.jsx'));
+const Contact = lazy(() => import('./components/Contact.jsx'));
+const Hackathon = lazy(() => import('./components/Hackathon.jsx'));
+const Achievements = lazy(() => import('./components/Achievements.jsx'));
+const Resume = lazy(() => import('./components/Resume.jsx'));
 
 import { ThemeContext } from './context/ThemeContext';
 import ThemeTransitionOverlay from './components/ThemeTransitionOverlay';
@@ -79,7 +80,7 @@ const MainContent = ({ sectionFocus }) => {
       if (element) {
         setTimeout(() => {
           element.scrollIntoView({ behavior: 'smooth' });
-        }, 500); // Give time for entry sequence
+        }, 600); // Give time for entry sequence and lazy loading
       }
     } else {
       window.scrollTo(0, 0);
@@ -87,7 +88,7 @@ const MainContent = ({ sectionFocus }) => {
   }, [sectionFocus]);
 
   return (
-    <>
+    <Suspense fallback={<div className="min-h-screen" />}>
       <Hero />
       <AboutMe />
       <Skills />
@@ -98,7 +99,7 @@ const MainContent = ({ sectionFocus }) => {
       <Certificates />
       <Resume />
       <Contact />
-    </>
+    </Suspense>
   );
 };
 
@@ -110,6 +111,7 @@ function App() {
   const particlesOptions = useMemo(() => getParticleOptions(theme), [theme]);
 
   useEffect(() => {
+    // Delay particles slightly to prioritize LCP
     const initParticles = async () => {
       if (!particlesContainerRef.current) return;
       try {
@@ -123,8 +125,10 @@ function App() {
         console.error('tsParticles failed to load:', error);
       }
     };
-    initParticles();
+    
+    const timeout = setTimeout(initParticles, 1000);
     return () => {
+      clearTimeout(timeout);
       const container = tsParticles.dom().find((c) => c.id === 'tsparticles');
       if (container) container.destroy();
     };
@@ -152,15 +156,15 @@ function App() {
 
         <Routes>
           <Route path="/" element={<><SEO /><MainContent /></>} />
-          <Route path="/about" element={<><SEO title="About Me" description="Learn more about Vedant Patel's journey as a developer." /><MainContent sectionFocus="about" /></>} />
-          <Route path="/skills" element={<><SEO title="Skills & Expertise" description="Technical skills and professional expertise of Vedant Patel." /><MainContent sectionFocus="skills" /></>} />
-          <Route path="/projects" element={<><SEO title="Projects" description="Explore the professional work and innovative projects by Vedant Patel." /><MainContent sectionFocus="projects" /></>} />
-          <Route path="/education" element={<><SEO title="Education" description="Academic background and educational journey of Vedant Patel." /><MainContent sectionFocus="education" /></>} />
-          <Route path="/certificates" element={<><SEO title="Certificates" description="Verified certifications and achievements of Vedant Patel." /><MainContent sectionFocus="certificates" /></>} />
-          <Route path="/hackathon" element={<><SEO title="Hackathons" description="Hackathon participation and awards won by Vedant Patel." /><MainContent sectionFocus="hackathon" /></>} />
-          <Route path="/achievements" element={<><SEO title="Achievements" description="Significant milestones and professional achievements of Vedant Patel." /><MainContent sectionFocus="achievements" /></>} />
-          <Route path="/resume" element={<><SEO title="Resume" description="View and download the professional resume of Vedant Patel." /><MainContent sectionFocus="resume" /></>} />
-          <Route path="/contact" element={<><SEO title="Contact" description="Get in touch with Vedant Patel for collaborations or inquiries." /><MainContent sectionFocus="contact" /></>} />
+          <Route path="/about" element={<><SEO title="About Me" /><MainContent sectionFocus="about" /></>} />
+          <Route path="/skills" element={<><SEO title="Skills" /><MainContent sectionFocus="skills" /></>} />
+          <Route path="/projects" element={<><SEO title="Projects" /><MainContent sectionFocus="projects" /></>} />
+          <Route path="/education" element={<><SEO title="Education" /><MainContent sectionFocus="education" /></>} />
+          <Route path="/certificates" element={<><SEO title="Certificates" /><MainContent sectionFocus="certificates" /></>} />
+          <Route path="/hackathon" element={<><SEO title="Hackathons" /><MainContent sectionFocus="hackathon" /></>} />
+          <Route path="/achievements" element={<><SEO title="Achievements" /><MainContent sectionFocus="achievements" /></>} />
+          <Route path="/resume" element={<><SEO title="Resume" /><MainContent sectionFocus="resume" /></>} />
+          <Route path="/contact" element={<><SEO title="Contact" /><MainContent sectionFocus="contact" /></>} />
         </Routes>
 
       </div>
