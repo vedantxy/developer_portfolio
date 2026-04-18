@@ -7,27 +7,28 @@ function CertificateCard({ certificate, onClick }) {
 
   return (
     <motion.div
-      whileHover={{ y: -10, shadow: '0 20px 40px rgba(0,0,0,0.08)' }}
+      whileHover={{ y: -10 }}
       onClick={onClick}
-      className="group relative bg-white rounded-[2rem] p-8 md:p-10 shadow-lg border border-slate-100 cursor-pointer transition-all duration-500"
+      className="group relative rounded-[2rem] p-8 md:p-10 border cursor-pointer transition-all duration-500"
+      style={{ background: 'var(--bg-card)', borderColor: 'var(--border)', boxShadow: 'var(--glow)' }}
     >
       {/* Top Header Row */}
       <div className="flex items-center justify-between mb-10">
-        <div className="w-14 h-14 rounded-full bg-slate-50 flex items-center justify-center border border-slate-50 shadow-sm text-[#84a3c4]">
+        <div className="w-14 h-14 rounded-full flex items-center justify-center border shadow-sm" style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border)', color: 'var(--accent)' }}>
           <Award size={28} />
         </div>
-        <div className="px-4 py-1.5 rounded-full bg-slate-50 border border-slate-100 text-[11px] font-black text-slate-800 tracking-wide">
+        <div className="px-4 py-1.5 rounded-full border text-[11px] font-black tracking-wide" style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border)', color: 'var(--text-primary)' }}>
           {certificate.date}
         </div>
       </div>
 
       {/* Main Info */}
       <div className="space-y-4 mb-10">
-        <h3 className="text-3xl md:text-4xl font-black text-[#5e7ca7] leading-tight group-hover:text-[#4a6b98] transition-colors">
+        <h3 className="text-3xl md:text-4xl font-black leading-tight transition-colors" style={{ color: 'var(--text-primary)' }}>
           {certificate.title}
         </h3>
         
-        <div className="flex items-center gap-2.5 text-slate-400 font-bold">
+        <div className="flex items-center gap-2.5 font-bold" style={{ color: 'var(--text-muted)' }}>
           <Briefcase size={18} />
           <span className="tracking-tight text-lg">{certificate.org}</span>
         </div>
@@ -38,13 +39,14 @@ function CertificateCard({ certificate, onClick }) {
         {visibleTags.map((tag) => (
           <span 
             key={tag} 
-            className="text-sm font-bold text-slate-500 tracking-tight"
+            className="text-sm font-bold tracking-tight"
+            style={{ color: 'var(--text-secondary)' }}
           >
             {tag}
           </span>
         ))}
         {extraTagsCount > 0 && (
-          <span className="text-sm font-black text-slate-400">
+          <span className="text-sm font-black" style={{ color: 'var(--text-muted)' }}>
             +{extraTagsCount}
           </span>
         )}

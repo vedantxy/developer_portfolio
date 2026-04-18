@@ -15,13 +15,13 @@
   --edu-shadow-hover: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
 }
 
-.dark .education-section {
-  --edu-bg: #0f172a;
-  --edu-card-bg: #1e293b;
-  --edu-grid: rgba(255, 255, 255, 0.03);
-  --edu-text-primary: #f8fafc;
+html.dark .education-section {
+  --edu-bg: #000000;
+  --edu-card-bg: #0a0a0a;
+  --edu-grid: rgba(99, 102, 241, 0.05);
+  --edu-text-primary: #ffffff;
   --edu-text-secondary: #94a3b8;
-  --edu-text-muted: #64748b;
+  --edu-text-muted: #475569;
 }
 
 .neon .education-section {

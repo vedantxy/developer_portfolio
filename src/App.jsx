@@ -21,30 +21,30 @@ import CustomCursor from './components/CustomCursor.jsx';
 
 // Monochrome Gray+White particle configs per theme
 const getParticleOptions = (theme) => {
-  const isMono = theme !== 'neon';
+  const isDark = theme === 'dark';
   return {
     background: { color: { value: 'transparent' } },
     fpsLimit: 60,
     particles: {
-      number: { value: theme === 'neon' ? 100 : 60, density: { enable: true, value_area: 900 } },
-      color: { value: '#ffffff' },
+      number: { value: isDark ? 80 : 60, density: { enable: true, value_area: 900 } },
+      color: { value: isDark ? '#818cf8' : '#475569' },
       shape: { type: 'circle' },
       opacity: {
-        value: theme === 'dark' ? 0.18 : theme === 'light' ? 0.12 : 0.35,
+        value: isDark ? 0.6 : 0.15,
         random: true,
-        anim: { enable: true, speed: 0.3, opacity_min: 0.05, sync: false },
+        anim: { enable: true, speed: 0.3, opacity_min: 0.1, sync: false },
       },
-      size: { value: { min: 1, max: 2.5 }, random: true },
+      size: { value: { min: 1, max: isDark ? 3.5 : 2.5 }, random: true },
       links: {
         enable: true,
         distance: 170,
-        color: '#ffffff',
-        opacity: theme === 'dark' ? 0.07 : theme === 'light' ? 0.05 : 0.18,
-        width: 0.8,
+        color: isDark ? '#6366f1' : '#6366f1',
+        opacity: isDark ? 0.35 : 0.08,
+        width: isDark ? 1.5 : 0.8,
       },
       move: {
         enable: true,
-        speed: theme === 'neon' ? 1.2 : 0.5,
+        speed: isDark ? 0.8 : 0.6,
         direction: 'none',
         random: true,
         straight: false,
@@ -60,7 +60,7 @@ const getParticleOptions = (theme) => {
       modes: {
         grab: {
           distance: 160,
-          line_linked: { opacity: 0.25, color: '#ffffff' },
+          line_linked: { opacity: 0.8, color: isDark ? '#ffffff' : '#6366f1' },
         },
       },
     },
@@ -115,17 +115,18 @@ function App() {
         />
 
         <AnalyticsTracker />
+        <ThemeTransitionOverlay />
         <Navbar />
 
         {/* Page sections */}
         <Hero />
         <AboutMe />
         <Skills />
+        <Achievements />
+        <Hackathon />
         <Projects />
         <Education />
-        <Achievements />
         <Certificates />
-        <Hackathon />
         <Resume />
         <Contact />
 

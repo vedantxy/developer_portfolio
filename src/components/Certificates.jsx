@@ -53,25 +53,26 @@ function CertificateModal({ cert, isOpen, onClose }) {
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 20 }}
-          className="relative w-full max-w-2xl bg-white rounded-[2rem] shadow-2xl overflow-hidden"
+          className="relative w-full max-w-2xl rounded-[2rem] shadow-2xl overflow-hidden border"
+          style={{ background: 'var(--bg-card)', borderColor: 'var(--border)' }}
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
           <div className="p-8 md:p-10 pb-0 flex items-start justify-between">
             <div className="flex items-center gap-6">
-              <div className="w-16 h-16 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100 shadow-sm">
-                <Award size={32} className="text-[#84a3c4]" />
+              <div className="w-16 h-16 rounded-full flex items-center justify-center border shadow-sm" style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border)' }}>
+                <Award size={32} style={{ color: 'var(--accent)' }} />
               </div>
               <div>
-                <h2 className="text-3xl font-black text-[#5e7ca7] mb-2 leading-tight">
+                <h2 className="text-3xl font-black mb-2 leading-tight" style={{ color: 'var(--text-primary)' }}>
                   {cert.title}
                 </h2>
-                <div className="flex items-center gap-4 text-slate-500 font-bold text-sm">
+                <div className="flex items-center gap-4 font-bold text-sm" style={{ color: 'var(--text-muted)' }}>
                   <div className="flex items-center gap-1.5">
                     <Briefcase size={16} />
                     <span>{cert.org}</span>
                   </div>
-                  <div className="w-1.5 h-1.5 rounded-full bg-slate-200" />
+                  <div className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--border)' }} />
                   <div className="flex items-center gap-1.5">
                     <Calendar size={16} />
                     <span>{cert.date}</span>
@@ -81,7 +82,8 @@ function CertificateModal({ cert, isOpen, onClose }) {
             </div>
             <button 
               onClick={onClose}
-              className="p-2 rounded-full hover:bg-slate-50 transition-colors text-slate-400"
+              className="p-2 rounded-full transition-colors"
+              style={{ color: 'var(--text-muted)' }}
             >
               <X size={24} />
             </button>
@@ -89,12 +91,12 @@ function CertificateModal({ cert, isOpen, onClose }) {
 
           {/* Body */}
           <div className="p-8 md:p-10 space-y-8">
-            <div className="p-6 rounded-2xl bg-slate-50/50 border border-slate-100 leading-relaxed text-[#424245] font-medium text-base">
+            <div className="p-6 rounded-2xl border leading-relaxed font-medium text-base" style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border)', color: 'var(--text-secondary)' }}>
               {cert.description}
             </div>
 
             <div>
-              <div className="flex items-center gap-2 text-[#84a3c4] font-black uppercase tracking-widest text-xs mb-6">
+              <div className="flex items-center gap-2 font-black uppercase tracking-widest text-xs mb-6" style={{ color: 'var(--accent)' }}>
                 <Star size={16} />
                 <span>Skills & Technologies</span>
               </div>
@@ -102,9 +104,10 @@ function CertificateModal({ cert, isOpen, onClose }) {
                 {cert.skills.map((skill, i) => (
                   <div 
                     key={i}
-                    className="flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-100 shadow-sm text-sm font-bold text-slate-700"
+                    className="flex items-center gap-2 px-4 py-2 rounded-full border shadow-sm text-sm font-bold"
+                    style={{ background: 'var(--bg-card)', borderColor: 'var(--border)', color: 'var(--text-secondary)' }}
                   >
-                    <CheckCircle2 size={14} className="text-slate-400" />
+                    <CheckCircle2 size={14} style={{ color: 'var(--accent)' }} />
                     <span>{skill}</span>
                   </div>
                 ))}
@@ -112,13 +115,13 @@ function CertificateModal({ cert, isOpen, onClose }) {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="p-5 rounded-2xl bg-slate-50/50 border border-slate-100">
-                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2"># Credential ID</p>
-                <p className="font-bold text-slate-700">{cert.credentialId}</p>
+              <div className="p-5 rounded-2xl border" style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border)' }}>
+                <p className="text-[10px] font-black uppercase tracking-widest mb-2" style={{ color: 'var(--text-muted)' }}># Credential ID</p>
+                <p className="font-bold" style={{ color: 'var(--text-primary)' }}>{cert.credentialId}</p>
               </div>
-              <div className="p-5 rounded-2xl bg-slate-50/50 border border-slate-100">
-                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">⋔ Category</p>
-                <p className="font-bold text-slate-700">{cert.category}</p>
+              <div className="p-5 rounded-2xl border" style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border)' }}>
+                <p className="text-[10px] font-black uppercase tracking-widest mb-2" style={{ color: 'var(--text-muted)' }}>⋔ Category</p>
+                <p className="font-bold" style={{ color: 'var(--text-primary)' }}>{cert.category}</p>
               </div>
             </div>
           </div>
@@ -127,7 +130,8 @@ function CertificateModal({ cert, isOpen, onClose }) {
           <div className="p-8 md:p-10 pt-0 flex gap-4 justify-end">
             <button 
               onClick={onClose}
-              className="px-8 py-3.5 rounded-xl font-black text-sm text-slate-600 hover:bg-slate-50 transition-colors"
+              className="px-8 py-3.5 rounded-xl font-black text-sm transition-colors"
+              style={{ color: 'var(--text-secondary)' }}
             >
               Close
             </button>
@@ -135,7 +139,8 @@ function CertificateModal({ cert, isOpen, onClose }) {
               href={cert.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[#84a3c4] hover:bg-[#728fb0] text-white font-black text-sm transition-all shadow-md hover:shadow-lg"
+              className="flex items-center gap-2 px-8 py-3.5 rounded-xl text-white font-black text-sm transition-all shadow-md hover:shadow-lg"
+              style={{ background: 'var(--accent)' }}
             >
               View Live Certificate
               <ExternalLink size={16} />
@@ -160,7 +165,7 @@ function Certificates() {
   ), []);
 
   return (
-    <section id="certificates" className="pt-16 pb-24 md:pt-20 md:pb-40 px-6 relative overflow-hidden bg-[#f4f7f6]">
+    <section id="certificates" className="pt-16 pb-24 md:pt-20 md:pb-40 px-6 relative overflow-hidden transition-colors duration-500" style={{ background: 'var(--bg-primary)' }}>
       {bgCircles}
       
       <div className="max-w-7xl mx-auto relative z-10">
@@ -171,7 +176,8 @@ function Certificates() {
             initial={{ opacity: 0, scale: 0.5 }}
             whileInView={{ opacity: 0.03, scale: 1 }}
             viewport={{ once: true }}
-            className="absolute -top-12 left-1/2 -translate-x-1/2 text-[120px] md:text-[200px] font-black pointer-events-none select-none text-slate-900 lg:block hidden"
+            className="absolute -top-12 left-1/2 -translate-x-1/2 text-[120px] md:text-[200px] font-black pointer-events-none select-none lg:block hidden"
+            style={{ color: 'var(--text-primary)' }}
           >
             02
           </motion.div>
@@ -180,7 +186,8 @@ function Certificates() {
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-[11px] font-black tracking-[0.4em] uppercase text-slate-400 mb-6 block"
+            className="text-[11px] font-black tracking-[0.4em] uppercase mb-6 block"
+            style={{ color: 'var(--text-muted)' }}
           >
             My Achievements
           </motion.span>
@@ -192,7 +199,7 @@ function Certificates() {
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            <h2 className="text-5xl md:text-7xl font-black tracking-tight text-[#5e7ca7] mb-8">
+            <h2 className="text-5xl md:text-7xl font-black tracking-tight mb-8" style={{ color: 'var(--text-primary)' }}>
               Certificates
             </h2>
             <div className="h-px w-24 mx-auto" style={{ background: 'var(--gradient-line)', opacity: 0.3 }} />

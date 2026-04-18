@@ -80,7 +80,7 @@ const ACHIEVEMENTS = [
   },
 ];
 
-function AchievementCard({ achievement, index }) {
+function AchievementCard({ achievement, index, isDark }) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -97,7 +97,8 @@ function AchievementCard({ achievement, index }) {
       viewport={{ once: true }}
       transition={{ duration: 0.8, delay: index * 0.1, ease: [0.21, 1.11, 0.81, 0.99] }}
       onMouseMove={handleMouseMove}
-      className="group relative rounded-[2.5rem] border border-black/[0.06] bg-white p-10 transition-all duration-700 hover:-translate-y-3 hover:shadow-[0_40px_80px_rgba(0,0,0,0.06)] overflow-hidden"
+      className="group relative rounded-[2.5rem] border p-10 transition-all duration-700 hover:-translate-y-3 overflow-hidden"
+      style={{ background: 'var(--bg-card)', borderColor: 'var(--border)', boxShadow: 'var(--glow)' }}
     >
       {/* ── Spotlight Background ── */}
       <motion.div
@@ -118,17 +119,29 @@ function AchievementCard({ achievement, index }) {
         {/* Top Row: Icon and Status */}
         <div className="flex justify-between items-start mb-12">
           <div 
-            className="w-16 h-16 rounded-[1.25rem] flex items-center justify-center border border-black/[0.04] bg-[#fafafa] shadow-sm transition-all duration-700 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-white group-hover:border-black/10"
+            className="w-16 h-16 rounded-[1.25rem] flex items-center justify-center border transition-all duration-700 group-hover:scale-110 group-hover:rotate-6 shadow-lg"
+            style={{ 
+              background: 'var(--bg-secondary)', 
+              borderColor: 'var(--border)',
+              boxShadow: isDark ? '0 0 20px var(--accent-20)' : 'none'
+            }}
           >
-            <achievement.Icon size={32} strokeWidth={1} className="text-black" />
+            <achievement.Icon 
+              size={32} 
+              strokeWidth={1.5} 
+              style={{ 
+                color: isDark && achievement.Icon === Trophy ? '#fbbf24' : 'var(--accent)',
+                filter: isDark ? 'drop-shadow(0 0 8px currentColor)' : 'none'
+              }} 
+            />
           </div>
           
-          <div className="flex items-center gap-2 px-4 py-1.5 bg-black/[0.03] rounded-full border border-black/[0.02]">
+          <div className="flex items-center gap-2 px-4 py-1.5 rounded-full border" style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border)' }}>
             <span className="relative flex h-1.5 w-1.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black/40 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-black"></span>
+              <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isDark ? 'bg-indigo-400' : 'bg-black/40'}`}></span>
+              <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${isDark ? 'bg-indigo-500' : 'bg-black'}`}></span>
             </span>
-            <span className="text-[9px] font-black uppercase tracking-[0.2em] text-black/50">
+            <span className="text-[9px] font-black uppercase tracking-[0.2em]" style={{ color: 'var(--text-muted)' }}>
               {achievement.status}
             </span>
           </div>
@@ -136,57 +149,61 @@ function AchievementCard({ achievement, index }) {
 
         {/* Title and Org */}
         <div className="mb-6">
-          <h3 className="text-2xl md:text-3xl font-bold text-black tracking-tight mb-3 transition-colors">
+          <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-3 transition-colors duration-500" 
+              style={{ 
+                color: 'var(--text-primary)',
+                textShadow: isDark ? '0 0 20px rgba(99, 102, 241, 0.4)' : 'none'
+              }}>
             {achievement.title}
           </h3>
-          <div className="flex flex-wrap items-center gap-3 text-[13px] font-bold uppercase tracking-widest text-black/30">
+          <div className="flex flex-wrap items-center gap-3 text-[13px] font-bold uppercase tracking-widest" style={{ color: 'var(--text-secondary)', opacity: 0.6 }}>
             <span>{achievement.org}</span>
-            <span className="h-1 w-1 rounded-full bg-black/10" />
+            <span className="h-1.5 w-1.5 rounded-full" style={{ background: 'var(--accent)' }} />
             <span>{achievement.date}</span>
           </div>
         </div>
 
         {/* Description */}
-        <p className="text-black/40 text-base leading-relaxed mb-12 flex-grow max-w-[90%]">
+        <p className="text-base leading-relaxed mb-12 flex-grow max-w-[95%]" style={{ color: 'var(--text-secondary)' }}>
           {achievement.description}
         </p>
 
         {/* Bottom Decorative Section */}
-        <div className="flex items-center justify-between pt-8 border-t border-black/[0.04]">
-          <span className="text-[10px] font-black uppercase tracking-[0.3em] text-black/20">
+        <div className="flex items-center justify-between pt-8 border-t" style={{ borderColor: 'var(--border)' }}>
+          <span className="text-[10px] font-black uppercase tracking-[0.3em]" style={{ color: 'var(--text-muted)' }}>
             Ref. {achievement.id.toString().padStart(3, '0')}
           </span>
-          <div className="w-10 h-10 rounded-full border border-black/[0.04] flex items-center justify-center group-hover:border-black/10 transition-colors">
-            <ChevronRight size={18} className="text-black/20 transform transition-transform group-hover:translate-x-1" />
+          <div className="w-10 h-10 rounded-full border flex items-center justify-center transition-colors px-2" style={{ borderColor: 'var(--border)' }}>
+            <ChevronRight size={18} style={{ color: 'var(--text-muted)' }} />
           </div>
         </div>
       </div>
 
       {/* Subtle corner detail */}
-      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-black/[0.01] to-transparent pointer-events-none" />
+      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-indigo-500/5 to-transparent pointer-events-none" />
     </motion.div>
   );
 }
 
 function Achievements() {
   const { theme } = useContext(ThemeContext);
+  const isDark = theme === 'dark';
 
   return (
-    <section id="achievements" className="pt-32 pb-16 px-6 md:px-12 lg:px-24 relative overflow-hidden bg-white text-black font-sans">
+    <section id="achievements" className="pt-32 pb-16 px-6 md:px-12 lg:px-24 relative overflow-hidden transition-colors duration-500" style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
       
       {/* ── High-End Studio Background ── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Noise Texture */}
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay" />
-        
-        {/* Soft Spotlight */}
-        <div className="absolute top-[-10%] left-[-5%] w-[60%] h-[60%] bg-gradient-to-br from-black/[0.02] to-transparent blur-[120px] rounded-full" />
-        
-        {/* Minimal Grid */}
+        {/* Noise Texture (Inline SVG for reliability) */}
         <div 
-          className="absolute inset-0 opacity-[0.4]" 
+          className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none" 
+          style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
+        />
+        <div className="absolute top-[-10%] left-[-5%] w-[60%] h-[60%] bg-gradient-to-br from-[var(--text-primary)]/[0.02] to-transparent blur-[120px] rounded-full" />
+        <div 
+          className="absolute inset-0 opacity-[0.05]" 
           style={{ 
-            backgroundImage: `linear-gradient(#f0f0f0 1px, transparent 1px), linear-gradient(90deg, #f0f0f0 1px, transparent 1px)`, 
+            backgroundImage: `linear-gradient(var(--text-primary) 1px, transparent 1px), linear-gradient(90deg, var(--text-primary) 1px, transparent 1px)`, 
             backgroundSize: '100px 100px' 
           }} 
         />
@@ -197,13 +214,14 @@ function Achievements() {
         {/* ── Premium Editorial Header ── */}
         <div className="flex flex-col mb-32">
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="flex items-center gap-4 mb-10"
+            className="p-8 md:p-10 rounded-[2rem] border transition-colors duration-500 mb-10 inline-flex items-center gap-4 self-start"
+            style={{ background: 'var(--bg-card)', borderColor: 'var(--border)', boxShadow: 'var(--glow)' }}
           >
-            <div className="h-px w-10 bg-black/20" />
-            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-black/40">Achievement Portfolio</span>
+            <div className="h-px w-10 bg-[var(--text-primary)]/20" />
+            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[var(--text-secondary)]">Achievement Portfolio</span>
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 items-end">
@@ -212,10 +230,12 @@ function Achievements() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="text-6xl md:text-8xl lg:text-[10rem] font-bold tracking-tighter leading-[0.85] text-black"
+              className="text-6xl md:text-8xl lg:text-[10rem] font-bold tracking-tighter leading-[0.85]"
             >
               Proven <br />
-              <span className="italic font-serif font-medium text-black/10">Recognition.</span>
+              <span className={`italic font-serif font-medium ${isDark ? 'text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-500 opacity-100' : 'text-black/10'}`}>
+                Recognition.
+              </span>
             </motion.h2>
 
             <motion.div
@@ -248,6 +268,7 @@ function Achievements() {
               key={achievement.id} 
               achievement={achievement} 
               index={idx}
+              isDark={isDark}
             />
           ))}
         </div>
@@ -257,14 +278,15 @@ function Achievements() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="mt-20 pt-12 border-t border-black/[0.05] flex justify-between items-center"
+          className="mt-20 pt-12 border-t flex justify-between items-center"
+          style={{ borderColor: 'var(--border)' }}
         >
           <div className="flex gap-2">
             {[1, 2, 3].map(i => (
-              <div key={i} className="w-1.5 h-1.5 rounded-full bg-black/10" />
+              <div key={i} className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--border)' }} />
             ))}
           </div>
-          <span className="text-[9px] font-black uppercase tracking-[0.5em] text-black/20">End of Record</span>
+          <span className="text-[9px] font-black uppercase tracking-[0.5em]" style={{ color: 'var(--text-muted)' }}>End of Record</span>
         </motion.div>
 
       </div>

@@ -25,18 +25,33 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen w-full flex flex-col bg-[#f8fafc] overflow-x-clip"
+      className="relative min-h-screen w-full flex flex-col overflow-x-clip transition-colors duration-500"
+      style={{ backgroundColor: 'var(--bg-primary)' }}
     >
+      {/* ── Cyber Neon Aura (Only in dark) ── */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-0 dark:opacity-100 transition-opacity duration-1000">
+        <motion.div 
+          animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0], opacity: [0.15, 0.25, 0.15] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          className="absolute top-[-10%] right-[-10%] w-[70vw] h-[70vw] bg-indigo-600/30 blur-[150px] rounded-full" 
+        />
+        <motion.div 
+          animate={{ scale: [1.2, 1, 1.2], rotate: [0, -90, 0], opacity: [0.1, 0.2, 0.1] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-purple-600/20 blur-[150px] rounded-full" 
+        />
+      </div>
+
       {/* Decorative partial ring (Top Left) */}
-      <div className="absolute left-0 top-20 -translate-x-1/2 w-32 h-32 rounded-full border border-slate-300 opacity-60 pointer-events-none z-0" />
+      <div className="absolute left-0 top-20 -translate-x-1/2 w-32 h-32 rounded-full border border-[var(--border)] opacity-40 pointer-events-none z-0" />
 
       {/* ── Background Grid ── */}
       <div
-        className="absolute inset-0 pointer-events-none z-0"
+        className="absolute inset-0 pointer-events-none z-0 opacity-10"
         style={{
           backgroundImage: `
-            linear-gradient(#e2e8f0 1px, transparent 1px),
-            linear-gradient(90deg, #e2e8f0 1px, transparent 1px)
+            linear-gradient(var(--border) 1px, transparent 1px),
+            linear-gradient(90deg, var(--border) 1px, transparent 1px)
           `,
           backgroundSize: '96px 96px',
         }}
@@ -56,16 +71,17 @@ export default function Hero() {
             {/* Location Tag */}
 
 
-            {/* Heading Context */}
+             {/* Heading Context */}
             <div className="w-full relative mb-8">
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 0.08, x: 0 }}
+                animate={{ opacity: 0.1, x: 0 }}
                 transition={{ duration: 1.5, ease: "easeOut" }}
-                className="font-black text-slate-900 leading-none tracking-tighter select-none pointer-events-none absolute top-0 -left-4 md:-left-8 uppercase whitespace-nowrap"
+                className="font-black leading-none tracking-tighter select-none pointer-events-none absolute top-0 -left-4 md:-left-8 uppercase whitespace-nowrap"
                 style={{ 
                   fontSize: 'clamp(100px, 18vw, 280px)',
-                  zIndex: -1
+                  zIndex: -1,
+                  color: 'var(--text-primary)'
                 }}
               >
                 PATEL
@@ -75,7 +91,8 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-                className="text-8xl md:text-[140px] font-black tracking-tighter text-[#0F172A] leading-[0.85] relative z-10 mt-60"
+                className="text-8xl md:text-[140px] font-black tracking-tighter leading-[0.85] relative z-10 mt-60"
+                style={{ color: 'var(--text-primary)' }}
               >
                 Vedant
               </motion.h1>
@@ -88,10 +105,10 @@ export default function Hero() {
               transition={{ delay: 0.5, duration: 0.8 }}
               className="flex flex-col w-full"
             >
-              <h2 className="text-xl md:text-2xl font-medium text-[#334155] tracking-tight mb-4">
+              <h2 className="text-xl md:text-2xl font-medium tracking-tight mb-4" style={{ color: 'var(--text-secondary)' }}>
                 Full Stack Developer.
               </h2>
-              <p className="text-slate-400 font-normal text-lg max-w-[500px] leading-relaxed mb-8 mx-auto lg:mx-0">
+              <p className="font-normal text-lg max-w-[500px] leading-relaxed mb-8 mx-auto lg:mx-0" style={{ color: 'var(--text-muted)' }}>
                 I build modern, scalable and high-performance web applications.
               </p>
             </motion.div>

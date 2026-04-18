@@ -90,10 +90,10 @@ function Contact() {
   ];
 
   return (
-    <section id="contact" className="contact-section pt-16 pb-8 px-6 md:px-12">
+    <section id="contact" className="contact-section pt-16 pb-8 px-6 md:px-12 transition-colors duration-500" style={{ background: 'var(--bg-primary)' }}>
       <div className="contact-grid" />
       <div className="contact-blob top-[-10%] right-[-10%]" />
-      <div className="contact-blob bottom-[-10%] left-[-10%]" style={{ background: 'radial-gradient(circle, rgba(107, 133, 166, 0.08) 0%, transparent 70%)' }} />
+      <div className="contact-blob bottom-[-10%] left-[-10%]" style={{ background: 'radial-gradient(circle, var(--accent-10) 0%, transparent 70%)' }} />
 
       <div className="max-w-[1000px] mx-auto relative z-10">
         
@@ -103,7 +103,8 @@ function Contact() {
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="contact-script text-6xl md:text-7xl text-[#4a5568] mb-2"
+            className="contact-script text-6xl md:text-7xl mb-2"
+            style={{ color: 'var(--text-primary)' }}
           >
             Let’s Talk
           </motion.h2>
@@ -112,7 +113,8 @@ function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-slate-500 font-medium tracking-wide text-sm uppercase"
+            className="font-medium tracking-wide text-sm uppercase"
+            style={{ color: 'var(--text-muted)' }}
           >
             Any question or remarks? Just write me a message!
           </motion.p>
@@ -128,8 +130,8 @@ function Contact() {
             className="space-y-10"
           >
             <div>
-              <h3 className="text-3xl font-bold text-slate-800 mb-6">Get in touch</h3>
-              <p className="text-slate-600 leading-[1.8] max-w-md">
+              <h3 className="text-3xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>Get in touch</h3>
+              <p className="leading-[1.8] max-w-md" style={{ color: 'var(--text-secondary)' }}>
                 I'm always open to discussing new projects, creative ideas or original opportunities to be part of your visions.
               </p>
             </div>
@@ -153,42 +155,46 @@ function Contact() {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-white p-8 md:p-10 rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.04)] border border-black/[0.04]"
+            className="p-8 md:p-10 rounded-[2rem] border transition-all duration-500"
+            style={{ background: 'var(--bg-card)', borderColor: 'var(--border)', boxShadow: 'var(--glow)' }}
           >
             <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-1.5">
-                <label className="text-[13px] font-bold text-slate-500 ml-1">Name</label>
+                <label className="text-[13px] font-bold ml-1" style={{ color: 'var(--text-muted)' }}>Name</label>
                 <input
                   type="text"
                   name="from_name"
                   value={formData.from_name}
                   onChange={handleChange}
                   placeholder="Your full name"
-                  className="contact-form-input w-full bg-[#f9fafb] border border-[#e5e7eb] rounded-xl px-5 py-3.5 outline-none transition-all placeholder:text-slate-400 text-slate-700"
+                  className="contact-form-input w-full rounded-xl px-5 py-3.5 outline-none transition-all placeholder:text-slate-400"
+                  style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border)', color: 'var(--text-primary)' }}
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[13px] font-bold text-slate-500 ml-1">Email</label>
+                <label className="text-[13px] font-bold ml-1" style={{ color: 'var(--text-muted)' }}>Email</label>
                 <input
                   type="email"
                   name="from_email"
                   value={formData.from_email}
                   onChange={handleChange}
                   placeholder="your@email.com"
-                  className="contact-form-input w-full bg-[#f9fafb] border border-[#e5e7eb] rounded-xl px-5 py-3.5 outline-none transition-all placeholder:text-slate-400 text-slate-700"
+                  className="contact-form-input w-full rounded-xl px-5 py-3.5 outline-none transition-all placeholder:text-slate-400"
+                  style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border)', color: 'var(--text-primary)' }}
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[13px] font-bold text-slate-500 ml-1">Message</label>
+                <label className="text-[13px] font-bold ml-1" style={{ color: 'var(--text-muted)' }}>Message</label>
                 <textarea
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   rows="5"
                   placeholder="What's on your mind?"
-                  className="contact-form-input w-full bg-[#f9fafb] border border-[#e5e7eb] rounded-xl px-5 py-3.5 outline-none transition-all resize-none placeholder:text-slate-400 text-slate-700"
+                  className="contact-form-input w-full rounded-xl px-5 py-3.5 outline-none transition-all resize-none placeholder:text-slate-400"
+                  style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border)', color: 'var(--text-primary)' }}
                 />
               </div>
 
@@ -197,7 +203,8 @@ function Contact() {
                 disabled={isLoading}
                 whileHover={{ scale: 1.01, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-[#6b85a6] text-white py-4 rounded-xl font-bold tracking-wide shadow-lg shadow-blue-gray-200 transition-all flex items-center justify-center gap-2"
+                className="w-full text-white py-4 rounded-xl font-bold tracking-wide transition-all flex items-center justify-center gap-2"
+                style={{ background: 'var(--accent)', boxShadow: 'var(--glow)' }}
               >
                 {isLoading ? 'Sending...' : 'Send Message'}
               </motion.button>
@@ -207,9 +214,9 @@ function Contact() {
         </div>
 
         {/* Footer Area */}
-        <div className="mt-16 pt-8 border-t border-black/[0.05] text-center">
+        <div className="mt-16 pt-8 border-t text-center" style={{ borderColor: 'var(--border)' }}>
 
-          <p className="contact-script text-[20px] md:text-[24px] text-slate-700 mb-8 max-w-2xl mx-auto leading-relaxed">
+          <p className="contact-script text-[20px] md:text-[24px] mb-8 max-w-2xl mx-auto leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
             "I'm Vedant — not just a developer, but a builder, a thinker, and a curious learner. Thanks for flipping through my pages."
           </p>
           
@@ -220,7 +227,8 @@ function Contact() {
                 href={social.url} 
                 target="_blank" 
                 rel="noreferrer"
-                className="social-icon-btn text-slate-400 hover:text-slate-800 transition-all duration-300"
+                className="social-icon-btn transition-all duration-300"
+                style={{ color: 'var(--text-muted)' }}
                 aria-label={social.name}
               >
                 <social.icon size={28} />
@@ -228,8 +236,8 @@ function Contact() {
             ))}
           </div>
 
-          <p className="text-slate-400 text-[12px] tracking-widest">
-            © 2026 Vedant Patel. All rights reserved.
+          <p className="text-[12px] tracking-widest" style={{ color: 'var(--text-muted)' }}>
+            © {new Date().getFullYear()} Vedant Patel. All rights reserved.
           </p>
         </div>
 

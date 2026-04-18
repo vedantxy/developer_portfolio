@@ -29,8 +29,8 @@ const ThemeTransitionOverlay = () => {
               transition={{ duration: 0.8, ease: "easeInOut" }}
               className={`absolute inset-0 w-[150%] ${
                 theme === 'light' 
-                  ? 'bg-gradient-to-r from-transparent via-[#f0f4ff]/40 to-transparent' 
-                  : 'bg-gradient-to-r from-transparent via-[#0d0f1a]/40 to-transparent'
+                  ? 'bg-gradient-to-r from-transparent via-slate-100/30 to-transparent' 
+                  : 'bg-gradient-to-r from-transparent via-indigo-900/30 to-transparent'
               }`}
             />
 
@@ -39,28 +39,18 @@ const ThemeTransitionOverlay = () => {
               <motion.div
                 key={star.id}
                 initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 0.4, scale: 1 }}
+                animate={{ opacity: 0.6, scale: 1 }}
                 transition={{ delay: star.delay, duration: 0.3 }}
-                className="absolute bg-white rounded-full"
+                className="absolute bg-indigo-300 rounded-full"
                 style={{
                   top: star.top,
                   left: star.left,
                   width: star.size,
                   height: star.size,
-                  boxShadow: '0 0 5px white'
+                  boxShadow: '0 0 8px rgba(165, 180, 252, 0.4)'
                 }}
               />
             ))}
-
-            {/* Color Wave (Top-to-Bottom) */}
-            <motion.div
-              initial={{ y: '-100%' }}
-              animate={{ y: '100%' }}
-              transition={{ duration: 1, ease: "linear" }}
-              className={`absolute inset-0 h-1/2 opacity-10 bg-gradient-to-b ${
-                theme === 'light' ? 'from-white to-transparent' : 'from-[#b8f2e6] to-transparent'
-              }`}
-            />
           </>
         )}
       </AnimatePresence>

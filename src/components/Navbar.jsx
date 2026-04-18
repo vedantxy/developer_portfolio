@@ -1,6 +1,8 @@
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import { useState, useEffect } from 'react';
 import { Menu, X, ArrowRight } from 'lucide-react';
+import ThemeToggle from './ThemeToggle';
+import { useTheme } from '../hooks/useTheme';
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -8,10 +10,11 @@ function Navbar() {
   const { scrollY } = useScroll();
 
   // Dynamic transforms for premium feel
+  const { theme } = useTheme();
   const navPadding = useTransform(scrollY, [0, 50], ['20px', '12px']);
-  const navBg = useTransform(scrollY, [0, 50], ['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, 0.7)']);
-  const navBorder = useTransform(scrollY, [0, 50], ['rgba(0, 0, 0, 0)', '1px solid rgba(0, 0, 0, 0.05)']);
-  const navShadow = useTransform(scrollY, [0, 50], ['none', '0 20px 40px rgba(0, 0, 0, 0.03)']);
+  const navBg = useTransform(scrollY, [0, 50], ['rgba(0,0,0,0)', theme === 'dark' ? 'rgba(15, 23, 42, 0.8)' : 'rgba(248, 250, 252, 0.8)']);
+  const navBorderColor = useTransform(scrollY, [0, 50], ['rgba(0, 0, 0, 0)', 'var(--border)']);
+  const navShadow = useTransform(scrollY, [0, 50], ['none', 'var(--glow)']);
 
   const navItems = [
     'Home', 'About', 'Skills', 'Projects', 'Education', 'Achievements', 'Certificates', 'Hackathon', 'Resume', 'Contact'
@@ -62,7 +65,9 @@ function Navbar() {
           paddingBottom: navPadding,
           background: navBg,
           backdropFilter: 'blur(20px)',
-          borderBottom: navBorder,
+          borderBottomWidth: '1px',
+          borderBottomStyle: 'solid',
+          borderBottomColor: navBorderColor,
           boxShadow: navShadow
         }}
         initial={{ y: -100 }}
@@ -105,12 +110,12 @@ function Navbar() {
 
             {/* Premium Typography */}
             <div className="flex flex-col">
-              <span className="text-2xl font-black tracking-[-0.04em] text-slate-900 leading-none">
-                PATEL<span className="text-indigo-600">.</span>
+              <span className="text-2xl font-black tracking-[-0.04em] leading-none" style={{ color: 'var(--text-primary)' }}>
+                PATEL<span style={{ color: 'var(--accent)' }}>.</span>
               </span>
               <div className="flex items-center gap-2 mt-2">
-                <div className="h-[1px] w-4 bg-indigo-200" />
-                <span className="text-[9px] font-black text-slate-400 tracking-[0.4em] uppercase opacity-70">
+                <div className="h-[1px] w-4" style={{ background: 'var(--accent-30)' }} />
+                <span className="text-[9px] font-black tracking-[0.4em] uppercase opacity-70" style={{ color: 'var(--text-muted)' }}>
                   Dev Portfolio
                 </span>
               </div>
@@ -118,68 +123,75 @@ function Navbar() {
           </motion.div>
 
           {/* ── Center Navigation (Stripe Style) ── */}
-          <div className="hidden lg:flex items-center gap-1 xl:gap-2 px-1.5 py-1.5 rounded-full bg-slate-50 border border-slate-100 shadow-inner">
+          <div className="hidden lg:flex items-center gap-1 xl:gap-2 px-1.5 py-1.5 rounded-full border shadow-inner" style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border)' }}>
             {navItems.map((item) => (
               <motion.a
                 key={item}
                 href={`#${item.toLowerCase()}`}
                 onClick={(e) => handleNavClick(e, item)}
                 className="relative px-4 py-2 text-[13px] font-bold tracking-tight transition-colors duration-300"
-                style={{ color: activeItem === item ? '#0f172a' : '#64748b' }}
+                style={{ color: activeItem === item ? 'var(--text-primary)' : 'var(--text-muted)' }}
               >
                 <span className="relative z-10">{item}</span>
                 {activeItem === item && (
                   <motion.div
                     layoutId="activeBubble"
-                    className="absolute inset-0 bg-white rounded-full shadow-sm border border-slate-100"
+                    className="absolute inset-0 rounded-full shadow-sm border"
+                    style={{ background: 'var(--bg-card)', borderColor: 'var(--border)' }}
                     transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                   />
                 )}
                 {/* Hover Indicator */}
-                <span className="absolute inset-0 rounded-full bg-slate-200/40 opacity-0 hover:opacity-100 transition-opacity duration-300" />
+                <span className="absolute inset-0 rounded-full bg-[var(--accent-10)] opacity-0 hover:opacity-100 transition-opacity duration-300" />
               </motion.a>
             ))}
           </div>
 
-          {/* ── Primary CTA (Hire Me) ── */}
-          <div className="hidden lg:flex items-center">
+          {/* ── Actions (Toggle + Hire) ── */}
+          <div className="flex items-center gap-3 md:gap-4">
+            <ThemeToggle />
+            
+            <div className="hidden lg:flex items-center">
+              <motion.button
+                whileHover={{ y: -2, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={(e) => handleNavClick(e, 'Contact')}
+                className="relative group px-8 py-3 rounded-full text-white font-bold text-sm overflow-hidden"
+                style={{ background: 'var(--text-primary)' }}
+              >
+                {/* Gradient Aura */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <div className="relative z-10 flex items-center gap-2">
+                  <span style={{ color: 'var(--bg-primary)' }}>Hire Me</span>
+                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" style={{ color: 'var(--bg-primary)' }} />
+                </div>
+                
+                {/* Glow Blur Effect */}
+                <div className="absolute top-full left-1/2 -translate-x-1/2 w-[80%] h-10 bg-blue-500/40 blur-xl opacity-0 group-hover:opacity-70 transition-opacity duration-500" />
+              </motion.button>
+            </div>
+
+            {/* ── Mobile Trigger ── */}
             <motion.button
-              whileHover={{ y: -2, scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={(e) => handleNavClick(e, 'Contact')}
-              className="relative group px-8 py-3 rounded-full bg-slate-900 text-white font-bold text-sm overflow-hidden"
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden w-11 h-11 flex items-center justify-center rounded-2xl border shadow-sm overflow-hidden relative"
+              style={{ background: 'var(--bg-card)', borderColor: 'var(--border)', color: 'var(--text-primary)' }}
             >
-              {/* Gradient Aura */}
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              
-              <div className="relative z-10 flex items-center gap-2">
-                <span>Hire Me</span>
-                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </div>
-              
-              {/* Glow Blur Effect */}
-              <div className="absolute top-full left-1/2 -translate-x-1/2 w-[80%] h-10 bg-blue-500/40 blur-xl opacity-0 group-hover:opacity-70 transition-opacity duration-500" />
+              <AnimatePresence mode="wait">
+                {isMobileMenuOpen ? (
+                  <motion.div key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }}>
+                    <X className="w-5 h-5" />
+                  </motion.div>
+                ) : (
+                  <motion.div key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }}>
+                    <Menu className="w-5 h-5" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.button>
           </div>
-
-          {/* ── Mobile Trigger ── */}
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden w-11 h-11 flex items-center justify-center rounded-2xl bg-white border border-slate-100 shadow-sm text-slate-900 overflow-hidden relative"
-          >
-             <AnimatePresence mode="wait">
-              {isMobileMenuOpen ? (
-                <motion.div key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }}>
-                  <X className="w-5 h-5" />
-                </motion.div>
-              ) : (
-                <motion.div key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }}>
-                  <Menu className="w-5 h-5" />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.button>
 
         </div>
 
@@ -191,7 +203,8 @@ function Navbar() {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="lg:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-3xl border-b border-slate-100 p-6 shadow-2xl overflow-hidden"
+              className="lg:hidden absolute top-full left-0 w-full backdrop-blur-3xl border-b p-6 shadow-2xl overflow-hidden"
+              style={{ background: 'var(--glass-bg)', borderColor: 'var(--border)' }}
             >
               <div className="grid grid-cols-2 gap-3">
                 {navItems.map((item, idx) => (
@@ -202,7 +215,12 @@ function Navbar() {
                     transition={{ delay: idx * 0.03 }}
                     href={`#${item.toLowerCase()}`}
                     onClick={(e) => handleNavClick(e, item)}
-                    className={`flex items-center justify-between p-4 rounded-2xl border transition-all ${activeItem === item ? 'bg-slate-900 border-slate-900 text-white' : 'bg-slate-50 border-slate-100 text-slate-600'}`}
+                    className="flex items-center justify-between p-4 rounded-2xl border transition-all"
+                    style={{ 
+                      background: activeItem === item ? 'var(--text-primary)' : 'var(--bg-card)', 
+                      borderColor: activeItem === item ? 'var(--text-primary)' : 'var(--border)', 
+                      color: activeItem === item ? 'var(--bg-primary)' : 'var(--text-secondary)' 
+                    }}
                   >
                     <span className="font-bold text-sm uppercase tracking-widest">{item}</span>
                     <ArrowRight size={14} className={activeItem === item ? 'opacity-100' : 'opacity-20'} />
@@ -213,7 +231,8 @@ function Navbar() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="w-full mt-6 py-5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black uppercase tracking-[0.2em] shadow-xl shadow-blue-500/20"
+                className="w-full mt-6 py-5 rounded-2xl text-white font-black uppercase tracking-[0.2em] shadow-xl shadow-blue-500/20"
+                style={{ background: 'var(--accent)' }}
                 onClick={(e) => handleNavClick(e, 'Contact')}
               >
                 Launch Project

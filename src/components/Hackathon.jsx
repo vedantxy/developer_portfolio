@@ -32,34 +32,10 @@ function Hackathon() {
   const isDark = theme === 'dark';
 
   return (
-    <section id="hackathon" className="py-24 px-6 relative overflow-hidden">
-      {/* ── Ultra-Premium White Background ── */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* 1. Pure White Base */}
-        <div 
-          className="absolute inset-0 bg-[#ffffff]"
-        />
-
-        {/* 2. Structured Design Grid (Minimal) */}
-        <div 
-          className="absolute inset-0 opacity-[0.02]" 
-          style={{ 
-            backgroundImage: `
-              linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px)
-            `,
-            backgroundSize: '32px 32px'
-          }}
-        />
-
-        {/* 3. Soft Subtle Radial Gradient for Depth */}
-        <div 
-          className="absolute inset-0 opacity-[0.4]"
-          style={{ 
-            background: 'radial-gradient(circle at 50% 0%, #f8f9fb 0%, transparent 70%)'
-          }}
-        />
-      </div>
+    <section id="hackathon" className="py-24 px-6 relative overflow-hidden transition-colors duration-500" style={{ background: 'var(--bg-primary)' }}>
+      {/* Background Grids */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.05]" style={{ backgroundImage: "linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+      <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-indigo-500/5 blur-[120px] rounded-full" />
 
       <div className="max-w-[1200px] mx-auto relative z-10">
         
@@ -71,7 +47,7 @@ function Hackathon() {
             viewport={{ once: true }}
             className="flex flex-col items-start gap-4"
           >
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-[#0a0a0a]">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight transition-colors" style={{ color: 'var(--text-primary)' }}>
               🏆 Hackathons
             </h2>
             <p className="text-[#6b7280] text-lg font-medium max-w-2xl">
@@ -83,6 +59,7 @@ function Hackathon() {
               viewport={{ once: true }}
               transition={{ delay: 0.5, duration: 0.8 }}
               className="h-1 bg-[#0a0a0a] rounded-full"
+              style={{ background: 'var(--text-primary)' }}
             />
           </motion.div>
         </div>
@@ -96,7 +73,8 @@ function Hackathon() {
             viewport={{ once: true }}
             whileHover={{ y: -5 }}
             transition={{ duration: 0.6 }}
-            className="relative group bg-white border border-black/[0.06] rounded-[2.5rem] p-8 md:p-12 shadow-[0_10px_40px_rgba(0,0,0,0.06)] overflow-hidden"
+            className="relative group border border-black/[0.06] rounded-[2.5rem] p-8 md:p-12 shadow-[0_10px_40px_rgba(0,0,0,0.06)] overflow-hidden transition-colors duration-500"
+            style={{ background: isDark ? 'var(--bg-secondary)' : 'white' }}
           >
             <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-12 md:gap-20">
               
@@ -134,13 +112,13 @@ function Hackathon() {
               {/* Right Column: Content & Actions */}
               <div className="flex flex-col justify-between py-2">
                 <div>
-                  <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 bg-[#f3f4f6] rounded-full">
-                    <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#374151]">
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 bg-[#f3f4f6] rounded-full" style={{ background: isDark ? 'var(--bg-primary)' : '#f3f4f6' }}>
+                    <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#374151]" style={{ color: isDark ? 'var(--text-secondary)' : '#374151' }}>
                       {hackathon.theme}
                     </span>
                   </div>
 
-                  <h3 className="text-3xl md:text-4xl font-bold text-[#0a0a0a] mb-4 tracking-tight">
+                  <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight transition-colors" style={{ color: 'var(--text-primary)' }}>
                     {hackathon.name}
                   </h3>
                   <p className="text-[#6b7280] text-base mb-10 leading-relaxed font-medium">
@@ -166,8 +144,9 @@ function Hackathon() {
                       {hackathon.tags.map((tag) => (
                         <motion.span
                           key={tag}
-                          whileHover={{ scale: 1.03, background: '#e5e7eb' }}
+                          whileHover={{ scale: 1.03, background: isDark ? '#1f2937' : '#e5e7eb' }}
                           className="px-5 py-2.5 bg-[#f3f4f6] rounded-xl text-[13px] font-semibold text-[#374151] cursor-default transition-all"
+                          style={{ background: isDark ? 'var(--bg-primary)' : '#f3f4f6', color: isDark ? 'var(--text-secondary)' : '#374151' }}
                         >
                           {tag}
                         </motion.span>
@@ -184,9 +163,10 @@ function Hackathon() {
                     rel="noopener noreferrer"
                     data-magnetic="true"
                     data-cursor-text="Visit Site"
-                    whileHover={{ scale: 1.03, background: '#1a1a1a' }}
+                    whileHover={{ scale: 1.03, background: isDark ? '#4f46e5' : '#1a1a1a' }}
                     whileTap={{ scale: 0.98 }}
                     className="flex items-center gap-2 px-10 py-4 bg-[#0a0a0a] text-white rounded-2xl font-bold text-sm shadow-xl transition-all"
+                    style={{ background: isDark ? 'var(--accent-color)' : '#0a0a0a' }}
                   >
                     <ExternalLink size={18} />
                     Live Demo
@@ -198,9 +178,10 @@ function Hackathon() {
                     rel="noopener noreferrer"
                     data-magnetic="true"
                     data-cursor-text="GitHub"
-                    whileHover={{ scale: 1.03, background: '#fafafa' }}
+                    whileHover={{ scale: 1.03, background: isDark ? '#1f2937' : '#fafafa' }}
                     whileTap={{ scale: 0.98 }}
                     className="flex items-center gap-2 px-10 py-4 border border-[#e5e7eb] text-[#0a0a0a] rounded-2xl font-bold text-sm bg-transparent transition-all"
+                    style={{ borderColor: isDark ? 'var(--border)' : '#e5e7eb', color: 'var(--text-primary)' }}
                   >
                     <Github size={18} />
                     Source Code
@@ -215,6 +196,7 @@ function Hackathon() {
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.98 }}
                     className="flex items-center gap-2 px-10 py-4 border border-[#e5e7eb] text-[#6b7280] rounded-2xl font-bold text-sm hover:border-black/20 hover:text-black transition-all ml-auto lg:ml-0"
+                    style={{ borderColor: isDark ? 'var(--border)' : '#e5e7eb', color: isDark ? 'var(--text-secondary)' : '#6b7280' }}
                   >
                     <Trophy size={18} />
                     Certificate
@@ -235,11 +217,11 @@ function DetailSection({ icon, label, text }) {
     <div className="group/item">
       <div className="flex items-center gap-2 mb-2">
         {icon}
-        <h4 className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-500 group-hover/item:text-slate-300 transition-colors">
+        <h4 className="text-[10px] font-black uppercase tracking-[0.25em] transition-colors" style={{ color: 'var(--text-muted)' }}>
           {label}
         </h4>
       </div>
-      <p className="text-[13px] md:text-sm leading-relaxed text-slate-400 group-hover/item:text-slate-200 transition-colors">
+      <p className="text-[13px] md:text-sm leading-relaxed transition-colors" style={{ color: 'var(--text-secondary)' }}>
         {text}
       </p>
     </div>

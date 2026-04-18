@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import { ThemeProvider } from './context/ThemeProvider'
 import { BrowserRouter } from 'react-router-dom'
 import SplashLoader from './components/SplashLoader.jsx'
