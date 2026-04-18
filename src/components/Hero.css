@@ -1,0 +1,94 @@
+/* ── Premium Hero Background System ── */
+
+.hero-bg-container {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    #f8fafc 0%,
+    #eef2f7 50%,
+    #f8fafc 100%
+  ) !important;
+  overflow: hidden;
+  transition: background 0.5s ease;
+}
+
+/* Dark Mode Override for Premium Depth */
+.dark .hero-bg-container {
+  background: linear-gradient(
+    135deg,
+    #0f172a 0%,
+    #020617 50%,
+    #0f172a 100%
+  ) !important;
+}
+
+/* ✅ GRID OVERLAY */
+.hero-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.8;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.dark .hero-grid-overlay {
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+}
+
+/* ✅ RADIAL GLOW */
+.radial-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(
+    circle,
+    rgba(59,130,246,0.08),
+    transparent 70%
+  );
+  transform: translate(-50%, -50%);
+  filter: blur(80px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ✅ BLUR CIRCLES */
+.blur-circle {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: rgba(59,130,246,0.05);
+  border-radius: 50%;
+  filter: blur(100px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ✅ FLOATING PARTICLES */
+.floating-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: rgba(0,0,0,0.1);
+  border-radius: 50%;
+  animation: float-particle 8s infinite ease-in-out;
+  pointer-events: none;
+}
+
+.dark .floating-particle {
+  background: rgba(255,255,255,0.1);
+}
+
+@keyframes float-particle {
+  0% { transform: translateY(0px) translateX(0px); opacity: 0.3; }
+  33% { transform: translateY(-30px) translateX(10px); opacity: 0.6; }
+  66% { transform: translateY(-15px) translateX(-10px); opacity: 0.4; }
+  100% { transform: translateY(0px) translateX(0px); opacity: 0.3; }
+}

@@ -1,10 +1,11 @@
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 import { motion } from 'motion/react';
 import { ThemeContext } from '../context/ThemeContext';
 import { FileText, Mail, ArrowDown } from 'lucide-react';
 import { FaLinkedinIn, FaGithub, FaYoutube } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { SiLeetcode } from 'react-icons/si';
+import './Hero.css';
 
 export default function Hero() {
   const { isTransitioning } = useContext(ThemeContext);
@@ -21,46 +22,53 @@ export default function Hero() {
     { id: 5, name: 'LeetCode', icon: <SiLeetcode size={20} />, url: 'https://leetcode.com/u/Vedant_2403/' },
   ];
 
+  // Generate random particles for the Anti-Gravity effect
+  const particles = useMemo(() => {
+    return Array.from({ length: 15 }).map((_, i) => ({
+      id: i,
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      delay: `${Math.random() * 5}s`,
+      size: `${Math.random() * 4 + 2}px`
+    }));
+  }, []);
+
   return (
     <section
       id="home"
-      className="relative min-h-screen w-full flex flex-col overflow-x-clip transition-colors duration-500"
-      style={{ backgroundColor: 'var(--bg-primary)' }}
+      className="relative min-h-screen w-full flex flex-col overflow-x-clip transition-colors duration-500 hero-bg-container"
     >
-      {/* ── Cyber Neon Aura (Only in dark) ── */}
+      {/* ── Layered Background System ── */}
+      <div className="hero-grid-overlay" />
+      <div className="radial-glow" />
+      
+      {/* Blur Circles (Step 5) */}
+      <div className="blur-circle" style={{ top: '20%', left: '10%' }} />
+      <div className="blur-circle" style={{ bottom: '20%', right: '10%', background: 'rgba(99,102,241,0.04)' }} />
+
+      {/* Floating Anti-Gravity Particles (Step 4) */}
+      {particles.map((p) => (
+        <div 
+          key={p.id}
+          className="floating-particle"
+          style={{
+            left: p.left,
+            top: p.top,
+            width: p.size,
+            height: p.size,
+            animationDelay: p.delay
+          }}
+        />
+      ))}
+
+      {/* ── Cyber Neon Aura (Preserved for Dark Mode Depth) ── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-0 dark:opacity-100 transition-opacity duration-1000">
         <motion.div 
-          animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0], opacity: [0.15, 0.25, 0.15] }}
+          animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0], opacity: [0.1, 0.2, 0.1] }}
           transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-          className="absolute top-[-10%] right-[-10%] w-[70vw] h-[70vw] bg-indigo-600/30 blur-[150px] rounded-full" 
-        />
-        <motion.div 
-          animate={{ scale: [1.2, 1, 1.2], rotate: [0, -90, 0], opacity: [0.1, 0.2, 0.1] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-purple-600/20 blur-[150px] rounded-full" 
+          className="absolute top-[-10%] right-[-10%] w-[70vw] h-[70vw] bg-indigo-600/20 blur-[150px] rounded-full" 
         />
       </div>
-
-      {/* Decorative partial ring (Top Left) */}
-      <div className="absolute left-0 top-20 -translate-x-1/2 w-32 h-32 rounded-full border border-[var(--border)] opacity-40 pointer-events-none z-0" />
-
-      {/* ── Background Grid (Optimized Opacity) ── */}
-      <div
-        className="absolute inset-0 pointer-events-none z-0 opacity-10"
-        style={{
-          backgroundImage: `
-            linear-gradient(var(--border) 0.5px, transparent 0.5px),
-            linear-gradient(90deg, var(--border) 0.5px, transparent 0.5px)
-          `,
-          backgroundSize: '80px 80px',
-        }}
-      />
-
-      {/* ── Airy Mesh Aura (Matches Screenshot) ── */}
-      <div className="absolute inset-0 z-[1] pointer-events-none opacity-40" 
-           style={{ background: 'radial-gradient(circle at 50% 50%, rgba(200, 200, 200, 0.15) 0%, transparent 80%)' }} />
-      
-      <div className="absolute inset-0 z-[1] pointer-events-none bg-[radial-gradient(40%_40%_at_50%_50%,rgba(255,255,255,0.05)_0%,transparent_100%)]" />
 
 
       {/* ── Main Content Container ── */}
