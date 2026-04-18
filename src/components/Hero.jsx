@@ -59,7 +59,7 @@ export default function Hero() {
 
 
       {/* ── Main Content Container ── */}
-      <div className="relative z-10 max-w-[1200px] mx-auto w-full px-6 md:px-12 flex flex-col flex-1 py-10 md:py-20 justify-center min-h-screen">
+      <div className="relative z-10 max-w-[1200px] mx-auto w-full px-6 md:px-12 flex flex-col flex-1 pt-4 pb-10 md:py-20 justify-center min-h-screen">
 
         {/* ── Main Hero Layout ── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-[80px] items-center">
@@ -91,7 +91,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-                className="text-8xl md:text-[140px] font-black tracking-tighter leading-[0.85] relative z-10 mt-32 md:mt-60"
+                className="text-8xl md:text-[140px] font-black tracking-tighter leading-[0.85] relative z-10 mt-16 md:mt-60"
                 style={{ color: 'var(--text-primary)' }}
               >
                 Vedant
