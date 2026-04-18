@@ -53,13 +53,13 @@ function ProjectCard({ project, isFeatured = false }) {
       {/* Bottom Section: Primary Action Side-by-Side with Metadata Controls */}
       <div className="pt-8 flex items-center justify-between" style={{ borderTop: '1px solid var(--border)' }}>
         
-        {/* Main CTA: Text-Only Link */}
+        {/* Main CTA: Text-Only (Not a link) */}
         <div 
-          className="flex items-center gap-3 text-[11px] font-bold tracking-[0.25em] group/cta"
-          style={{ color: 'var(--text-primary)' }}
+          className="flex items-center gap-3 text-[11px] font-bold tracking-[0.25em]"
+          style={{ color: 'var(--text-primary)', cursor: 'default' }}
         >
           VIEW CASE STUDY
-          <ArrowRight size={14} className="transform group-hover/cta:translate-x-2 transition-transform duration-300" />
+          <ArrowRight size={14} />
         </div>
 
         {/* Ghost Icons Row */}
