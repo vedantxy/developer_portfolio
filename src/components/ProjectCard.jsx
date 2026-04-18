@@ -51,7 +51,7 @@ function ProjectCard({ project, isFeatured = false }) {
       </div>
 
       {/* Bottom Section: Primary Action Side-by-Side with Metadata Controls */}
-      <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-4" style={{ borderTop: '1px solid var(--border)' }}>
+      <div className="pt-8 flex items-center justify-between" style={{ borderTop: '1px solid var(--border)' }}>
         
         {/* Main CTA: Text-Only Link */}
         <a 
