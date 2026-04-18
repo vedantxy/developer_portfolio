@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Sitemap Location
-Sitemap: https://vedantpatel-portfolio.netlify.app/sitemap.xml
+Sitemap: https://portfolio-5o7s2occz-vedant-patels-projects-856b225a.vercel.app/sitemap.xml

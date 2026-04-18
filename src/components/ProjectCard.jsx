@@ -80,6 +80,7 @@ function ProjectCard({ project, isFeatured = false }) {
                 rel="noopener noreferrer"
                 className="transition-colors opacity-60 hover:opacity-100 hover:text-[var(--text-primary)]"
                 style={{ color: 'var(--text-muted)' }}
+                aria-label={label}
                 onClick={(e) => e.stopPropagation()}
               >
                 <Icon size={20} strokeWidth={2.5} />
