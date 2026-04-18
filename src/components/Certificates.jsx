@@ -58,13 +58,13 @@ function CertificateModal({ cert, isOpen, onClose }) {
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="p-8 md:p-10 pb-0 flex items-start justify-between">
-            <div className="flex items-center gap-6">
-              <div className="w-16 h-16 rounded-full flex items-center justify-center border shadow-sm" style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border)' }}>
-                <Award size={32} style={{ color: 'var(--accent)' }} />
+          <div className="p-6 md:p-10 pb-0 flex items-start justify-between">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-6">
+              <div className="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center border shadow-sm shrink-0" style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border)' }}>
+                <Award size={28} className="md:w-8 md:h-8" style={{ color: 'var(--accent)' }} />
               </div>
               <div>
-                <h2 className="text-3xl font-black mb-2 leading-tight" style={{ color: 'var(--text-primary)' }}>
+                <h2 className="text-2xl md:text-3xl font-black mb-2 leading-tight" style={{ color: 'var(--text-primary)' }}>
                   {cert.title}
                 </h2>
                 <div className="flex items-center gap-4 font-bold text-sm" style={{ color: 'var(--text-muted)' }}>
@@ -199,7 +199,7 @@ function Certificates() {
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            <h2 className="text-5xl md:text-7xl font-black tracking-tight mb-8" style={{ color: 'var(--text-primary)' }}>
+            <h2 className="font-black tracking-tight mb-8" style={{ color: 'var(--text-primary)', fontSize: 'clamp(40px, 8vw, 72px)' }}>
               Certificates
             </h2>
             <div className="h-px w-24 mx-auto" style={{ background: 'var(--gradient-line)', opacity: 0.3 }} />

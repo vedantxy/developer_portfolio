@@ -132,7 +132,7 @@ export default function Skills() {
           <div className="inline-block px-4 py-1.5 mb-6 rounded-full border" style={{ borderColor: 'var(--accent-30)', background: 'var(--accent-10)', backdropFilter: 'blur(10px)' }}>
              <span className="text-[10px] font-black tracking-[0.3em] uppercase" style={{ color: 'var(--accent)' }}>Technical Arsenal</span>
           </div>
-          <h2 className="text-5xl md:text-7xl font-black tracking-tight mb-6" style={{ color: 'var(--text-primary)' }}>
+          <h2 className="font-black tracking-tight mb-6" style={{ color: 'var(--text-primary)', fontSize: 'clamp(40px, 8vw, 72px)' }}>
             Skills & <br className="hidden md:block" />
             <span className="italic font-serif opacity-30">Expertise.</span>
           </h2>

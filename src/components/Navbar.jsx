@@ -118,13 +118,13 @@ function Navbar() {
           </motion.div>
 
           {/* ── Center Navigation (Stripe Style) ── */}
-          <div className="hidden lg:flex items-center gap-1 xl:gap-2 px-1.5 py-1.5 rounded-full border shadow-inner" style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border)' }}>
+          <div className="hidden xl:flex items-center gap-1 xl:gap-2 px-1.5 py-1.5 rounded-full border shadow-inner" style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border)' }}>
             {navItems.map((item) => (
               <Link
                 key={item}
                 to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
                 onClick={(e) => handleNavClick(e, item)}
-                className="relative px-4 py-2 text-[13px] font-bold tracking-tight transition-colors duration-300"
+                className="relative px-3 xl:px-4 py-2 text-[12px] xl:text-[13px] font-bold tracking-tight transition-colors duration-300"
                 style={{ color: activeItem === item ? 'var(--text-primary)' : 'var(--text-muted)' }}
               >
                 <span className="relative z-10">{item}</span>
@@ -140,6 +140,20 @@ function Navbar() {
                 <span className="absolute inset-0 rounded-full bg-[var(--accent-10)] opacity-0 hover:opacity-100 transition-opacity duration-300" />
               </Link>
             ))}
+          </div>
+
+          <div className="hidden lg:flex xl:hidden items-center gap-1 px-1 py-1 rounded-full border" style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border)' }}>
+             {['Home', 'About', 'Projects', 'Contact'].map((item) => (
+                <Link
+                  key={item}
+                  to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
+                  onClick={(e) => handleNavClick(e, item)}
+                  className="px-4 py-2 text-[12px] font-bold transition-colors"
+                  style={{ color: activeItem === item ? 'var(--text-primary)' : 'var(--text-muted)' }}
+                >
+                  {item}
+                </Link>
+             ))}
           </div>
 
           {/* ── Actions (Toggle + Hire) ── */}

@@ -59,26 +59,23 @@ export default function Hero() {
 
 
       {/* ── Main Content Container ── */}
-      <div className="relative z-10 max-w-[1200px] mx-auto w-full px-6 md:px-12 flex flex-col flex-1 py-10 md:py-20 justify-center min-h-screen">
+      <div className="relative z-10 max-w-[1440px] mx-auto w-full px-6 md:px-12 lg:px-24 flex flex-col flex-1 py-12 md:py-20 justify-center min-h-screen">
 
         {/* ── Main Hero Layout ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-[80px] items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           
           {/* LEFT: Text Content */}
           <div className="order-2 lg:order-1 flex flex-col items-center lg:items-start text-center lg:text-left">
             
-            {/* Location Tag */}
-
-
              {/* Heading Context */}
-            <div className="w-full relative mb-8">
+            <div className="w-full relative mb-6 md:mb-8">
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 0.1, x: 0 }}
                 transition={{ duration: 1.5, ease: "easeOut" }}
-                className="font-black leading-none tracking-tighter select-none pointer-events-none absolute top-0 -left-4 md:-left-8 uppercase whitespace-nowrap"
+                className="font-black leading-none tracking-tighter select-none pointer-events-none absolute top-0 -left-2 md:-left-8 uppercase whitespace-nowrap"
                 style={{ 
-                  fontSize: 'clamp(100px, 18vw, 280px)',
+                  fontSize: 'clamp(80px, 15vw, 240px)',
                   zIndex: -1,
                   color: 'var(--text-primary)'
                 }}
@@ -90,8 +87,11 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-                className="text-8xl md:text-[140px] font-black tracking-tighter leading-[0.85] relative z-10 mt-60"
-                style={{ color: 'var(--text-primary)' }}
+                className="font-black tracking-tighter leading-[0.85] relative z-10 mt-16 sm:mt-24 md:mt-32 lg:mt-40"
+                style={{ 
+                  color: 'var(--text-primary)',
+                  fontSize: 'clamp(80px, 12vw, 150px)'
+                }}
               >
                 Vedant
               </motion.h1>
@@ -104,20 +104,18 @@ export default function Hero() {
               transition={{ delay: 0.5, duration: 0.8 }}
               className="flex flex-col w-full"
             >
-              <h2 className="text-xl md:text-2xl font-medium tracking-tight mb-4" style={{ color: 'var(--text-secondary)' }}>
+              <h2 className="text-xl md:text-2xl lg:text-3xl font-medium tracking-tight mb-4" style={{ color: 'var(--text-secondary)' }}>
                 Full Stack Developer.
               </h2>
-              <p className="font-normal text-lg max-w-[500px] leading-relaxed mb-8 mx-auto lg:mx-0" style={{ color: 'var(--text-muted)' }}>
+              <p className="font-normal text-base md:text-lg max-w-[500px] leading-relaxed mb-8 mx-auto lg:mx-0" style={{ color: 'var(--text-muted)' }}>
                 I build modern, scalable and high-performance web applications.
               </p>
             </motion.div>
 
             {/* Social Icons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-              className="flex items-center justify-center lg:justify-start gap-4 mb-8"
+            <button
+               // Wrapping icons in a div to maintain original logic while ensuring wrap
+              className="flex items-center justify-center lg:justify-start gap-3 md:gap-4 mb-8 flex-wrap"
             >
               {socialLinks.map((link) => (
                 <motion.a
@@ -128,20 +126,20 @@ export default function Hero() {
                   data-magnetic="true"
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-12 h-12 rounded-full flex items-center justify-center bg-white border border-slate-100 text-slate-500 hover:text-slate-900 transition-all shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center bg-white border border-slate-100 text-slate-500 hover:text-slate-900 transition-all shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
                   aria-label={link.name}
                 >
                   {link.icon}
                 </motion.a>
               ))}
-            </motion.div>
+            </button>
 
             {/* CTA's */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9 }}
-              className="flex flex-row items-center justify-center lg:justify-start gap-4 w-full"
+              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 w-full"
             >
               <motion.button
                 whileHover={{ scale: 1.03 }}
@@ -149,7 +147,7 @@ export default function Hero() {
                 data-magnetic="true"
                 data-cursor-text="Resume"
                 onClick={() => window.open('https://drive.google.com/uc?export=download&id=1YFi7wZHKKj8DRVWcL4FBWq8gsH5BHpFS', '_blank')}
-                className="px-8 py-3.5 rounded-full bg-gradient-to-r from-blue-500 to-sky-400 text-white font-bold text-sm transition-all shadow-[0_8px_20px_rgba(59,130,246,0.25)] hover:shadow-[0_12px_24px_rgba(59,130,246,0.35)] flex items-center gap-2"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-gradient-to-r from-blue-500 to-sky-400 text-white font-bold text-sm transition-all shadow-[0_8px_20px_rgba(59,130,246,0.25)] hover:shadow-[0_12px_24px_rgba(59,130,246,0.35)] flex items-center justify-center gap-2"
               >
                 <FileText size={18} />
                 View Resume
@@ -160,7 +158,7 @@ export default function Hero() {
                 data-magnetic="true"
                 data-cursor-text="Contact"
                 onClick={() => handleScrollTo('contact')}
-                className="px-8 py-3.5 rounded-full border border-slate-200 text-slate-600 font-bold text-sm hover:border-slate-300 transition-colors bg-white/60 flex items-center gap-2"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-full border border-slate-200 text-slate-600 font-bold text-sm hover:border-slate-300 transition-colors bg-white/60 flex items-center justify-center gap-2"
               >
                 <Mail size={18} />
                 Contact Me
@@ -174,13 +172,13 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.4, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="order-1 lg:order-2 flex items-center justify-center lg:justify-end relative mt-0 lg:translate-x-48"
+            className="order-1 lg:order-2 flex items-center justify-center lg:justify-end relative mt-8 lg:mt-0 xl:translate-x-32"
           >
             {/* Outer Soft Glow */}
-            <div className="absolute w-[350px] h-[350px] md:w-[480px] md:h-[480px] rounded-full bg-blue-100/60 blur-[80px] z-0" />
+            <div className="absolute w-[280px] h-[280px] xs:w-[320px] xs:h-[320px] md:w-[480px] md:h-[480px] rounded-full bg-blue-100/60 blur-[80px] z-0" />
             
             {/* Image Container (Double Ring) */}
-            <div className="relative z-10 w-[320px] h-[320px] md:w-[420px] md:h-[420px] rounded-full p-2.5 bg-white/80 backdrop-blur-md border border-slate-200 shadow-[0_20px_60px_rgba(15,23,42,0.08)] flex items-center justify-center">
+            <div className="relative z-10 w-[260px] h-[260px] xs:w-[300px] xs:h-[300px] md:w-[420px] md:h-[420px] rounded-full p-2 bg-white/80 backdrop-blur-md border border-slate-200 shadow-[0_20px_60px_rgba(15,23,42,0.08)] flex items-center justify-center">
               <div className="w-full h-full rounded-full overflow-hidden border border-slate-100 relative group bg-white shadow-inner">
                 <img
                   src="/hero-photo.jpg"

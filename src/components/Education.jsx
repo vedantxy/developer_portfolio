@@ -17,7 +17,8 @@ function Education() {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="edu-script text-6xl mb-2 header-blue-grey"
+            className="edu-script mb-2 header-blue-grey"
+            style={{ fontSize: 'clamp(40px, 8vw, 60px)' }}
           >
             Education
           </motion.p>

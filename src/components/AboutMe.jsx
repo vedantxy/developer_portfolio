@@ -30,7 +30,7 @@ const TypewriterLine = ({ children, delay }) => (
     whileInView={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)" }}
     viewport={{ once: true }}
     transition={{ duration: 0.5, delay, ease: "linear" }}
-    className="whitespace-pre overflow-hidden"
+    className="whitespace-pre-wrap break-words overflow-hidden"
   >
     {children}
   </motion.div>
@@ -77,7 +77,7 @@ function AboutMe() {
       id="about"
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className={`min-h-screen py-32 px-8 md:px-16 lg:px-24 xl:px-32 relative overflow-hidden transition-colors duration-500 card-theme-animation flex items-center ${isTransitioning ? 'theme-transition-tilt' : ''}`}
+      className={`min-h-screen py-24 px-6 sm:px-12 md:px-16 lg:px-24 xl:px-32 relative overflow-hidden transition-colors duration-500 card-theme-animation flex items-center ${isTransitioning ? 'theme-transition-tilt' : ''}`}
       style={{ background: 'transparent' }}
     >
       {/* Subtle mouse parallax background glow */}
@@ -112,8 +112,8 @@ function AboutMe() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] mb-12 tracking-tight" 
-            style={{ color: 'var(--text-primary)' }}
+            className="font-black leading-[1.05] mb-10 tracking-tight" 
+            style={{ color: 'var(--text-primary)', fontSize: 'clamp(36px, 8vw, 72px)' }}
           >
             More Than <br className="hidden lg:block"/> Just Code.
           </motion.h2>

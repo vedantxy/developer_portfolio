@@ -156,7 +156,7 @@ function Projects() {
         {/* Newspaper Editorial Header */}
         <div className="mb-10 pb-8 flex flex-col md:flex-row justify-between items-end gap-8" style={{ borderBottom: '2px solid var(--text-primary)' }}>
            <div className="flex flex-col">
-             <h2 className="text-5xl md:text-7xl font-serif tracking-tighter leading-none italic font-black" style={{ color: 'var(--text-primary)' }}>
+             <h2 className="font-serif tracking-tighter leading-none italic font-black" style={{ color: 'var(--text-primary)', fontSize: 'clamp(40px, 8vw, 72px)' }}>
                Projects
              </h2>
            </div>
