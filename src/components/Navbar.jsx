@@ -1,6 +1,7 @@
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import { useState, useEffect } from 'react';
 import { Menu, X, ArrowRight } from 'lucide-react';
+import { useNavigate, Link } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
 import { useTheme } from '../hooks/useTheme';
 
@@ -8,6 +9,7 @@ function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeItem, setActiveItem] = useState('Home');
   const { scrollY } = useScroll();
+  const navigate = useNavigate();
 
   // Dynamic transforms for premium feel
   const { theme } = useTheme();
@@ -25,7 +27,8 @@ function Navbar() {
       // Modern active section detection
       const scrollPos = window.scrollY + 100;
       for (const item of navItems) {
-        const section = document.getElementById(item.toLowerCase());
+        const id = item === 'Home' ? 'home' : item.toLowerCase();
+        const section = document.getElementById(id);
         if (section) {
           const top = section.offsetTop;
           const height = section.offsetHeight;
@@ -42,19 +45,11 @@ function Navbar() {
 
   const handleNavClick = (e, item) => {
     e.preventDefault();
-    const section = document.getElementById(item.toLowerCase());
-    if (section) {
-      const offset = 80;
-      const elementPosition = section.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-      if (isMobileMenuOpen) setIsMobileMenuOpen(false);
-      
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
-    }
+    const route = item === 'Home' ? '/' : `/${item.toLowerCase()}`;
+    
+    if (isMobileMenuOpen) setIsMobileMenuOpen(false);
+    
+    navigate(route);
   };
 
   return (
@@ -125,9 +120,9 @@ function Navbar() {
           {/* ── Center Navigation (Stripe Style) ── */}
           <div className="hidden lg:flex items-center gap-1 xl:gap-2 px-1.5 py-1.5 rounded-full border shadow-inner" style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border)' }}>
             {navItems.map((item) => (
-              <motion.a
+              <Link
                 key={item}
-                href={`#${item.toLowerCase()}`}
+                to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
                 onClick={(e) => handleNavClick(e, item)}
                 className="relative px-4 py-2 text-[13px] font-bold tracking-tight transition-colors duration-300"
                 style={{ color: activeItem === item ? 'var(--text-primary)' : 'var(--text-muted)' }}
@@ -143,7 +138,7 @@ function Navbar() {
                 )}
                 {/* Hover Indicator */}
                 <span className="absolute inset-0 rounded-full bg-[var(--accent-10)] opacity-0 hover:opacity-100 transition-opacity duration-300" />
-              </motion.a>
+              </Link>
             ))}
           </div>
 
@@ -208,12 +203,9 @@ function Navbar() {
             >
               <div className="grid grid-cols-2 gap-3">
                 {navItems.map((item, idx) => (
-                  <motion.a
+                  <Link
                     key={item}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.03 }}
-                    href={`#${item.toLowerCase()}`}
+                    to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
                     onClick={(e) => handleNavClick(e, item)}
                     className="flex items-center justify-between p-4 rounded-2xl border transition-all"
                     style={{ 
@@ -224,7 +216,7 @@ function Navbar() {
                   >
                     <span className="font-bold text-sm uppercase tracking-widest">{item}</span>
                     <ArrowRight size={14} className={activeItem === item ? 'opacity-100' : 'opacity-20'} />
-                  </motion.a>
+                  </Link>
                 ))}
               </div>
               <motion.button

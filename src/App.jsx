@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef, useMemo } from 'react';
 import { tsParticles } from '@tsparticles/engine';
 import { loadSlim } from '@tsparticles/slim';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero.jsx';
 import Projects from './components/Projects.jsx';
@@ -10,6 +11,7 @@ import Education from './components/Education.jsx';
 import Skills from './components/Skills.jsx';
 import Contact from './components/Contact.jsx';
 import AnalyticsTracker from './components/AnalyticsTracker.jsx';
+import SEO from './components/SEO.jsx';
 
 import Hackathon from './components/Hackathon.jsx';
 import Achievements from './components/Achievements.jsx';
@@ -68,12 +70,42 @@ const getParticleOptions = (theme) => {
   };
 };
 
-
 import EntrySequence from './components/EntrySequence.jsx';
+
+const MainContent = ({ sectionFocus }) => {
+  useEffect(() => {
+    if (sectionFocus) {
+      const element = document.getElementById(sectionFocus);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 500); // Give time for entry sequence
+      }
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [sectionFocus]);
+
+  return (
+    <>
+      <Hero />
+      <AboutMe />
+      <Skills />
+      <Achievements />
+      <Hackathon />
+      <Projects />
+      <Education />
+      <Certificates />
+      <Resume />
+      <Contact />
+    </>
+  );
+};
 
 function App() {
   const particlesContainerRef = useRef(null);
   const { theme } = useContext(ThemeContext);
+  const location = useLocation();
 
   const particlesOptions = useMemo(() => getParticleOptions(theme), [theme]);
 
@@ -118,18 +150,18 @@ function App() {
         <ThemeTransitionOverlay />
         <Navbar />
 
-        {/* Page sections */}
-        <Hero />
-        <AboutMe />
-        <Skills />
-        <Achievements />
-        <Hackathon />
-        <Projects />
-        <Education />
-        <Certificates />
-        <Resume />
-        <Contact />
-
+        <Routes>
+          <Route path="/" element={<><SEO /><MainContent /></>} />
+          <Route path="/about" element={<><SEO title="About Me" description="Learn more about Vedant Patel's journey as a developer." /><MainContent sectionFocus="about" /></>} />
+          <Route path="/skills" element={<><SEO title="Skills & Expertise" description="Technical skills and professional expertise of Vedant Patel." /><MainContent sectionFocus="skills" /></>} />
+          <Route path="/projects" element={<><SEO title="Projects" description="Explore the professional work and innovative projects by Vedant Patel." /><MainContent sectionFocus="projects" /></>} />
+          <Route path="/education" element={<><SEO title="Education" description="Academic background and educational journey of Vedant Patel." /><MainContent sectionFocus="education" /></>} />
+          <Route path="/certificates" element={<><SEO title="Certificates" description="Verified certifications and achievements of Vedant Patel." /><MainContent sectionFocus="certificates" /></>} />
+          <Route path="/hackathon" element={<><SEO title="Hackathons" description="Hackathon participation and awards won by Vedant Patel." /><MainContent sectionFocus="hackathon" /></>} />
+          <Route path="/achievements" element={<><SEO title="Achievements" description="Significant milestones and professional achievements of Vedant Patel." /><MainContent sectionFocus="achievements" /></>} />
+          <Route path="/resume" element={<><SEO title="Resume" description="View and download the professional resume of Vedant Patel." /><MainContent sectionFocus="resume" /></>} />
+          <Route path="/contact" element={<><SEO title="Contact" description="Get in touch with Vedant Patel for collaborations or inquiries." /><MainContent sectionFocus="contact" /></>} />
+        </Routes>
 
       </div>
     </EntrySequence>
