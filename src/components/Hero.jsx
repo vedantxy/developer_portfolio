@@ -44,24 +44,23 @@ export default function Hero() {
       {/* Decorative partial ring (Top Left) */}
       <div className="absolute left-0 top-20 -translate-x-1/2 w-32 h-32 rounded-full border border-[var(--border)] opacity-40 pointer-events-none z-0" />
 
-      {/* ── Background Grid ── */}
+      {/* ── Background Grid (Optimized Opacity) ── */}
       <div
         className="absolute inset-0 pointer-events-none z-0 opacity-10"
         style={{
           backgroundImage: `
-            linear-gradient(var(--border) 1px, transparent 1px),
-            linear-gradient(90deg, var(--border) 1px, transparent 1px)
+            linear-gradient(var(--border) 0.5px, transparent 0.5px),
+            linear-gradient(90deg, var(--border) 0.5px, transparent 0.5px)
           `,
-          backgroundSize: '96px 96px',
+          backgroundSize: '80px 80px',
         }}
       />
 
-      {/* ── Gray Opacity Overlay (Premium Depth) ── */}
-      <div className="absolute inset-0 z-[1] pointer-events-none opacity-40 dark:opacity-60" 
-           style={{ background: 'radial-gradient(circle at center, transparent 0%, var(--bg-primary) 100%)' }} />
+      {/* ── Airy Mesh Aura (Matches Screenshot) ── */}
+      <div className="absolute inset-0 z-[1] pointer-events-none opacity-40" 
+           style={{ background: 'radial-gradient(circle at 50% 50%, rgba(200, 200, 200, 0.15) 0%, transparent 80%)' }} />
       
-      <div className="absolute inset-0 z-[1] pointer-events-none mix-blend-overlay opacity-20 bg-slate-500/10" />
-
+      <div className="absolute inset-0 z-[1] pointer-events-none bg-[radial-gradient(40%_40%_at_50%_50%,rgba(255,255,255,0.05)_0%,transparent_100%)]" />
 
 
       {/* ── Main Content Container ── */}
@@ -80,7 +79,7 @@ export default function Hero() {
             <div className="w-full relative mb-8">
               <motion.div
                 initial={{ opacity: 0, x: "-50%", y: 20 }}
-                animate={{ opacity: 0.1, x: "-50%", y: 0 }}
+                animate={{ opacity: 0.05, x: "-50%", y: 0 }}
                 transition={{ duration: 1.5, ease: "easeOut" }}
                 className="font-black leading-none tracking-tighter select-none pointer-events-none absolute top-0 left-1/2 uppercase whitespace-nowrap"
                 style={{ 
