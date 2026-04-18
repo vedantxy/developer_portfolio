@@ -5,7 +5,6 @@ import { FileText, Mail, ArrowDown } from 'lucide-react';
 import { FaLinkedinIn, FaGithub, FaYoutube } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { SiLeetcode } from 'react-icons/si';
-import profilePhoto from '../assets/Web_Photo_Editor.jpg';
 
 export default function Hero() {
   const { isTransitioning } = useContext(ThemeContext);
@@ -184,8 +183,9 @@ export default function Hero() {
             <div className="relative z-10 w-[320px] h-[320px] md:w-[420px] md:h-[420px] rounded-full p-2.5 bg-white/80 backdrop-blur-md border border-slate-200 shadow-[0_20px_60px_rgba(15,23,42,0.08)] flex items-center justify-center">
               <div className="w-full h-full rounded-full overflow-hidden border border-slate-100 relative group bg-white shadow-inner">
                 <img
-                  src={profilePhoto}
+                  src="/hero-photo.jpg"
                   alt="Vedant Patel"
+                  fetchPriority="high"
                   className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 transition-transform duration-700 hover:scale-105"
                 />
               </div>

@@ -13,9 +13,9 @@ const Loader = ({ onComplete }) => {
           setTimeout(onComplete, 500);
           return 100;
         }
-        return prev + 2;
+        return prev + 5;
       });
-    }, 30);
+    }, 15);
     return () => clearInterval(interval);
   }, [onComplete]);
 
@@ -50,7 +50,7 @@ const IdentityReveal = ({ onComplete }) => {
   const role = "Full Stack Developer";
 
   useEffect(() => {
-    const timer = setTimeout(onComplete, 2500);
+    const timer = setTimeout(onComplete, 1200);
     return () => clearTimeout(timer);
   }, [onComplete]);
 
