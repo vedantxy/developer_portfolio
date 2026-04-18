@@ -91,7 +91,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-                className="text-8xl md:text-[140px] font-black tracking-tighter leading-[0.85] relative z-10 mt-60"
+                className="text-8xl md:text-[140px] font-black tracking-tighter leading-[0.85] relative z-10 mt-32 md:mt-60"
                 style={{ color: 'var(--text-primary)' }}
               >
                 Vedant
