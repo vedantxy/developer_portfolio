@@ -8,7 +8,7 @@
 
 A fully responsive, interactive, and animated portfolio website built with **React + Vite**. Showcasing skills, projects, and experience with smooth animations, dynamic visuals, and a modern design aesthetic.
 
-🔗 **Live Demo**: [developer-portfolio-lilac-six.vercel.app](https://developer-portfolio-lilac-six.vercel.app)
+🔗 **Live Demo**: [developer-portfolio-lilac-six.vercel.app](https://vedant-patel-developerportfolio.vercel.app/)
 
 ---
 
