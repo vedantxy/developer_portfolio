@@ -44,6 +44,14 @@ export default function Hero() {
       {/* Decorative partial ring (Top Left) */}
       <div className="absolute left-0 top-20 -translate-x-1/2 w-32 h-32 rounded-full border border-[var(--border)] opacity-40 pointer-events-none z-0" />
 
+      {/* ── Gray Opacity Overlay (Premium Tint) ── */}
+      <div 
+        className="absolute inset-0 z-[1] pointer-events-none" 
+        style={{ 
+          background: 'radial-gradient(circle at center, rgba(148, 163, 184, 0.05) 0%, rgba(15, 23, 42, 0.2) 100%)' 
+        }} 
+      />
+
       {/* ── Background Grid ── */}
       <div
         className="absolute inset-0 pointer-events-none z-0 opacity-10"
@@ -59,7 +67,7 @@ export default function Hero() {
 
 
       {/* ── Main Content Container ── */}
-      <div className="relative z-10 max-w-[1200px] mx-auto w-full px-6 md:px-12 flex flex-col flex-1 pt-4 pb-10 md:py-20 justify-center min-h-screen">
+      <div className="relative z-10 max-w-[1200px] mx-auto w-full px-6 md:px-12 flex flex-col flex-1 py-10 md:py-20 justify-center min-h-screen">
 
         {/* ── Main Hero Layout ── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-[80px] items-center">
@@ -91,7 +99,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-                className="text-8xl md:text-[140px] font-black tracking-tighter leading-[0.85] relative z-10 mt-16 md:mt-60 mb-10 md:mb-0"
+                className="text-8xl md:text-[140px] font-black tracking-tighter leading-[0.85] relative z-10 mt-60"
                 style={{ color: 'var(--text-primary)' }}
               >
                 Vedant
