@@ -44,14 +44,6 @@ export default function Hero() {
       {/* Decorative partial ring (Top Left) */}
       <div className="absolute left-0 top-20 -translate-x-1/2 w-32 h-32 rounded-full border border-[var(--border)] opacity-40 pointer-events-none z-0" />
 
-      {/* ── Gray Opacity Overlay (Premium Tint) ── */}
-      <div 
-        className="absolute inset-0 z-[1] pointer-events-none" 
-        style={{ 
-          background: 'radial-gradient(circle at center, rgba(148, 163, 184, 0.05) 0%, rgba(15, 23, 42, 0.2) 100%)' 
-        }} 
-      />
-
       {/* ── Background Grid ── */}
       <div
         className="absolute inset-0 pointer-events-none z-0 opacity-10"
@@ -63,6 +55,12 @@ export default function Hero() {
           backgroundSize: '96px 96px',
         }}
       />
+
+      {/* ── Gray Opacity Overlay (Premium Depth) ── */}
+      <div className="absolute inset-0 z-[1] pointer-events-none opacity-40 dark:opacity-60" 
+           style={{ background: 'radial-gradient(circle at center, transparent 0%, var(--bg-primary) 100%)' }} />
+      
+      <div className="absolute inset-0 z-[1] pointer-events-none mix-blend-overlay opacity-20 bg-slate-500/10" />
 
 
 
