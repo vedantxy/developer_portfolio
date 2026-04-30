@@ -19,8 +19,8 @@ function CoreOrb() {
     <group>
       {/* Outer icosahedron */}
       <mesh ref={outer}>
-        <icosahedronGeometry args={[1.6, 1]} />
-        <meshBasicMaterial color="#ffffff" wireframe transparent opacity={0.55} />
+        <icosahedronGeometry args={[1.8, 2]} />
+        <meshBasicMaterial color="#6366f1" wireframe transparent opacity={0.4} />
       </mesh>
       {/* Inner octahedron */}
       <mesh ref={inner}>
@@ -56,8 +56,8 @@ function OrbitRing({ radius = 2.5, speed = 0.3, tilt = Math.PI / 4, opacity = 0.
       <group ref={dotsRef}>
         {dotAngles.map((angle, i) => (
           <mesh key={i} position={[Math.cos(angle) * radius, Math.sin(angle) * radius * Math.sin(tilt), Math.sin(angle) * radius * Math.cos(tilt)]}>
-            <sphereGeometry args={[0.04, 8, 8]} />
-            <meshBasicMaterial color="#ffffff" transparent opacity={0.9} />
+            <sphereGeometry args={[0.03, 12, 12]} />
+            <meshBasicMaterial color="#818cf8" transparent opacity={0.8} />
           </mesh>
         ))}
       </group>
@@ -140,10 +140,10 @@ function HeroThreeScene() {
 
       <MouseTracker>
         <CoreOrb />
-        <OrbitRing radius={2.4} speed={0.28}   tilt={Math.PI / 5}   opacity={0.18} dotCount={1} />
-        <OrbitRing radius={3.0} speed={-0.18}  tilt={Math.PI / 2.5} opacity={0.13} dotCount={2} />
-        <OrbitRing radius={2.0} speed={0.38}   tilt={Math.PI / 7}   opacity={0.10} dotCount={3} />
-        <StarField count={350} />
+        <OrbitRing radius={2.2} speed={0.25}   tilt={Math.PI / 6}   opacity={0.2} dotCount={1} />
+        <OrbitRing radius={3.2} speed={-0.15}  tilt={Math.PI / 3}   opacity={0.15} dotCount={2} />
+        <OrbitRing radius={1.8} speed={0.4}    tilt={Math.PI / 8}   opacity={0.1} dotCount={3} />
+        <StarField count={450} />
       </MouseTracker>
     </Canvas>
   );

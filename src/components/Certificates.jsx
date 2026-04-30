@@ -155,18 +155,9 @@ function CertificateModal({ cert, isOpen, onClose }) {
 function Certificates() {
   const [selectedCert, setSelectedCert] = useState(null);
 
-  const bgCircles = useMemo(() => (
-    <div className="absolute inset-0 pointer-events-none opacity-[0.05] overflow-hidden">
-      <div className="absolute inset-0" style={{ 
-        backgroundImage: 'radial-gradient(#000 1.5px, transparent 1.5px)', 
-        backgroundSize: '40px 40px' 
-      }} />
-    </div>
-  ), []);
-
   return (
-    <section id="certificates" className="pt-16 pb-24 md:pt-20 md:pb-40 px-6 relative overflow-hidden transition-colors duration-500" style={{ background: 'var(--bg-primary)' }}>
-      {bgCircles}
+    <section id="certificates" className="pt-24 pb-32 md:pt-32 md:pb-48 px-6 relative overflow-hidden transition-colors duration-500" style={{ background: 'transparent' }}>
+      {/* Background system handles global patterns */}
       
       <div className="max-w-7xl mx-auto relative z-10">
         

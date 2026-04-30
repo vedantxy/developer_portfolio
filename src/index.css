@@ -8,27 +8,30 @@
 
 :root,
 html.light {
-  --bg-primary:     #f8fafc; /* Premium Light Slate */
-  --bg-secondary:   #ffffff; 
+  --bg-primary:     #f8fafc; 
+  --bg-secondary:   #eef2ff; /* Soft bluish/purple tint */
+  --bg-system-gradient: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
   --bg-card:        #ffffff;
   --bg-card-hover:  #f1f5f9;
-  --border:         rgba(226, 232, 240, 0.6); /* Slate border */
-  --border-glow:    rgba(51, 65, 85, 0.1); 
-  --text-primary:   #0f172a; /* Deep Navy text */
-  --text-secondary: #475569; /* Slate text */
-  --text-muted:     #94a3b8; /* Muted text */
-  --accent:         #6366f1; /* Indigo accent */
+  --border:         rgba(226, 232, 240, 0.6); 
+  --border-glow:    rgba(99, 102, 241, 0.1); 
+  --text-primary:   #0f172a; 
+  --text-secondary: #475569; 
+  --text-muted:     #94a3b8; 
+  --accent:         #6366f1; 
   --accent-inv:     #ffffff;
   --accent-10:      rgba(99, 102, 241, 0.08);
   --accent-20:      rgba(99, 102, 241, 0.12);
   --accent-30:      rgba(99, 102, 241, 0.18);
   --glow:           0 8px 30px rgba(15, 23, 42, 0.04);
   --glow-hover:     0 20px 40px rgba(15, 23, 42, 0.08);
-  --glass-bg:       rgba(255, 255, 255, 0.75);
-  --glass-border:   rgba(226, 232, 240, 0.5);
-  --nav-bg:         rgba(248, 250, 252, 0.88);
+  --glass-bg:       rgba(255, 255, 255, 0.7);
+  --glass-border:   rgba(226, 232, 240, 0.4);
+  --nav-bg:         rgba(248, 250, 252, 0.85);
   --section-alt:    #f1f5f9;
-  --gradient-line:  linear-gradient(90deg, transparent, rgba(51, 65, 85, 0.15), transparent);
+  --blob-blue:      #3B82F6;
+  --blob-purple:    #8B5CF6;
+  --particle-color: #6366f1;
 }
 
 /* ── STRONG NIGHT (Cyber Premium) ── */
@@ -53,6 +56,10 @@ html.dark {
   --glass-border:   rgba(99, 102, 241, 0.3);
   --nav-bg:         rgba(0, 0, 0, 0.92);
   --section-alt:    #050505;
+  --bg-system-gradient: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
+  --blob-blue:      #1e40af; /* Deeper blue for dark mode */
+  --blob-purple:    #5b21b6; /* Deeper purple for dark mode */
+  --particle-color: #818cf8;
   --gradient-line:  linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.5), transparent);
 }
 
@@ -258,6 +265,30 @@ html.neon .space-card:hover {
   0%   { transform: scale(1); opacity: 0.4; }
   50%  { transform: scale(1.05); opacity: 0.15; }
   100% { transform: scale(1); opacity: 0.4; }
+}
+
+@keyframes scan-line {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100vh); }
+}
+
+.animate-scan-line {
+  animation: scan-line 8s linear infinite;
+}
+
+.bg-system-gradient {
+  background: var(--bg-system-gradient);
+}
+
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, var(--text-primary) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--text-primary) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+.noise-bg {
+  background-image: url('https://grainy-gradients.vercel.app/noise.svg');
 }
 
 .float-card      { animation: float-y 5s ease-in-out infinite; }

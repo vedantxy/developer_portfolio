@@ -34,21 +34,11 @@ html.dark .education-section {
 }
 
 .education-section {
-  background-color: var(--edu-bg);
-  background-image: 
-    linear-gradient(var(--edu-grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--edu-grid) 1px, transparent 1px);
-  background-size: 40px 40px;
+  background-color: transparent;
   position: relative;
 }
 
-.education-section::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 50%, transparent 0%, var(--edu-bg) 80%);
-  pointer-events: none;
-}
+/* Local background elements removed to use BackgroundSystem */
 
 /* Typography */
 .edu-script {

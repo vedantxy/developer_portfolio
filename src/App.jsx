@@ -21,6 +21,7 @@ const Resume = lazy(() => import('./components/Resume.jsx'));
 import { ThemeContext } from './context/ThemeContext';
 import ThemeTransitionOverlay from './components/ThemeTransitionOverlay';
 import CustomCursor from './components/CustomCursor.jsx';
+import BackgroundSystem from './components/BackgroundSystem.jsx';
 
 // Monochrome Gray+White particle configs per theme
 const getParticleOptions = (theme) => {
@@ -138,8 +139,8 @@ function App() {
     <EntrySequence>
       <div
         className="relative min-h-screen w-full"
-        style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }}
       >
+        <BackgroundSystem />
         <CustomCursor />
 
         {/* Particle background */}

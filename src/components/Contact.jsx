@@ -90,10 +90,8 @@ function Contact() {
   ];
 
   return (
-    <section id="contact" className="contact-section pt-16 pb-8 px-6 md:px-12 transition-colors duration-500" style={{ background: 'var(--bg-primary)' }}>
-      <div className="contact-grid" />
-      <div className="contact-blob top-[-10%] right-[-10%]" />
-      <div className="contact-blob bottom-[-10%] left-[-10%]" style={{ background: 'radial-gradient(circle, var(--accent-10) 0%, transparent 70%)' }} />
+    <section id="contact" className="contact-section pt-32 pb-16 px-6 md:px-12 transition-colors duration-500" style={{ background: 'transparent' }}>
+      {/* Local background elements removed to use BackgroundSystem */}
 
       <div className="max-w-[1000px] mx-auto relative z-10">
         
@@ -132,7 +130,7 @@ function Contact() {
             <div>
               <h3 className="text-3xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>Get in touch</h3>
               <p className="leading-[1.8] max-w-md" style={{ color: 'var(--text-secondary)' }}>
-                I'm always open to discussing new projects, creative ideas or original opportunities to be part of your visions.
+                I&apos;m always open to discussing new projects, creative ideas or original opportunities to be part of your visions.
               </p>
             </div>
 
@@ -217,7 +215,7 @@ function Contact() {
         <div className="mt-16 pt-8 border-t text-center" style={{ borderColor: 'var(--border)' }}>
 
           <p className="contact-script text-[20px] md:text-[24px] mb-8 max-w-2xl mx-auto leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-            "I'm Vedant — not just a developer, but a builder, a thinker, and a curious learner. Thanks for flipping through my pages."
+            &quot;I&apos;m Vedant — not just a developer, but a builder, a thinker, and a curious learner. Thanks for flipping through my pages.&quot;
           </p>
           
           <div className="flex justify-center gap-5 mb-6">

@@ -149,7 +149,7 @@ function Projects() {
   const filtered = PROJECTS_DATA.filter((p) => p.category === activeCategory);
 
   return (
-    <section id="projects" className="py-16 px-6 md:px-12 lg:px-24 transition-colors duration-500 overflow-hidden" style={{ background: 'var(--bg-primary)', borderTop: '1px solid var(--border)' }}>
+    <section id="projects" className="py-24 px-6 md:px-12 lg:px-24 transition-colors duration-500 overflow-hidden" style={{ background: 'transparent' }}>
       
       <div className="max-w-[1400px] mx-auto">
         
@@ -186,8 +186,8 @@ function Projects() {
 
         {/* The Grid: Newspaper Style with Visible Borders */}
         <div className="flex flex-col">
-          <AnimatePresence mode="popLayout">
-            <div className="grid grid-cols-6" style={{ borderLeft: '1px solid var(--border)', borderTop: '1px solid var(--border)' }}>
+          <div className="grid grid-cols-6" style={{ borderLeft: '1px solid var(--border)', borderTop: '1px solid var(--border)' }}>
+            <AnimatePresence mode="popLayout">
               {filtered.map((project, idx) => {
                 // Feature Logic: 2 Large (50%), then 3 Regular (33%)
                 const isFeatured = idx < 2;
@@ -196,13 +196,22 @@ function Projects() {
                   : "col-span-6 md:col-span-3 lg:col-span-2"; // 33% Desktop
 
                 return (
-                  <div key={project.id} className={`${gridClass} group/item transition-colors duration-500`} style={{ borderRight: '1px solid var(--border)', borderBottom: '1px solid var(--border)', background: 'var(--bg-primary)' }}>
+                  <motion.div
+                    layout
+                    key={project.id}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.4 }}
+                    className={`${gridClass} group/item transition-colors duration-500`}
+                    style={{ borderRight: '1px solid var(--border)', borderBottom: '1px solid var(--border)', background: 'var(--bg-primary)' }}
+                  >
                     <ProjectCard project={project} isFeatured={isFeatured} />
-                  </div>
+                  </motion.div>
                 );
               })}
-            </div>
-          </AnimatePresence>
+            </AnimatePresence>
+          </div>
         </div>
 
       </div>

@@ -202,7 +202,7 @@ function Navbar() {
               style={{ background: 'var(--glass-bg)', borderColor: 'var(--border)' }}
             >
               <div className="grid grid-cols-2 gap-3">
-                {navItems.map((item, idx) => (
+                {navItems.map((item) => (
                   <Link
                     key={item}
                     to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}

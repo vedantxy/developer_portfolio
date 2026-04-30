@@ -77,20 +77,10 @@ function AboutMe() {
       id="about"
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className={`min-h-screen py-32 px-8 md:px-16 lg:px-24 xl:px-32 relative overflow-hidden transition-colors duration-500 card-theme-animation flex items-center ${isTransitioning ? 'theme-transition-tilt' : ''}`}
+      className={`min-h-screen py-32 px-8 md:px-16 lg:px-24 xl:px-32 relative overflow-hidden transition-colors duration-500 flex items-center ${isTransitioning ? 'theme-transition-tilt' : ''}`}
       style={{ background: 'transparent' }}
     >
-      {/* Subtle mouse parallax background glow */}
-      <motion.div
-        className="absolute pointer-events-none blur-[120px] z-0"
-        style={{
-          width: '600px', height: '600px', borderRadius: '50%',
-          background: 'var(--accent-10)',
-          left: springX, top: springY,
-          transform: 'translate(-50%, -50%)',
-          opacity: 0.6,
-        }}
-      />
+      {/* Background system handles global patterns */}
 
       <div className="max-w-[1400px] w-full mx-auto relative z-10 flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-12 xl:gap-20">
         
