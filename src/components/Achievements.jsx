@@ -190,24 +190,9 @@ function Achievements() {
   const isDark = theme === 'dark';
 
   return (
-    <section id="achievements" className="pt-32 pb-16 px-6 md:px-12 lg:px-24 relative overflow-hidden transition-colors duration-500" style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
+    <section id="achievements" className="pt-16 pb-8 md:pt-32 md:pb-16 px-6 md:px-12 lg:px-24 relative overflow-hidden transition-colors duration-500" style={{ background: 'transparent', color: 'var(--text-primary)' }}>
       
-      {/* ── High-End Studio Background ── */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Noise Texture (Inline SVG for reliability) */}
-        <div 
-          className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none" 
-          style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
-        />
-        <div className="absolute top-[-10%] left-[-5%] w-[60%] h-[60%] bg-gradient-to-br from-[var(--text-primary)]/[0.02] to-transparent blur-[120px] rounded-full" />
-        <div 
-          className="absolute inset-0 opacity-[0.05]" 
-          style={{ 
-            backgroundImage: `linear-gradient(var(--text-primary) 1px, transparent 1px), linear-gradient(90deg, var(--text-primary) 1px, transparent 1px)`, 
-            backgroundSize: '100px 100px' 
-          }} 
-        />
-      </div>
+      {/* Global BackgroundSystem handles the background visuals */}
 
       <div className="max-w-[1400px] mx-auto relative z-10">
         

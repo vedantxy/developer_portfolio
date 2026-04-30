@@ -8,8 +8,10 @@ function Scene() {
   const groupRef = useRef();
   const texture = useTexture(profilePhoto);
   
-  useFrame((state) => {
-    const t = state.clock.getElapsedTime();
+  const time = useRef(0);
+  useFrame((state, delta) => {
+    time.current += delta;
+    const t = time.current;
     // Continuous subtle floating rotation for the whole group
     groupRef.current.rotation.y = Math.sin(t / 4) / 4;
     groupRef.current.rotation.x = Math.cos(t / 4) / 8;

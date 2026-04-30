@@ -37,7 +37,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen w-full flex flex-col overflow-x-clip transition-colors duration-500"
+      className="relative min-h-screen lg:h-screen w-full flex flex-col overflow-x-clip transition-colors duration-500 pb-20 lg:pb-0"
     >
       {/* Layered Background Elements are now handled by BackgroundSystem */}
       
@@ -57,10 +57,10 @@ export default function Hero() {
       <div className="relative z-10 max-w-[1200px] mx-auto w-full px-6 md:px-12 flex flex-col flex-1 py-10 md:py-20 justify-center min-h-screen">
 
         {/* ── Main Hero Layout ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-[80px] items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-[80px] items-center">
           
           {/* LEFT: Text Content */}
-          <div className="order-2 lg:order-1 flex flex-col items-center lg:items-start text-center lg:text-left">
+          <div className="order-2 lg:order-1 flex flex-col items-center lg:items-start text-center lg:text-left z-10 pt-4 lg:pt-0">
             
             {/* Location Tag */}
 
@@ -86,7 +86,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-                className="text-6xl sm:text-7xl md:text-[120px] lg:text-[140px] font-black tracking-tighter leading-[0.85] relative z-10 mt-32 sm:mt-40 md:mt-48 lg:mt-60"
+                className="text-6xl sm:text-7xl md:text-[120px] lg:text-[140px] font-black tracking-tighter leading-[0.85] relative z-10 mt-20 sm:mt-40 md:mt-48 lg:mt-60"
                 style={{ color: 'var(--text-primary)' }}
               >
                 Vedant
@@ -137,7 +137,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9 }}
-              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 w-full px-4 sm:px-0"
+              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5 w-full px-4 sm:px-0 mt-4 md:mt-0"
             >
               <motion.button
                 whileHover={{ scale: 1.03 }}
@@ -170,7 +170,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.4, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="order-1 lg:order-2 flex items-center justify-center relative mt-10 lg:mt-0 lg:translate-x-20 xl:translate-x-32"
+            className="order-1 lg:order-2 flex items-center justify-center relative mt-28 mb-4 lg:mt-0 lg:mb-0 lg:translate-x-20 xl:translate-x-32"
           >
             {/* 3D Background Scene */}
             <div className="absolute inset-0 z-0 w-[140%] h-[140%] sm:w-[120%] sm:h-[120%] -translate-x-[20%] -translate-y-[20%] sm:-translate-x-[10%] sm:-translate-y-[10%] opacity-40 dark:opacity-60 pointer-events-none">
@@ -178,19 +178,32 @@ export default function Hero() {
             </div>
 
             {/* Profile Image Container (Floating over 3D) */}
-            <div className="relative z-10 w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] md:w-[400px] md:h-[400px] rounded-full p-2 bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_20px_80px_rgba(0,0,0,0.15)] flex items-center justify-center overflow-hidden">
-              <div className="w-full h-full rounded-full overflow-hidden relative group bg-black/5">
-                <img
-                  src="/hero-photo.jpg"
-                  alt="Vedant Patel"
-                  fetchPriority="high"
-                  className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-1000 hover:scale-110"
-                />
-                
-                {/* Subtle Overlay Glow */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+            <motion.div 
+              animate={{ y: [0, -15, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              className="relative z-10 w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] md:w-[420px] md:h-[420px] rounded-full flex items-center justify-center p-1"
+            >
+              {/* Animated Glowing Ring */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-blue-500 via-indigo-500 to-purple-600 animate-spin-slow opacity-60 blur-sm" />
+              
+              <div className="relative w-full h-full rounded-full p-2 bg-white/10 backdrop-blur-3xl border border-white/30 shadow-[0_30px_100px_rgba(0,0,0,0.2)] flex items-center justify-center overflow-hidden">
+                <div className="w-full h-full rounded-full overflow-hidden relative group bg-black/5 border-2 border-white">
+                  <img
+                    src="/hero-photo.jpg"
+                    alt="Vedant Patel"
+                    fetchPriority="high"
+                    className="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-1000 hover:scale-110"
+                  />
+                  
+                  {/* Subtle Overlay Glow */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                </div>
               </div>
-            </div>
+
+              {/* Orbital Glow Dots */}
+              <div className="absolute -top-4 right-[20%] w-3 h-3 bg-blue-400 rounded-full blur-sm animate-pulse" />
+              <div className="absolute bottom-[10%] -left-2 w-4 h-4 bg-purple-400 rounded-full blur-md animate-pulse delay-700" />
+            </motion.div>
 
             {/* Geometric Accents (Newspaper style details) */}
             <div className="absolute -top-6 -right-6 w-24 h-24 border-t-2 border-r-2 border-slate-900/10 dark:border-white/10 pointer-events-none" />
@@ -203,20 +216,20 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer z-20"
+          transition={{ delay: 2, duration: 1 }}
+          className="hidden sm:flex absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex-col items-center gap-3 cursor-pointer z-20 group"
           onClick={() => handleScrollTo('about')}
         >
-          <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-slate-400">
-            Scroll to discover
+          <span className="text-[10px] font-black tracking-[0.4em] uppercase text-slate-400 group-hover:text-slate-600 transition-colors">
+            Discover
           </span>
-          <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            className="text-slate-500"
-          >
-            <ArrowDown size={14} />
-          </motion.div>
+          <div className="w-6 h-10 rounded-full border-2 border-slate-300 flex justify-center p-1.5 transition-colors group-hover:border-slate-400">
+            <motion.div
+              animate={{ y: [0, 12, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              className="w-1 h-2 rounded-full bg-slate-400 group-hover:bg-slate-600"
+            />
+          </div>
         </motion.div>
 
       </div>

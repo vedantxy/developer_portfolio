@@ -149,7 +149,7 @@ function Projects() {
   const filtered = PROJECTS_DATA.filter((p) => p.category === activeCategory);
 
   return (
-    <section id="projects" className="py-24 px-6 md:px-12 lg:px-24 transition-colors duration-500 overflow-hidden" style={{ background: 'transparent' }}>
+    <section id="projects" className="py-16 md:py-24 px-6 md:px-12 lg:px-24 transition-colors duration-500 overflow-hidden" style={{ background: 'transparent' }}>
       
       <div className="max-w-[1400px] mx-auto">
         

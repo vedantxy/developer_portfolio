@@ -7,8 +7,10 @@ function CoreOrb() {
   const outer = useRef();
   const inner = useRef();
 
-  useFrame(({ clock }) => {
-    const t = clock.elapsedTime;
+  const time = useRef(0);
+  useFrame((state, delta) => {
+    time.current += delta;
+    const t = time.current;
     outer.current.rotation.x = t * 0.12;
     outer.current.rotation.y = t * 0.18;
     inner.current.rotation.x = -t * 0.2;
@@ -37,8 +39,10 @@ function OrbitRing({ radius = 2.5, speed = 0.3, tilt = Math.PI / 4, opacity = 0.
   const dotsRef = useRef();
   const dotAngles = useMemo(() => Array.from({ length: dotCount }, (_, i) => (i / dotCount) * Math.PI * 2), [dotCount]);
 
-  useFrame(({ clock }) => {
-    const t = clock.elapsedTime;
+  const time = useRef(0);
+  useFrame((state, delta) => {
+    time.current += delta;
+    const t = time.current;
     ringRef.current.rotation.y = t * speed;
     ringRef.current.rotation.x = tilt;
     if (dotsRef.current) {
@@ -82,8 +86,10 @@ function StarField({ count = 320 }) {
     return { positions };
   }, [count]);
 
-  useFrame(({ clock }) => {
-    if (ref.current) ref.current.rotation.y = clock.elapsedTime * 0.025;
+  const time = useRef(0);
+  useFrame((state, delta) => {
+    time.current += delta;
+    if (ref.current) ref.current.rotation.y = time.current * 0.025;
   });
 
   const posAttr = useMemo(() => new THREE.BufferAttribute(positions, 3), [positions]);

@@ -14,9 +14,18 @@ function Navbar() {
   // Dynamic transforms for premium feel
   const { theme } = useTheme();
   const navPadding = useTransform(scrollY, [0, 50], ['20px', '12px']);
-  const navBg = useTransform(scrollY, [0, 50], ['rgba(0,0,0,0)', theme === 'dark' ? 'rgba(15, 23, 42, 0.8)' : 'rgba(248, 250, 252, 0.8)']);
-  const navBorderColor = useTransform(scrollY, [0, 50], ['rgba(0, 0, 0, 0)', 'var(--border)']);
-  const navShadow = useTransform(scrollY, [0, 50], ['none', 'var(--glow)']);
+  const navBg = useTransform(scrollY, [0, 50], [
+    'rgba(248, 250, 252, 0)', 
+    theme === 'dark' ? 'rgba(0, 0, 0, 0.85)' : 'rgba(248, 250, 252, 0.85)'
+  ]);
+  const navBorderColor = useTransform(scrollY, [0, 50], [
+    'rgba(226, 232, 240, 0)', 
+    theme === 'dark' ? 'rgba(99, 102, 241, 0.2)' : 'rgba(226, 232, 240, 0.4)'
+  ]);
+  const navShadow = useTransform(scrollY, [0, 50], [
+    '0px 0px 0px rgba(0,0,0,0)', 
+    theme === 'dark' ? '0 8px 30px rgba(0,0,0,0.3)' : '0 8px 30px rgba(15,23,42,0.04)'
+  ]);
 
   const navItems = [
     'Home', 'About', 'Skills', 'Projects', 'Education', 'Achievements', 'Certificates', 'Hackathon', 'Resume', 'Contact'

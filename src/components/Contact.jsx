@@ -90,7 +90,7 @@ function Contact() {
   ];
 
   return (
-    <section id="contact" className="contact-section pt-32 pb-16 px-6 md:px-12 transition-colors duration-500" style={{ background: 'transparent' }}>
+    <section id="contact" className="contact-section pt-16 pb-8 md:pt-32 md:pb-16 px-6 md:px-12 transition-colors duration-500" style={{ background: 'transparent' }}>
       {/* Local background elements removed to use BackgroundSystem */}
 
       <div className="max-w-[1000px] mx-auto relative z-10">
@@ -212,13 +212,13 @@ function Contact() {
         </div>
 
         {/* Footer Area */}
-        <div className="mt-16 pt-8 border-t text-center" style={{ borderColor: 'var(--border)' }}>
+        <div className="mt-12 pt-6 border-t text-center" style={{ borderColor: 'var(--border)' }}>
 
-          <p className="contact-script text-[20px] md:text-[24px] mb-8 max-w-2xl mx-auto leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+          <p className="contact-script text-[16px] md:text-[18px] mb-4 max-w-xl mx-auto leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
             &quot;I&apos;m Vedant — not just a developer, but a builder, a thinker, and a curious learner. Thanks for flipping through my pages.&quot;
           </p>
           
-          <div className="flex justify-center gap-5 mb-6">
+          <div className="flex justify-center gap-4 mb-4">
             {socialLinks.map((social) => (
               <a 
                 key={social.name} 
@@ -229,12 +229,12 @@ function Contact() {
                 style={{ color: 'var(--text-muted)' }}
                 aria-label={social.name}
               >
-                <social.icon size={28} />
+                <social.icon size={22} />
               </a>
             ))}
           </div>
 
-          <p className="text-[12px] tracking-widest" style={{ color: 'var(--text-muted)' }}>
+          <p className="text-[11px] tracking-widest opacity-80" style={{ color: 'var(--text-muted)' }}>
             © {new Date().getFullYear()} Vedant Patel. All rights reserved.
           </p>
         </div>

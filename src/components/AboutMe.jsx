@@ -77,7 +77,7 @@ function AboutMe() {
       id="about"
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className={`min-h-screen py-32 px-8 md:px-16 lg:px-24 xl:px-32 relative overflow-hidden transition-colors duration-500 flex items-center ${isTransitioning ? 'theme-transition-tilt' : ''}`}
+      className={`min-h-screen py-16 md:py-32 px-8 md:px-16 lg:px-24 xl:px-32 relative overflow-hidden transition-colors duration-500 flex items-center ${isTransitioning ? 'theme-transition-tilt' : ''}`}
       style={{ background: 'transparent' }}
     >
       {/* Background system handles global patterns */}
