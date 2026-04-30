@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import React, { useContext, memo } from 'react';
 import { motion } from 'motion/react';
 import { ThemeContext } from '../context/ThemeContext';
 import { ExternalLink, Github, Trophy, Cpu, Zap, Target } from 'lucide-react';
@@ -27,7 +27,7 @@ const HACKATHONS = [
   },
 ];
 
-function Hackathon() {
+const Hackathon = memo(() => {
   const { theme } = useContext(ThemeContext);
   const isDark = theme === 'dark';
 
@@ -227,5 +227,7 @@ function DetailSection({ icon, label, text }) {
     </div>
   );
 }
+
+});
 
 export default Hackathon;

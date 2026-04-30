@@ -1,9 +1,9 @@
-import { useContext } from 'react';
+import React, { useContext, memo } from 'react';
 import { motion } from 'motion/react';
 import { ThemeContext } from '../context/ThemeContext';
 import './Education.css';
 
-function Education() {
+const Education = memo(() => {
   const { theme } = useContext(ThemeContext);
   const isDark = theme === 'dark';
 
@@ -232,5 +232,7 @@ function Education() {
     </section>
   );
 }
+
+});
 
 export default Education;

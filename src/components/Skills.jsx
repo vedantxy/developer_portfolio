@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import React, { memo } from 'react';
 import { 
   FaServer, FaCode, FaPaintBrush, FaMagic, FaLaptopCode
 } from 'react-icons/fa';
@@ -60,7 +61,7 @@ const SKILLS_DATA = [
   }
 ];
 
-const SkillCard = ({ skill, delay }) => {
+const SkillCard = memo(({ skill, delay }) => {
   return (
     <motion.div 
       initial={{ opacity: 0, y: 30 }}
@@ -68,7 +69,7 @@ const SkillCard = ({ skill, delay }) => {
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, delay: delay * 0.1, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6, scale: 1.02 }}
-      className="relative p-5 rounded-2xl border backdrop-blur-xl overflow-hidden group cursor-default transition-all duration-300 flex flex-col min-h-[130px]"
+      className="relative p-5 rounded-2xl border backdrop-blur-xl overflow-hidden group cursor-default transition-all duration-300 flex flex-col min-h-[130px] will-change-transform"
       style={{ background: 'var(--bg-card)', borderColor: 'var(--border)', boxShadow: 'var(--glow)' }}
     >
       {/* Background Hover Glow Mapping For Light Theme */}
@@ -102,7 +103,7 @@ const SkillCard = ({ skill, delay }) => {
       </div>
     </motion.div>
   );
-}
+});
 
 export default function Skills() {
 
@@ -174,7 +175,6 @@ export default function Skills() {
       </div>
       
       <style dangerouslySetInnerHTML={{ __html: `
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,900&display=swap');
         .font-serif {
           font-family: 'Playfair Display', serif !important;
         }

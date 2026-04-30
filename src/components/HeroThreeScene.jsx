@@ -1,5 +1,5 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { useRef, useMemo, useEffect } from 'react';
+import { useRef, useMemo, useEffect, memo } from 'react';
 import * as THREE from 'three';
 
 /* ─── Floating wireframe icosahedron core ─── */
@@ -132,13 +132,13 @@ function MouseTracker({ children }) {
 }
 
 /* ─── Main exported scene ─── */
-function HeroThreeScene() {
+const HeroThreeScene = memo(() => {
   return (
     <Canvas
       camera={{ position: [0, 0, 5.5], fov: 55 }}
       style={{ background: 'transparent', width: '100%', height: '100%' }}
-      gl={{ alpha: true, antialias: true }}
-      dpr={[1, 2]}
+      gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
+      dpr={[1, 1.5]}
     >
       <ambientLight intensity={0.3} />
       <pointLight position={[5, 5, 5]} intensity={0.8} color="#ffffff" />
@@ -154,5 +154,7 @@ function HeroThreeScene() {
     </Canvas>
   );
 }
+
+});
 
 export default HeroThreeScene;

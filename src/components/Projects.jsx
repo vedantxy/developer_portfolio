@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import ProjectCard from './ProjectCard';
 
@@ -143,7 +143,7 @@ const PROJECTS_DATA = [
 
 ];
 
-function Projects() {
+const Projects = memo(() => {
   const [activeCategory, setActiveCategory] = useState('Clones');
 
   const filtered = PROJECTS_DATA.filter((p) => p.category === activeCategory);
@@ -225,5 +225,7 @@ function Projects() {
     </section>
   );
 }
+
+});
 
 export default Projects;

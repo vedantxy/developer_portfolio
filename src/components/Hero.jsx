@@ -1,4 +1,4 @@
-import { useContext, useMemo } from 'react';
+import { useContext, useMemo, memo } from 'react';
 import { motion } from 'motion/react';
 import { ThemeContext } from '../context/ThemeContext';
 import { FileText, Mail, ArrowDown } from 'lucide-react';
@@ -8,20 +8,22 @@ import { SiLeetcode } from 'react-icons/si';
 import HeroThreeScene from './HeroThreeScene';
 import './Hero.css';
 
-export default function Hero() {
+const SOCIAL_LINKS = [
+  { id: 1, name: 'GitHub', icon: <FaGithub size={20} />, url: 'https://github.com/vedantxy' },
+  { id: 2, name: 'LinkedIn', icon: <FaLinkedinIn size={20} />, url: 'https://www.linkedin.com/in/vedant-patel-3b6a4636a/' },
+  { id: 3, name: 'YouTube', icon: <FaYoutube size={20} />, url: 'https://www.youtube.com/@VedantPatel-y7k' },
+  { id: 4, name: 'Twitter', icon: <FaXTwitter size={20} />, url: 'https://x.com/VedantPate1601' },
+  { id: 5, name: 'LeetCode', icon: <SiLeetcode size={20} />, url: 'https://leetcode.com/u/Vedant_2403/' },
+];
+
+const Hero = memo(() => {
   const { isTransitioning } = useContext(ThemeContext);
 
   const handleScrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const socialLinks = [
-    { id: 1, name: 'GitHub', icon: <FaGithub size={20} />, url: 'https://github.com/vedantxy' },
-    { id: 2, name: 'LinkedIn', icon: <FaLinkedinIn size={20} />, url: 'https://www.linkedin.com/in/vedant-patel-3b6a4636a/' },
-    { id: 3, name: 'YouTube', icon: <FaYoutube size={20} />, url: 'https://www.youtube.com/@VedantPatel-y7k' },
-    { id: 4, name: 'Twitter', icon: <FaXTwitter size={20} />, url: 'https://x.com/VedantPate1601' },
-    { id: 5, name: 'LeetCode', icon: <SiLeetcode size={20} />, url: 'https://leetcode.com/u/Vedant_2403/' },
-  ];
+
 
   // Generate random particles for the Anti-Gravity effect
   const particles = useMemo(() => {
@@ -115,7 +117,7 @@ export default function Hero() {
               transition={{ delay: 0.7 }}
               className="flex items-center justify-center lg:justify-start gap-4 mb-8"
             >
-              {socialLinks.map((link) => (
+              {SOCIAL_LINKS.map((link) => (
                 <motion.a
                   key={link.id}
                   href={link.url}
@@ -192,6 +194,9 @@ export default function Hero() {
                     src="/hero-photo.jpg"
                     alt="Vedant Patel"
                     fetchPriority="high"
+                    width="600"
+                    height="600"
+                    loading="eager"
                     className="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-1000 hover:scale-110"
                   />
                   
@@ -235,4 +240,6 @@ export default function Hero() {
       </div>
     </section>
   );
-}
+});
+
+export default Hero;

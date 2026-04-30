@@ -4,24 +4,27 @@ import { loadSlim } from '@tsparticles/slim';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero.jsx';
-import AboutMe from './components/AboutMe.jsx';
 import AnalyticsTracker from './components/AnalyticsTracker.jsx';
 import SEO from './components/SEO.jsx';
-
-// Lazy load non-critical sections for performance optimization
-const Projects = lazy(() => import('./components/Projects.jsx'));
-const Certificates = lazy(() => import('./components/Certificates.jsx'));
-const Education = lazy(() => import('./components/Education.jsx'));
-const Skills = lazy(() => import('./components/Skills.jsx'));
-const Contact = lazy(() => import('./components/Contact.jsx'));
-const Hackathon = lazy(() => import('./components/Hackathon.jsx'));
-const Achievements = lazy(() => import('./components/Achievements.jsx'));
-const Resume = lazy(() => import('./components/Resume.jsx'));
-
-import { ThemeContext } from './context/ThemeContext';
+import BackgroundSystem from './components/BackgroundSystem.jsx';
 import ThemeTransitionOverlay from './components/ThemeTransitionOverlay';
 import CustomCursor from './components/CustomCursor.jsx';
-import BackgroundSystem from './components/BackgroundSystem.jsx';
+import { ThemeContext } from './context/ThemeContext';
+import EntrySequence from './components/EntrySequence.jsx';
+
+// ── Critical Section Pre-Imports ──
+// Hero is imported normally to prioritize LCP.
+
+// ── Non-Critical Section Lazy Loading ──
+const AboutMe = lazy(() => import('./components/AboutMe.jsx'));
+const Skills = lazy(() => import('./components/Skills.jsx'));
+const Achievements = lazy(() => import('./components/Achievements.jsx'));
+const Hackathon = lazy(() => import('./components/Hackathon.jsx'));
+const Projects = lazy(() => import('./components/Projects.jsx'));
+const Education = lazy(() => import('./components/Education.jsx'));
+const Certificates = lazy(() => import('./components/Certificates.jsx'));
+const Resume = lazy(() => import('./components/Resume.jsx'));
+const Contact = lazy(() => import('./components/Contact.jsx'));
 
 // Monochrome Gray+White particle configs per theme
 const getParticleOptions = (theme) => {
@@ -72,7 +75,6 @@ const getParticleOptions = (theme) => {
   };
 };
 
-import EntrySequence from './components/EntrySequence.jsx';
 
 const MainContent = ({ sectionFocus }) => {
   useEffect(() => {
@@ -89,7 +91,7 @@ const MainContent = ({ sectionFocus }) => {
   }, [sectionFocus]);
 
   return (
-    <Suspense fallback={<div className="min-h-screen" />}>
+    <Suspense fallback={<div className="min-h-screen bg-transparent" />}>
       <Hero />
       <AboutMe />
       <Skills />

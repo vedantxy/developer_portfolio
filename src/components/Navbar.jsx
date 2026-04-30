@@ -4,8 +4,9 @@ import { Menu, X, ArrowRight } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
 import { useTheme } from '../hooks/useTheme';
+import React, { memo } from 'react';
 
-function Navbar() {
+const Navbar = memo(() => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeItem, setActiveItem] = useState('Home');
   const { scrollY } = useScroll();
@@ -244,6 +245,6 @@ function Navbar() {
       </motion.nav>
     </>
   );
-}
+});
 
 export default Navbar;

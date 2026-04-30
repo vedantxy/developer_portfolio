@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, memo } from 'react';
 import { motion } from 'motion/react';
 
-const BackgroundSystem = () => {
+const BackgroundSystem = memo(() => {
   // Generate random particles
   const particles = useMemo(() => {
     return Array.from({ length: 20 }).map((_, i) => ({
@@ -33,7 +33,7 @@ const BackgroundSystem = () => {
             scale: [1, 1.1, 1]
           }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-[10%] -left-[10%] w-[50vw] h-[50vw] rounded-full opacity-[0.15] blur-[120px]"
+          className="absolute -top-[10%] -left-[10%] w-[50vw] h-[50vw] rounded-full opacity-[0.15] blur-[120px] will-change-transform"
           style={{ background: 'var(--blob-blue)' }}
         />
         
@@ -45,7 +45,7 @@ const BackgroundSystem = () => {
             scale: [1, 1.2, 1]
           }}
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute -bottom-[15%] -right-[10%] w-[60vw] h-[60vw] rounded-full opacity-[0.2] blur-[140px]"
+          className="absolute -bottom-[15%] -right-[10%] w-[60vw] h-[60vw] rounded-full opacity-[0.2] blur-[140px] will-change-transform"
           style={{ background: 'var(--blob-purple)' }}
         />
 
