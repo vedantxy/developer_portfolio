@@ -123,6 +123,6 @@ const BackgroundSystem = memo(() => {
 
     </div>
   );
-};
+});
 
 export default BackgroundSystem;

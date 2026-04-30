@@ -105,8 +105,7 @@ const SkillCard = memo(({ skill, delay }) => {
   );
 });
 
-export default function Skills() {
-
+const Skills = memo(() => {
   return (
     <section id="skills" className="py-16 md:py-24 px-6 md:px-12 lg:px-24 flex items-center relative overflow-hidden transition-colors duration-500" style={{ background: 'var(--bg-primary)' }}>
       
@@ -181,4 +180,6 @@ export default function Skills() {
       `}} />
     </section>
   );
-}
+});
+
+export default Skills;

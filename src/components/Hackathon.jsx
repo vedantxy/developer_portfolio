@@ -210,7 +210,7 @@ const Hackathon = memo(() => {
       </div>
     </section>
   );
-}
+});
 
 function DetailSection({ icon, label, text }) {
   return (
@@ -227,7 +227,5 @@ function DetailSection({ icon, label, text }) {
     </div>
   );
 }
-
-});
 
 export default Hackathon;

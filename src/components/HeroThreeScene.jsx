@@ -153,8 +153,6 @@ const HeroThreeScene = memo(() => {
       </MouseTracker>
     </Canvas>
   );
-}
-
 });
 
 export default HeroThreeScene;

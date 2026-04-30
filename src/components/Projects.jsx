@@ -224,8 +224,6 @@ const Projects = memo(() => {
       `}} />
     </section>
   );
-}
-
 });
 
 export default Projects;

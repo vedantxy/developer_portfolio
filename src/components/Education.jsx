@@ -231,8 +231,6 @@ const Education = memo(() => {
       </div>
     </section>
   );
-}
-
 });
 
 export default Education;
