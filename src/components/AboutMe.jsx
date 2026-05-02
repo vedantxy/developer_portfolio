@@ -1,228 +1,140 @@
-import { motion, useMotionValue, useSpring, useInView } from 'motion/react';
-import { useContext, useRef, useState, useEffect } from 'react';
+import { motion } from 'motion/react';
+import { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
-
-function AnimatedCounter({ value, duration = 2, decimals = 0 }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-  const motionValue = useMotionValue(0);
-  const springValue = useSpring(motionValue, { bounce: 0, duration: duration * 1000 });
-  const [display, setDisplay] = useState("0");
-
-  useEffect(() => {
-    if (isInView) {
-      motionValue.set(value);
-    }
-  }, [isInView, value, motionValue]);
-
-  useEffect(() => {
-    return springValue.on("change", (latest) => {
-      setDisplay(latest.toFixed(decimals));
-    });
-  }, [springValue, decimals]);
-
-  return <span ref={ref}>{display}</span>;
-}
-
-const TypewriterLine = ({ children, delay }) => (
-  <motion.div
-    initial={{ clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)" }}
-    whileInView={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)" }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.5, delay, ease: "linear" }}
-    className="whitespace-pre overflow-hidden"
-  >
-    {children}
-  </motion.div>
-);
-
-const BlinkingCursor = () => (
-  <motion.span
-    animate={{ opacity: [1, 0, 1] }}
-    transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-    style={{ display: "inline-block", width: "10px", height: "1.1em", background: "var(--accent)", marginLeft: "6px", verticalAlign: "middle" }}
-  />
-);
+import { ArrowRight, Zap, Target, MapPin, Code2 } from 'lucide-react';
 
 function AboutMe() {
   const { isTransitioning } = useContext(ThemeContext);
-  const containerRef = useRef(null);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const springX = useSpring(mouseX, { damping: 25, stiffness: 150 });
-  const springY = useSpring(mouseY, { damping: 25, stiffness: 150 });
 
-  const handleMouseMove = (e) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    mouseX.set(e.clientX - rect.left);
-    mouseY.set(e.clientY - rect.top);
-  };
-
-  const codeLines = [
-    <><span style={{ color: '#c678dd' }}>const</span> <span style={{ color: '#e5c07b' }}>vedant</span> = <span style={{ color: '#d4d4d8' }}>{'{'}</span></>,
-    <>&nbsp;&nbsp;role: <span style={{ color: '#98c379' }}>&apos;Full Stack Developer&apos;</span>,</>,
-    <>&nbsp;&nbsp;cgpa: <span style={{ color: '#d19a66' }}>9.48</span>,</>,
-    <>&nbsp;&nbsp;focus: <span style={{ color: '#d4d4d8' }}>[</span></>,
-    <>&nbsp;&nbsp;&nbsp;&nbsp;<span style={{ color: '#98c379' }}>&apos;Clean Code&apos;</span>,</>,
-    <>&nbsp;&nbsp;&nbsp;&nbsp;<span style={{ color: '#98c379' }}>&apos;Scalability&apos;</span>,</>,
-    <>&nbsp;&nbsp;&nbsp;&nbsp;<span style={{ color: '#98c379' }}>&apos;UI/UX&apos;</span></>,
-    <>&nbsp;&nbsp;<span style={{ color: '#d4d4d8' }}>],</span></>,
-    <>&nbsp;&nbsp;mindset: <span style={{ color: '#98c379' }}>&apos;Always Building 🚀&apos;</span></>,
-    <><span style={{ color: '#d4d4d8' }}>{'};'}</span><BlinkingCursor /></>,
+  const highlights = [
+    { icon: <Code2 size={16} />, label: "Role", value: "Full Stack Developer" },
+    { icon: <Zap size={16} />, label: "Focus", value: "React, Node, Performance" },
+    { icon: <MapPin size={16} />, label: "Location", value: "India" },
+    { icon: <Target size={16} />, label: "Strength", value: "Clean UI + Scalable Logic" },
   ];
 
   return (
     <section
       id="about"
-      ref={containerRef}
-      onMouseMove={handleMouseMove}
-      className={`min-h-screen py-16 md:py-32 px-8 md:px-16 lg:px-24 xl:px-32 relative overflow-hidden transition-colors duration-500 flex items-center ${isTransitioning ? 'theme-transition-tilt' : ''}`}
+      className={`py-20 md:py-24 px-6 md:px-12 lg:px-24 relative overflow-hidden transition-colors duration-500 flex items-center ${isTransitioning ? 'theme-transition-tilt' : ''}`}
       style={{ background: 'transparent' }}
     >
-      {/* Background system handles global patterns */}
-
-      <div className="max-w-[1400px] w-full mx-auto relative z-10 flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-12 xl:gap-20">
+      <div className="max-w-[1100px] w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         
-        {/* LEFT SIDE: 60% Content Area */}
+        {/* LEFT: Content area */}
         <motion.div
-          initial={{ opacity: 0, x: -40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, staggerChildren: 0.2 }}
-          className="w-full lg:w-[58%] flex flex-col"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col"
         >
-          {/* Section Heading */}
-          <div className="mb-6">
-            <span className="section-label tracking-widest text-sm uppercase">02 — ABOUT ME</span>
+          {/* Subtle Heading */}
+          <span className="text-[11px] font-black tracking-[0.3em] uppercase opacity-40 mb-4" style={{ color: 'var(--text-primary)' }}>
+            About Me
+          </span>
+
+          {/* Hero Statement */}
+          <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-[1.1] mb-6" style={{ color: 'var(--text-primary)' }}>
+            Building fast, scalable, and user-focused web experiences.
+          </h2>
+
+          {/* Micro Bio */}
+          <p className="text-lg font-medium leading-relaxed mb-10 opacity-70" style={{ color: 'var(--text-primary)' }}>
+            I focus on the intersection of performance and design, transforming complex technical requirements into elegant digital solutions with a meticulous eye for detail.
+          </p>
+
+          {/* Key Highlights */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+            {highlights.map((item, index) => (
+              <motion.div
+                key={index}
+                whileHover={{ x: 4 }}
+                className="flex items-center gap-3 p-3 rounded-xl border border-transparent hover:border-[var(--border)] hover:bg-[var(--bg-secondary)] transition-all duration-300 group"
+              >
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-[var(--accent-10)] text-[var(--accent)] group-hover:scale-110 transition-transform">
+                  {item.icon}
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-bold uppercase tracking-wider opacity-40" style={{ color: 'var(--text-primary)' }}>
+                    {item.label}
+                  </span>
+                  <span className="text-sm font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
+                    {item.value}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
           </div>
 
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] mb-12 tracking-tight" 
-            style={{ color: 'var(--text-primary)' }}
+          {/* CTA */}
+          <motion.button
+            whileHover={{ x: 5 }}
+            onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+            className="flex items-center gap-2 text-sm font-black uppercase tracking-widest group transition-colors"
+            style={{ color: 'var(--accent)' }}
           >
-            More Than <br className="hidden lg:block"/> Just Code.
-          </motion.h2>
+            View Projects
+            <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+          </motion.button>
+        </motion.div>
 
-          {/* Intro Paragraph */}
-          <motion.div 
-            initial={{ opacity: 0, y: 15 }} 
-            whileInView={{ opacity: 1, y: 0 }} 
-            viewport={{ once: true }} 
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-xl md:text-2xl font-semibold mb-8 leading-relaxed" 
-            style={{ color: 'var(--text-primary)' }}
-          >
-            Hi, I&apos;m Vedant — a Full Stack Developer who focuses on building scalable, high-performance web applications that feel as good as they function.
-          </motion.div>
+        {/* RIGHT: Visual Element */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+          className="relative aspect-square lg:aspect-[4/5] w-full max-w-[450px] mx-auto group"
+        >
+          {/* Decorative glass elements */}
+          <div className="absolute -top-6 -right-6 w-32 h-32 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-gradient-to-br from-indigo-500/10 to-blue-500/10 rounded-full blur-3xl animate-pulse delay-700" />
+          
+          {/* Main Visual Card */}
+          <div className="relative z-10 w-full h-full rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl bg-[#09090b]">
+             {/* Abstract Minimal Dashboard UI for Right Side */}
+             <div className="absolute inset-0 p-8 flex flex-col gap-6 opacity-40 group-hover:opacity-60 transition-opacity duration-700">
+                <div className="w-full h-12 rounded-2xl bg-white/5 border border-white/10" />
+                <div className="grid grid-cols-3 gap-4 h-32">
+                  <div className="rounded-2xl bg-indigo-500/10 border border-indigo-500/20" />
+                  <div className="rounded-2xl bg-blue-500/10 border border-blue-500/20" />
+                  <div className="rounded-2xl bg-purple-500/10 border border-purple-500/20" />
+                </div>
+                <div className="flex-1 rounded-3xl bg-white/5 border border-white/10 p-6 flex flex-col gap-4">
+                   <div className="w-2/3 h-4 rounded-full bg-white/10" />
+                   <div className="w-full h-32 rounded-2xl bg-white/5 border border-white/5" />
+                </div>
+             </div>
 
-          {/* Story Paragraphs */}
-          <div className="flex flex-col gap-6 mb-12 text-base md:text-lg font-light leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-            <motion.p initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.3 }}>
-              I don&apos;t just build applications — I solve problems.
-            </motion.p>
-            <motion.p initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.4 }}>
-              I enjoy transforming complex ideas into simple, elegant, and impactful digital solutions. Whether it&apos;s developing full-stack systems using the MERN stack or solving 150+ DSA problems, I constantly push myself to grow as both an engineer and a thinker.
-            </motion.p>
-            <motion.p initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.5 }}>
-              Currently pursuing Computer Science Engineering with a CGPA of 9.48, I combine strong academic fundamentals with real-world development experience.
-            </motion.p>
+             {/* Profile Overlay (Subtle) */}
+             <div className="absolute inset-0 flex items-center justify-center p-8">
+                <div className="relative w-full h-full rounded-3xl overflow-hidden border-2 border-white/20 shadow-inner group-hover:scale-[1.02] transition-transform duration-700">
+                   <img 
+                    src="/hero-photo.webp" 
+                    alt="Vedant Patel" 
+                    className="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110"
+                   />
+                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                   
+                   {/* Name Badge */}
+                   <div className="absolute bottom-6 left-6 right-6 p-4 backdrop-blur-md bg-white/5 border border-white/10 rounded-2xl">
+                      <div className="flex items-center justify-between">
+                         <span className="text-white font-bold tracking-tight">Vedant Patel</span>
+                         <div className="flex gap-1">
+                            <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                            <span className="text-[10px] text-white/60 font-bold uppercase tracking-wider">Available</span>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
           </div>
 
-          {/* Philosophy Block */}
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }} 
-            whileInView={{ opacity: 1, x: 0 }} 
-            viewport={{ once: true }} 
-            transition={{ duration: 0.7, delay: 0.6 }}
-            className="pl-6 md:pl-8 py-5 mb-16 border-l-4 rounded-r-2xl shadow-sm backdrop-blur-sm"
-            style={{ borderColor: 'var(--accent)', background: 'var(--accent-10)' }}
-          >
-            <p className="text-lg md:text-xl italic font-medium mb-5 leading-relaxed" style={{ color: 'var(--text-primary)' }}>
-              &quot;I believe great software isn&apos;t just functional — it&apos;s intuitive, scalable, and beautifully designed.&quot;
-            </p>
-            <ul className="flex flex-col gap-3 font-medium text-sm md:text-base tracking-wide" style={{ color: 'var(--text-secondary)' }}>
-              <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--accent)' }} /> Clean, maintainable code</li>
-              <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--accent)' }} /> Scalable architecture</li>
-              <li className="flex items-center gap-3"><span className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--accent)' }} /> Seamless user experience</li>
-            </ul>
-          </motion.div>
-
-          {/* Animated Stats Cards Grid */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.8 }}
-            className="grid grid-cols-2 gap-4 md:gap-6"
-          >
-            {/* Stat Card 1 */}
-            <div className="p-6 rounded-2xl glass-card border transition-all duration-300 hover:-translate-y-2 hover:shadow-xl group" style={{ background: 'var(--bg-card)', borderColor: 'var(--glass-border)' }}>
-              <div className="text-4xl md:text-5xl font-black mb-3 transition-colors duration-300 group-hover:text-[var(--accent)]" style={{ color: 'var(--text-primary)' }}><AnimatedCounter value={150} />+</div>
-              <div className="text-xs md:text-sm uppercase tracking-widest font-semibold" style={{ color: 'var(--text-muted)' }}>Problems Solved</div>
-            </div>
-            {/* Stat Card 2 */}
-            <div className="p-6 rounded-2xl glass-card border transition-all duration-300 hover:-translate-y-2 hover:shadow-xl group" style={{ background: 'var(--bg-card)', borderColor: 'var(--glass-border)' }}>
-              <div className="text-4xl md:text-5xl font-black mb-3 transition-colors duration-300 group-hover:text-[var(--accent)]" style={{ color: 'var(--text-primary)' }}><AnimatedCounter value={10} />+</div>
-              <div className="text-xs md:text-sm uppercase tracking-widest font-semibold" style={{ color: 'var(--text-muted)' }}>Projects Built</div>
-            </div>
-            {/* Stat Card 3 */}
-            <div className="p-6 rounded-2xl glass-card border transition-all duration-300 hover:-translate-y-2 hover:shadow-xl group" style={{ background: 'var(--bg-card)', borderColor: 'var(--glass-border)' }}>
-              <div className="text-4xl md:text-5xl font-black mb-3 transition-colors duration-300 group-hover:text-[var(--accent)]" style={{ color: 'var(--text-primary)' }}><AnimatedCounter value={1} />+</div>
-              <div className="text-xs md:text-sm uppercase tracking-widest font-semibold" style={{ color: 'var(--text-muted)' }}>Hackathons</div>
-            </div>
-            {/* Stat Card 4 */}
-            <div className="p-6 rounded-2xl glass-card border transition-all duration-300 hover:-translate-y-2 hover:shadow-xl group" style={{ background: 'var(--bg-card)', borderColor: 'var(--glass-border)' }}>
-              <div className="text-4xl md:text-5xl font-black mb-3 transition-colors duration-300 group-hover:text-[var(--accent)]" style={{ color: 'var(--text-primary)' }}><AnimatedCounter value={9.48} decimals={2} /> 🎓</div>
-              <div className="text-xs md:text-sm uppercase tracking-widest font-semibold" style={{ color: 'var(--text-muted)' }}>CGPA</div>
-            </div>
-          </motion.div>
+          {/* Border accents */}
+          <div className="absolute -top-4 -left-4 w-12 h-12 border-t-2 border-l-2 border-slate-500/20 rounded-tl-2xl pointer-events-none" />
+          <div className="absolute -bottom-4 -right-4 w-12 h-12 border-b-2 border-r-2 border-slate-500/20 rounded-br-2xl pointer-events-none" />
         </motion.div>
-
-        {/* RIGHT SIDE: 40% Interactive Larger Code Card */}
-        <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: "easeOut", delay: 0.4 }}
-          className="relative w-full lg:w-[40%] mt-16 lg:mt-0 perspective-1000"
-        >
-          {/* Soft external blur glow */}
-          <div className="absolute inset-0 rounded-3xl blur-[80px] opacity-20 transform translate-y-4 scale-90 transition-opacity duration-700 pointer-events-none" style={{ background: 'var(--accent)' }} />
-
-          {/* Glassmorphism Card Container */}
-          <motion.div
-            whileHover={{ y: -12, scale: 1.03, rotateX: 2, rotateY: -2 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="relative z-10 rounded-2xl border overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.3)] transform-gpu"
-            style={{
-              background: '#09090b',
-              borderColor: '#27272a'
-            }}
-          >
-            {/* Mac OS Style Top Dots */}
-            <div className="flex items-center gap-2 px-6 py-5 border-b" style={{ borderColor: '#27272a', background: '#0f0f11' }}>
-              <div className="w-3.5 h-3.5 rounded-full bg-[#ff5f56]" />
-              <div className="w-3.5 h-3.5 rounded-full bg-[#ffbd2e]" />
-              <div className="w-3.5 h-3.5 rounded-full bg-[#27c93f]" />
-            </div>
-
-            {/* Code Content with Typing Animation */}
-            <div className="p-8 md:p-10 font-mono text-[16px] md:text-[17px] leading-loose overflow-x-auto" style={{ color: '#a1a1aa' }}>
-              {codeLines.map((line, idx) => (
-                <TypewriterLine key={idx} delay={1.2 + (idx * 0.15)}>
-                  {line}
-                </TypewriterLine>
-              ))}
-            </div>
-
-          </motion.div>
-        </motion.div>
-
       </div>
     </section>
   );

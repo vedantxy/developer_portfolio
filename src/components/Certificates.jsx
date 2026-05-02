@@ -156,7 +156,7 @@ function Certificates() {
   const [selectedCert, setSelectedCert] = useState(null);
 
   return (
-    <section id="certificates" className="pt-24 pb-32 md:pt-32 md:pb-48 px-6 relative overflow-hidden transition-colors duration-500" style={{ background: 'transparent' }}>
+    <section id="certificates" className="py-20 md:py-24 px-6 relative overflow-hidden transition-colors duration-500" style={{ background: 'transparent' }}>
       {/* Background system handles global patterns */}
       
       <div className="max-w-7xl mx-auto relative z-10">

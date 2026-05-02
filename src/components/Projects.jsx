@@ -149,7 +149,7 @@ const Projects = memo(() => {
   const filtered = PROJECTS_DATA.filter((p) => p.category === activeCategory);
 
   return (
-    <section id="projects" className="py-16 md:py-24 px-6 md:px-12 lg:px-24 transition-colors duration-500 overflow-hidden" style={{ background: 'transparent' }}>
+    <section id="projects" className="py-20 md:py-24 px-6 md:px-12 lg:px-24 transition-colors duration-500 overflow-hidden" style={{ background: 'transparent' }}>
       
       <div className="max-w-[1400px] mx-auto">
         
@@ -199,8 +199,9 @@ const Projects = memo(() => {
                   <motion.div
                     layout
                     key={project.id}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
                     exit={{ opacity: 0, scale: 0.9 }}
                     transition={{ duration: 0.4 }}
                     className={`${gridClass} group/item transition-colors duration-500`}
@@ -217,7 +218,6 @@ const Projects = memo(() => {
       </div>
 
       <style dangerouslySetInnerHTML={{ __html: `
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&display=swap');
         .font-serif {
           font-family: 'Playfair Display', serif !important;
         }

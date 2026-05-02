@@ -32,7 +32,7 @@ const Hackathon = memo(() => {
   const isDark = theme === 'dark';
 
   return (
-    <section id="hackathon" className="py-24 px-6 relative overflow-hidden transition-colors duration-500" style={{ background: 'var(--bg-primary)' }}>
+    <section id="hackathon" className="py-20 md:py-24 px-6 relative overflow-hidden transition-colors duration-500" style={{ background: 'transparent' }}>
       {/* Background Grids */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.05]" style={{ backgroundImage: "linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
       <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-indigo-500/5 blur-[120px] rounded-full" />

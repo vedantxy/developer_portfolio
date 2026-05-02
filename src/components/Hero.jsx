@@ -126,7 +126,7 @@ const Hero = memo(() => {
                   data-magnetic="true"
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-12 h-12 rounded-full flex items-center justify-center bg-white border border-slate-100 text-slate-500 hover:text-slate-900 transition-all shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
+                  className="w-12 h-12 rounded-full flex items-center justify-center bg-white border border-slate-200 text-slate-600 hover:text-slate-900 transition-all shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
                   aria-label={link.name}
                 >
                   {link.icon}
@@ -146,7 +146,7 @@ const Hero = memo(() => {
                 whileTap={{ scale: 0.98 }}
                 data-magnetic="true"
                 data-cursor-text="Resume"
-                onClick={() => window.open('https://drive.google.com/uc?export=download&id=1YFi7wZHKKj8DRVWcL4FBWq8gsH5BHpFS', '_blank')}
+                onClick={() => window.open('https://drive.google.com/file/d/1YFi7wZHKKj8DRVWcL4FBWq8gsH5BHpFS/view?usp=sharing', '_blank')}
                 className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-gradient-to-r from-blue-500 to-sky-400 text-white font-bold text-sm transition-all shadow-[0_8px_20px_rgba(59,130,246,0.25)] hover:shadow-[0_12px_24px_rgba(59,130,246,0.35)] flex items-center justify-center gap-2"
               >
                 <FileText size={18} />
@@ -191,7 +191,7 @@ const Hero = memo(() => {
               <div className="relative w-full h-full rounded-full p-2 bg-white/10 backdrop-blur-3xl border border-white/30 shadow-[0_30px_100px_rgba(0,0,0,0.2)] flex items-center justify-center overflow-hidden">
                 <div className="w-full h-full rounded-full overflow-hidden relative group bg-black/5 border-2 border-white">
                   <img
-                    src="/hero-photo.jpg"
+                    src="/hero-photo.webp"
                     alt="Vedant Patel"
                     fetchPriority="high"
                     width="600"

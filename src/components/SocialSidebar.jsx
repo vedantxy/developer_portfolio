@@ -95,8 +95,8 @@ const SocialSidebar = () => {
             p-2 sm:p-3 rounded-full 
             w-[40px] sm:w-[48px] lg:hover:w-[130px]
             transition-all duration-300 ease-in-out overflow-hidden
-            ${theme === 'dark' ? 'bg-[#2a2a2a]/80 text-[#aed9e0]/80 shadow-[#b8f2e6]/5 border-white/10' 
-              : 'bg-white/80 text-[#5e6472]/80 shadow-black/5 border-black/5'}
+            ${theme === 'dark' ? 'bg-[#2a2a2a]/80 text-[#aed9e0] shadow-[#b8f2e6]/5 border-white/10' 
+              : 'bg-white/80 text-[#5e6472] shadow-black/5 border-black/5'}
             backdrop-blur-md border shadow-lg origin-left hover:-translate-y-1
             ${link.bgHover} ${link.color} ${link.shadowHover} relative
           `}

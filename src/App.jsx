@@ -76,14 +76,22 @@ const getParticleOptions = (theme) => {
 };
 
 
+const LazySection = ({ children }) => (
+  <Suspense fallback={<div className="min-h-[400px] w-full flex items-center justify-center opacity-0" />}>
+    {children}
+  </Suspense>
+);
+
 const MainContent = ({ sectionFocus }) => {
   useEffect(() => {
     if (sectionFocus) {
       const element = document.getElementById(sectionFocus);
       if (element) {
-        setTimeout(() => {
+        // Reduced timeout for faster navigation
+        const timer = setTimeout(() => {
           element.scrollIntoView({ behavior: 'smooth' });
-        }, 600); // Give time for entry sequence and lazy loading
+        }, 300);
+        return () => clearTimeout(timer);
       }
     } else {
       window.scrollTo(0, 0);
@@ -91,18 +99,18 @@ const MainContent = ({ sectionFocus }) => {
   }, [sectionFocus]);
 
   return (
-    <Suspense fallback={<div className="min-h-screen bg-transparent" />}>
+    <div className="flex flex-col">
       <Hero />
-      <AboutMe />
-      <Skills />
-      <Achievements />
-      <Hackathon />
-      <Projects />
-      <Education />
-      <Certificates />
-      <Resume />
-      <Contact />
-    </Suspense>
+      <LazySection><AboutMe /></LazySection>
+      <LazySection><Skills /></LazySection>
+      <LazySection><Projects /></LazySection>
+      <LazySection><Hackathon /></LazySection>
+      <LazySection><Education /></LazySection>
+      <LazySection><Achievements /></LazySection>
+      <LazySection><Certificates /></LazySection>
+      <LazySection><Resume /></LazySection>
+      <LazySection><Contact /></LazySection>
+    </div>
   );
 };
 

@@ -75,8 +75,8 @@ function ProjectCard({ project, isFeatured = false }) {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-colors opacity-60 hover:opacity-100 hover:text-[var(--text-primary)]"
-                style={{ color: 'var(--text-muted)' }}
+                className="transition-colors opacity-80 hover:opacity-100 hover:text-[var(--text-primary)]"
+                style={{ color: 'var(--text-secondary)' }}
                 aria-label={label}
                 onClick={(e) => e.stopPropagation()}
               >

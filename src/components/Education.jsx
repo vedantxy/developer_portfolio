@@ -8,7 +8,7 @@ const Education = memo(() => {
   const isDark = theme === 'dark';
 
   return (
-    <section id="education" className="education-section py-20 md:py-32 px-6 overflow-hidden">
+    <section id="education" className="education-section py-20 md:py-24 px-6 overflow-hidden">
       <div className="max-w-[1280px] mx-auto relative z-10">
         
         {/* Header Section */}

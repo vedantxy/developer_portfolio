@@ -1,16 +1,8 @@
 import emailjs from '@emailjs/browser';
 import { motion, AnimatePresence } from 'motion/react';
 import { useState, useEffect, useRef } from 'react';
-import {
-  FaLinkedinIn,
-  FaGithub,
-  FaEnvelope,
-  FaMapMarkerAlt,
-  FaYoutube
-} from 'react-icons/fa';
-import { FaXTwitter } from 'react-icons/fa6';
+import { Mail, MapPin, Send, Github, Linkedin, Twitter, Youtube } from 'lucide-react';
 import { SiLeetcode } from 'react-icons/si';
-import './Contact.css';
 
 const isValidEmail = (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -18,11 +10,7 @@ const isValidEmail = (email) => {
 };
 
 function Contact() {
-  const [formData, setFormData] = useState({
-    from_name: '',
-    from_email: '',
-    message: ''
-  });
+  const [formData, setFormData] = useState({ from_name: '', from_email: '', message: '' });
   const formRef = useRef();
   const [isLoading, setIsLoading] = useState(false);
   const [toast, setToast] = useState(null);
@@ -55,200 +43,164 @@ function Contact() {
 
     if (!isEmailJSConfigured) {
       setIsLoading(false);
-      setToast({ type: 'error', message: 'EmailJS keys are missing in Environment Variables.' });
+      setToast({ type: 'error', message: 'EmailJS keys are missing.' });
       return;
     }
 
-    emailjs
-      .sendForm(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        formRef.current,
-        {
-          publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-        }
-      )
-      .then(
-        () => {
-          setIsLoading(false);
-          setFormData({ from_name: '', from_email: '', message: '' });
-          setToast({ type: 'success', message: 'Message sent successfully!' });
-        },
-        (err) => {
-          setIsLoading(false);
-          setToast({ type: 'error', message: 'Failed to send message.' });
-        }
-      );
+    emailjs.sendForm(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+      formRef.current,
+      { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY }
+    ).then(() => {
+      setIsLoading(false);
+      setFormData({ from_name: '', from_email: '', message: '' });
+      setToast({ type: 'success', message: 'Message sent successfully!' });
+    }, () => {
+      setIsLoading(false);
+      setToast({ type: 'error', message: 'Failed to send message.' });
+    });
   };
 
-  const socialLinks = [
-    { name: 'LinkedIn', icon: FaLinkedinIn, url: 'https://www.linkedin.com/in/vedant-patel-3b6a4636a/' },
-    { name: 'GitHub', icon: FaGithub, url: 'https://github.com/vedantxy' },
-    { name: 'Twitter', icon: FaXTwitter, url: 'https://x.com/VedantPate1601' },
-    { name: 'LeetCode', icon: SiLeetcode, url: 'https://leetcode.com/vedant_patel_01/' },
-    { name: 'YouTube', icon: FaYoutube, url: '#' },
-  ];
-
   return (
-    <section id="contact" className="contact-section pt-16 pb-8 md:pt-32 md:pb-16 px-6 md:px-12 transition-colors duration-500" style={{ background: 'transparent' }}>
-      {/* Local background elements removed to use BackgroundSystem */}
-
-      <div className="max-w-[1000px] mx-auto relative z-10">
+    <section id="contact" className="py-20 md:py-24 px-6 md:px-12 lg:px-24 relative overflow-hidden bg-transparent">
+      <div className="max-w-[1100px] mx-auto">
         
-        {/* Header */}
-        <div className="text-center mb-10">
-          <motion.h2 
-            initial={{ opacity: 0, y: 15 }}
+        {/* Section Header */}
+        <div className="mb-16 text-center lg:text-left">
+           <motion.div
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="contact-script text-6xl md:text-7xl mb-2"
-            style={{ color: 'var(--text-primary)' }}
-          >
-            Let’s Talk
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="font-medium tracking-wide text-sm uppercase"
-            style={{ color: 'var(--text-muted)' }}
-          >
-            Any question or remarks? Just write me a message!
-          </motion.p>
+            className="flex flex-col gap-4"
+           >
+              <span className="text-[11px] font-black tracking-[0.3em] uppercase opacity-40" style={{ color: 'var(--text-primary)' }}>
+                Connect
+              </span>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-none" style={{ color: 'var(--text-primary)' }}>
+                Let&apos;s start a conversation.
+              </h2>
+           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
           
-          {/* Left Column: Info */}
+          {/* Left Side: Info & Socials */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-10"
+            transition={{ duration: 0.8 }}
+            className="flex flex-col"
           >
-            <div>
-              <h3 className="text-3xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>Get in touch</h3>
-              <p className="leading-[1.8] max-w-md" style={{ color: 'var(--text-secondary)' }}>
-                I&apos;m always open to discussing new projects, creative ideas or original opportunities to be part of your visions.
-              </p>
+            <p className="text-lg font-medium leading-relaxed mb-12 opacity-70 max-w-md" style={{ color: 'var(--text-primary)' }}>
+              I&apos;m always looking for new opportunities and interesting projects. Whether you have a question or just want to say hi, I&apos;ll do my best to get back to you!
+            </p>
+
+            <div className="space-y-8 mb-12">
+               <ContactInfoItem icon={<Mail size={20} />} label="Email" value="vedantpatelxy12@gmail.com" />
+               <ContactInfoItem icon={<MapPin size={20} />} label="Location" value="Gujarat, India" />
             </div>
 
-            <div className="space-y-6">
-              <ContactItem 
-                icon={<FaEnvelope size={18} />} 
-                label="Email" 
-                value="vedantpatelxy12@gmail.com" 
-              />
-              <ContactItem 
-                icon={<FaMapMarkerAlt size={18} />} 
-                label="Location" 
-                value="Gujarat, India" 
-              />
+            <div className="mt-auto">
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-40 block mb-6" style={{ color: 'var(--text-primary)' }}>
+                Social Channels
+              </span>
+              <div className="flex gap-4">
+                 <SocialBtn icon={<Linkedin size={20} />} url="https://www.linkedin.com/in/vedant-patel-3b6a4636a/" />
+                 <SocialBtn icon={<Github size={20} />} url="https://github.com/vedantxy" />
+                 <SocialBtn icon={<Twitter size={20} />} url="https://x.com/VedantPate1601" />
+                 <SocialBtn icon={<SiLeetcode size={20} />} url="https://leetcode.com/u/Vedant_2403/" />
+              </div>
             </div>
           </motion.div>
 
-          {/* Right Column: Form Card */}
+          {/* Right Side: Form Card */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="p-8 md:p-10 rounded-[2rem] border transition-all duration-500"
-            style={{ background: 'var(--bg-card)', borderColor: 'var(--border)', boxShadow: 'var(--glow)' }}
+            transition={{ duration: 0.8 }}
+            className="p-8 md:p-10 rounded-[2.5rem] border border-white/10 bg-[#09090b] shadow-2xl relative group"
           >
-            <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-1.5">
-                <label className="text-[13px] font-bold ml-1" style={{ color: 'var(--text-muted)' }}>Name</label>
+            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent rounded-[2.5rem] pointer-events-none" />
+            
+            <form ref={formRef} onSubmit={handleSubmit} className="relative z-10 space-y-8">
+              <div className="space-y-2">
+                <label className="text-[11px] font-bold uppercase tracking-wider opacity-40 ml-1" style={{ color: 'var(--text-primary)' }}>Your Name</label>
                 <input
                   type="text"
                   name="from_name"
                   value={formData.from_name}
                   onChange={handleChange}
-                  placeholder="Your full name"
-                  className="contact-form-input w-full rounded-xl px-5 py-3.5 outline-none transition-all placeholder:text-slate-400"
-                  style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border)', color: 'var(--text-primary)' }}
+                  placeholder="Vedant Patel"
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-sm font-medium outline-none focus:border-indigo-500/50 focus:bg-white/10 transition-all placeholder:opacity-20"
+                  style={{ color: 'var(--text-primary)' }}
                 />
               </div>
 
-              <div className="space-y-1.5">
-                <label className="text-[13px] font-bold ml-1" style={{ color: 'var(--text-muted)' }}>Email</label>
+              <div className="space-y-2">
+                <label className="text-[11px] font-bold uppercase tracking-wider opacity-40 ml-1" style={{ color: 'var(--text-primary)' }}>Email Address</label>
                 <input
                   type="email"
                   name="from_email"
                   value={formData.from_email}
                   onChange={handleChange}
-                  placeholder="your@email.com"
-                  className="contact-form-input w-full rounded-xl px-5 py-3.5 outline-none transition-all placeholder:text-slate-400"
-                  style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border)', color: 'var(--text-primary)' }}
+                  placeholder="hello@example.com"
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-sm font-medium outline-none focus:border-indigo-500/50 focus:bg-white/10 transition-all placeholder:opacity-20"
+                  style={{ color: 'var(--text-primary)' }}
                 />
               </div>
 
-              <div className="space-y-1.5">
-                <label className="text-[13px] font-bold ml-1" style={{ color: 'var(--text-muted)' }}>Message</label>
+              <div className="space-y-2">
+                <label className="text-[11px] font-bold uppercase tracking-wider opacity-40 ml-1" style={{ color: 'var(--text-primary)' }}>Message</label>
                 <textarea
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  rows="5"
-                  placeholder="What's on your mind?"
-                  className="contact-form-input w-full rounded-xl px-5 py-3.5 outline-none transition-all resize-none placeholder:text-slate-400"
-                  style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border)', color: 'var(--text-primary)' }}
+                  rows="4"
+                  placeholder="How can I help you?"
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-sm font-medium outline-none focus:border-indigo-500/50 focus:bg-white/10 transition-all resize-none placeholder:opacity-20"
+                  style={{ color: 'var(--text-primary)' }}
                 />
               </div>
 
               <motion.button
                 type="submit"
                 disabled={isLoading}
-                whileHover={{ scale: 1.01, y: -2 }}
+                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full text-white py-4 rounded-xl font-bold tracking-wide transition-all flex items-center justify-center gap-2"
-                style={{ background: 'var(--accent)', boxShadow: 'var(--glow)' }}
+                className="w-full py-5 rounded-2xl bg-indigo-600 text-white font-black uppercase tracking-[0.2em] text-xs shadow-xl shadow-indigo-500/20 hover:shadow-indigo-500/40 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
               >
-                {isLoading ? 'Sending...' : 'Send Message'}
+                {isLoading ? 'Sending...' : (
+                  <>
+                    Send Message
+                    <Send size={14} />
+                  </>
+                )}
               </motion.button>
             </form>
           </motion.div>
-
         </div>
 
-        {/* Footer Area */}
-        <div className="mt-12 pt-6 border-t text-center" style={{ borderColor: 'var(--border)' }}>
-
-          <p className="contact-script text-[16px] md:text-[18px] mb-4 max-w-xl mx-auto leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-            &quot;I&apos;m Vedant — not just a developer, but a builder, a thinker, and a curious learner. Thanks for flipping through my pages.&quot;
-          </p>
-          
-          <div className="flex justify-center gap-4 mb-4">
-            {socialLinks.map((social) => (
-              <a 
-                key={social.name} 
-                href={social.url} 
-                target="_blank" 
-                rel="noreferrer"
-                className="social-icon-btn transition-all duration-300"
-                style={{ color: 'var(--text-muted)' }}
-                aria-label={social.name}
-              >
-                <social.icon size={22} />
-              </a>
-            ))}
-          </div>
-
-          <p className="text-[11px] tracking-widest opacity-80" style={{ color: 'var(--text-muted)' }}>
-            © {new Date().getFullYear()} Vedant Patel. All rights reserved.
-          </p>
+        {/* Minimal Footer */}
+        <div className="mt-24 pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6 opacity-40">
+           <span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: 'var(--text-primary)' }}>
+             © {new Date().getFullYear()} Vedant Patel
+           </span>
+           <span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: 'var(--text-primary)' }}>
+             Built with Precision + React
+           </span>
         </div>
-
       </div>
 
-      {/* Toast Notification */}
       <AnimatePresence>
         {toast && (
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
-            className={`fixed bottom-10 left-1/2 -translate-x-1/2 px-8 py-4 rounded-2xl shadow-2xl font-bold z-[100] ${toast.type === 'success' ? 'bg-[#6b85a6] text-white' : 'bg-red-500 text-white'}`}
+            initial={{ opacity: 0, y: 50, x: '-50%' }}
+            animate={{ opacity: 1, y: 0, x: '-50%' }}
+            exit={{ opacity: 0, y: 50, x: '-50%' }}
+            className={`fixed bottom-10 left-1/2 px-8 py-4 rounded-2xl shadow-2xl font-bold z-[100] ${toast.type === 'success' ? 'bg-indigo-600 text-white' : 'bg-red-500 text-white'}`}
           >
             {toast.message}
           </motion.div>
@@ -258,17 +210,31 @@ function Contact() {
   );
 }
 
-function ContactItem({ icon, label, value }) {
+function ContactInfoItem({ icon, label, value }) {
   return (
-    <div className="contact-info-item flex items-center gap-5 group cursor-default">
-      <div className="contact-info-circle text-slate-500 group-hover:text-slate-800">
+    <div className="flex items-center gap-5 group">
+      <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-white/5 border border-white/10 text-indigo-400 group-hover:scale-110 group-hover:bg-indigo-500 group-hover:text-white transition-all duration-500">
         {icon}
       </div>
-      <div>
-        <p className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 mb-0.5">{label}</p>
-        <p className="text-slate-700 font-medium">{value}</p>
+      <div className="flex flex-col">
+        <span className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-40" style={{ color: 'var(--text-primary)' }}>{label}</span>
+        <span className="text-base font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>{value}</span>
       </div>
     </div>
+  );
+}
+
+function SocialBtn({ icon, url }) {
+  return (
+    <motion.a
+      href={url}
+      target="_blank"
+      rel="noreferrer"
+      whileHover={{ y: -5 }}
+      className="w-12 h-12 rounded-full flex items-center justify-center bg-white/5 border border-white/10 text-white/40 hover:text-white hover:border-white/30 transition-all duration-300"
+    >
+      {icon}
+    </motion.a>
   );
 }
 

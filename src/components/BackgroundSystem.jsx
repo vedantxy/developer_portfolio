@@ -23,54 +23,37 @@ const BackgroundSystem = memo(() => {
       {/* 2. Grid Pattern Layer */}
       <div className="absolute inset-0 bg-grid-pattern opacity-[0.05] pointer-events-none" />
 
-      {/* 3. Blur Blobs (Glows) */}
+      {/* 3. Blur Blobs (Glows) - Optimized with CSS animations for better performance */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Top Left - Blue Blob */}
-        <motion.div 
-          animate={{ 
-            x: [0, 30, 0], 
-            y: [0, 50, 0],
-            scale: [1, 1.1, 1]
-          }}
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-[10%] -left-[10%] w-[50vw] h-[50vw] rounded-full opacity-[0.15] blur-[120px] will-change-transform"
+        <div 
+          className="absolute -top-[10%] -left-[10%] w-[50vw] h-[50vw] rounded-full opacity-[0.12] blur-[120px] animate-blob-1 will-change-transform"
           style={{ background: 'var(--blob-blue)' }}
         />
         
         {/* Bottom Right - Purple Blob */}
-        <motion.div 
-          animate={{ 
-            x: [0, -40, 0], 
-            y: [0, -60, 0],
-            scale: [1, 1.2, 1]
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute -bottom-[15%] -right-[10%] w-[60vw] h-[60vw] rounded-full opacity-[0.2] blur-[140px] will-change-transform"
+        <div 
+          className="absolute -bottom-[15%] -right-[10%] w-[60vw] h-[60vw] rounded-full opacity-[0.15] blur-[140px] animate-blob-2 will-change-transform"
           style={{ background: 'var(--blob-purple)' }}
         />
 
-        {/* Center - Soft Indigo/Pink Glow (Optional) */}
-        <motion.div 
-          animate={{ 
-            opacity: [0.05, 0.1, 0.05],
-            scale: [0.8, 1, 0.8]
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] h-[70vw] rounded-full opacity-[0.08] blur-[160px]"
+        {/* Center - Soft Accent Glow */}
+        <div 
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] h-[70vw] rounded-full opacity-[0.05] blur-[160px] animate-pulse-soft"
           style={{ background: 'var(--accent)' }}
         />
       </div>
 
-      {/* 4. Floating Particles Layer (Reduced on mobile) */}
+      {/* 4. Floating Particles Layer (Optimized for performance) */}
       <div className="absolute inset-0 pointer-events-none hidden sm:block">
-        {particles.map((p) => (
+        {particles.slice(0, 15).map((p) => (
           <motion.div
             key={p.id}
             initial={{ opacity: 0 }}
             animate={{ 
               y: ['-10vh', '110vh'],
-              x: ['-5vw', '5vw'],
-              opacity: [0, 0.3, 0]
+              x: ['-2vw', '2vw'],
+              opacity: [0, 0.2, 0]
             }}
             transition={{ 
               duration: p.duration, 
@@ -85,20 +68,21 @@ const BackgroundSystem = memo(() => {
               height: p.size,
               borderRadius: '50%',
               backgroundColor: 'var(--particle-color)',
+              willChange: 'transform, opacity'
             }}
           />
         ))}
       </div>
 
-      {/* 5. Mobile Particles (Fewer) */}
+      {/* 5. Mobile Particles (Minimal) */}
       <div className="absolute inset-0 pointer-events-none sm:hidden">
-        {particles.slice(0, 8).map((p) => (
+        {particles.slice(0, 5).map((p) => (
           <motion.div
             key={`mobile-${p.id}`}
             initial={{ opacity: 0 }}
             animate={{ 
               y: ['-10vh', '110vh'],
-              opacity: [0, 0.2, 0]
+              opacity: [0, 0.15, 0]
             }}
             transition={{ 
               duration: p.duration * 1.5, 
@@ -109,18 +93,32 @@ const BackgroundSystem = memo(() => {
             style={{
               position: 'absolute',
               left: p.left,
-              width: p.size * 0.8,
-              height: p.size * 0.8,
+              width: p.size * 0.7,
+              height: p.size * 0.7,
               borderRadius: '50%',
               backgroundColor: 'var(--particle-color)',
+              willChange: 'transform, opacity'
             }}
           />
         ))}
       </div>
 
-      {/* 6. Custom Scan Line (Premium SaaS feel) */}
-      <div className="absolute inset-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent top-0 animate-scan-line pointer-events-none opacity-[0.2]" />
+      {/* 6. Custom Scan Line */}
+      <div className="absolute inset-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent top-0 animate-scan-line pointer-events-none opacity-[0.15] will-change-transform" />
 
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes blob-1 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(30px, 50px) scale(1.1); }
+          66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+        @keyframes blob-2 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(-40px, -60px) scale(1.2); }
+        }
+        .animate-blob-1 { animation: blob-1 20s infinite ease-in-out; }
+        .animate-blob-2 { animation: blob-2 25s infinite ease-in-out; }
+      `}} />
     </div>
   );
 });

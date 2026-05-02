@@ -190,7 +190,7 @@ function Achievements() {
   const isDark = theme === 'dark';
 
   return (
-    <section id="achievements" className="pt-16 pb-8 md:pt-32 md:pb-16 px-6 md:px-12 lg:px-24 relative overflow-hidden transition-colors duration-500" style={{ background: 'transparent', color: 'var(--text-primary)' }}>
+    <section id="achievements" className="py-20 md:py-24 px-6 md:px-12 lg:px-24 relative overflow-hidden transition-colors duration-500" style={{ background: 'transparent', color: 'var(--text-primary)' }}>
       
       {/* Global BackgroundSystem handles the background visuals */}
 

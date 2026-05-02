@@ -21,7 +21,7 @@ function CoreOrb() {
     <group>
       {/* Outer icosahedron */}
       <mesh ref={outer}>
-        <icosahedronGeometry args={[1.8, 2]} />
+        <icosahedronGeometry args={[1.8, 1]} />
         <meshBasicMaterial color="#6366f1" wireframe transparent opacity={0.4} />
       </mesh>
       {/* Inner octahedron */}
@@ -43,8 +43,10 @@ function OrbitRing({ radius = 2.5, speed = 0.3, tilt = Math.PI / 4, opacity = 0.
   useFrame((state, delta) => {
     time.current += delta;
     const t = time.current;
-    ringRef.current.rotation.y = t * speed;
-    ringRef.current.rotation.x = tilt;
+    if (ringRef.current) {
+      ringRef.current.rotation.y = t * speed;
+      ringRef.current.rotation.x = tilt;
+    }
     if (dotsRef.current) {
       dotsRef.current.rotation.y = t * speed;
       dotsRef.current.rotation.x = tilt;
@@ -54,13 +56,13 @@ function OrbitRing({ radius = 2.5, speed = 0.3, tilt = Math.PI / 4, opacity = 0.
   return (
     <>
       <mesh ref={ringRef}>
-        <torusGeometry args={[radius, 0.006, 2, 120]} />
+        <torusGeometry args={[radius, 0.006, 3, 64]} />
         <meshBasicMaterial color="#ffffff" transparent opacity={opacity} />
       </mesh>
       <group ref={dotsRef}>
         {dotAngles.map((angle, i) => (
           <mesh key={i} position={[Math.cos(angle) * radius, Math.sin(angle) * radius * Math.sin(tilt), Math.sin(angle) * radius * Math.cos(tilt)]}>
-            <sphereGeometry args={[0.03, 12, 12]} />
+            <sphereGeometry args={[0.03, 8, 8]} />
             <meshBasicMaterial color="#818cf8" transparent opacity={0.8} />
           </mesh>
         ))}
@@ -70,7 +72,7 @@ function OrbitRing({ radius = 2.5, speed = 0.3, tilt = Math.PI / 4, opacity = 0.
 }
 
 /* ─── Sphere particle field ─── */
-function StarField({ count = 320 }) {
+function StarField({ count = 250 }) {
   const ref = useRef();
 
   const { positions } = useMemo(() => {
@@ -137,7 +139,13 @@ const HeroThreeScene = memo(() => {
     <Canvas
       camera={{ position: [0, 0, 5.5], fov: 55 }}
       style={{ background: 'transparent', width: '100%', height: '100%' }}
-      gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
+      gl={{ 
+        alpha: true, 
+        antialias: false, 
+        powerPreference: 'high-performance',
+        stencil: false,
+        depth: true
+      }}
       dpr={[1, 1.5]}
     >
       <ambientLight intensity={0.3} />
@@ -149,7 +157,7 @@ const HeroThreeScene = memo(() => {
         <OrbitRing radius={2.2} speed={0.25}   tilt={Math.PI / 6}   opacity={0.2} dotCount={1} />
         <OrbitRing radius={3.2} speed={-0.15}  tilt={Math.PI / 3}   opacity={0.15} dotCount={2} />
         <OrbitRing radius={1.8} speed={0.4}    tilt={Math.PI / 8}   opacity={0.1} dotCount={3} />
-        <StarField count={450} />
+        <StarField count={300} />
       </MouseTracker>
     </Canvas>
   );

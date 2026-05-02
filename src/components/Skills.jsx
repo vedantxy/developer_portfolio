@@ -107,7 +107,7 @@ const SkillCard = memo(({ skill, delay }) => {
 
 const Skills = memo(() => {
   return (
-    <section id="skills" className="py-16 md:py-24 px-6 md:px-12 lg:px-24 flex items-center relative overflow-hidden transition-colors duration-500" style={{ background: 'var(--bg-primary)' }}>
+    <section id="skills" className="py-20 md:py-24 px-6 md:px-12 lg:px-24 flex items-center relative overflow-hidden transition-colors duration-500" style={{ background: 'transparent' }}>
       
       {/* Background Ecosystem */}
       <div className="absolute inset-0 pointer-events-none">

@@ -29,37 +29,82 @@ const Navbar = memo(() => {
   ]);
 
   const navItems = [
-    'Home', 'About', 'Skills', 'Projects', 'Education', 'Achievements', 'Certificates', 'Hackathon', 'Resume', 'Contact'
+    'Home', 'About', 'Skills', 'Projects', 'Hackathon', 'Education', 'Achievements', 'Certificates', 'Resume', 'Contact'
   ];
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      // Modern active section detection
-      const scrollPos = window.scrollY + 100;
-      for (const item of navItems) {
-        const id = item === 'Home' ? 'home' : item.toLowerCase();
-        const section = document.getElementById(id);
-        if (section) {
-          const top = section.offsetTop;
-          const height = section.offsetHeight;
-          if (scrollPos >= top && scrollPos < top + height) {
-            setActiveItem(item);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollPos = window.scrollY + 120;
+          let currentSection = 'Home';
+          
+          for (const item of navItems) {
+            const id = item === 'Home' ? 'home' : item.toLowerCase();
+            const section = document.getElementById(id);
+            if (section) {
+              const top = section.offsetTop;
+              const height = section.offsetHeight;
+              if (scrollPos >= top && scrollPos < top + height) {
+                currentSection = item;
+              }
+            }
           }
-        }
+          
+          if (currentSection !== activeItem) {
+            setActiveItem(currentSection);
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [navItems]);
+  }, [navItems, activeItem]);
+
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (!element) return;
+
+    const offset = 80; // Navbar height offset
+    const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+    const startPosition = window.scrollY;
+    const distance = elementPosition - offset - startPosition;
+    const duration = 400; // Fast and snappy
+    let start = null;
+
+    // Ease out cubic
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+    const animation = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = timestamp - start;
+      const percentage = Math.min(progress / duration, 1);
+      
+      window.scrollTo(0, startPosition + distance * easeOutCubic(percentage));
+
+      if (percentage < 1) {
+        window.requestAnimationFrame(animation);
+      }
+    };
+
+    window.requestAnimationFrame(animation);
+  };
 
   const handleNavClick = (e, item) => {
     e.preventDefault();
-    const route = item === 'Home' ? '/' : `/${item.toLowerCase()}`;
+    const sectionId = item === 'Home' ? 'home' : item.toLowerCase();
     
     if (isMobileMenuOpen) setIsMobileMenuOpen(false);
     
-    navigate(route);
+    // Use custom scroll instead of direct navigation
+    scrollToSection(sectionId);
+    
+    // Update active item immediately for perceived speed
+    setActiveItem(item);
   };
 
   return (
@@ -84,47 +129,41 @@ const Navbar = memo(() => {
           
           {/* ── Hyper-Premium Brand Logo ── */}
           <motion.div
-            whileHover={{ scale: 1.02 }}
+            whileHover={{ scale: 1.05 }}
             onClick={(e) => handleNavClick(e, 'Home')}
-            className="cursor-pointer group flex items-center gap-4"
+            className="cursor-pointer flex items-center group"
           >
-            {/* 3D Abstract Icon */}
-            <div className="relative w-14 h-14 flex items-center justify-center">
-              {/* Neon Glow Rings */}
-              <motion.div 
-                animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.6, 0.3] }}
-                transition={{ duration: 3, repeat: Infinity }}
-                className="absolute inset-[-4px] bg-indigo-500/20 rounded-[18px] blur-md" 
+            {/* Custom SVG 'V' Logo - Refined to match image */}
+            <svg width="45" height="45" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-11 h-11 -mr-2">
+              {/* Left Stroke */}
+              <path 
+                d="M22 25L50 75" 
+                stroke="url(#v-gradient-left)" 
+                strokeWidth="18" 
+                strokeLinecap="round" 
               />
-              
-              {/* Outer Shell */}
-              <motion.div 
-                animate={{ rotate: [0, 5, 0] }}
-                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-blue-600 to-purple-700 rounded-[16px] shadow-[0_10px_30px_rgba(79,70,229,0.3),inset_0_2px_4px_rgba(255,255,255,0.3)]" 
+              {/* Right Stroke */}
+              <path 
+                d="M78 25L50 75" 
+                stroke="url(#v-gradient-right)" 
+                strokeWidth="18" 
+                strokeLinecap="round" 
               />
-              
-              {/* Inner Glass Layer */}
-              <div className="absolute inset-[3px] bg-white/10 backdrop-blur-[2px] rounded-[13px] border border-white/20" />
-              
-              {/* Glowing "V" Initial */}
-              <span className="relative z-10 text-white font-black text-2xl italic tracking-tighter drop-shadow-[0_2px_10px_rgba(255,255,255,0.5)]">
-                V
-              </span>
-            </div>
+              <defs>
+                <linearGradient id="v-gradient-left" x1="22" y1="25" x2="50" y2="75" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#6366f1" />
+                  <stop offset="1" stopColor="#a855f7" />
+                </linearGradient>
+                <linearGradient id="v-gradient-right" x1="78" y1="25" x2="50" y2="75" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#3b82f6" />
+                  <stop offset="1" stopColor="#2563eb" />
+                </linearGradient>
+              </defs>
+            </svg>
 
-            {/* Premium Typography */}
-            <div className="flex flex-col">
-              <span className="text-2xl font-black tracking-[-0.04em] leading-none" style={{ color: 'var(--text-primary)' }}>
-                PATEL<span style={{ color: 'var(--accent)' }}>.</span>
-              </span>
-              <div className="flex items-center gap-2 mt-2">
-                <div className="h-[1px] w-4" style={{ background: 'var(--accent-30)' }} />
-                <span className="text-[9px] font-black tracking-[0.4em] uppercase opacity-70" style={{ color: 'var(--text-muted)' }}>
-                  Dev Portfolio
-                </span>
-              </div>
-            </div>
+            <span className="text-4xl font-black tracking-tighter transition-colors flex items-center" style={{ color: 'var(--text-primary)' }}>
+              edant<span className="inline-block w-3 h-3 rounded-full ml-1 bg-gradient-to-tr from-indigo-600 to-purple-500 shadow-sm self-end mb-1.5" />
+            </span>
           </motion.div>
 
           {/* ── Center Navigation (Stripe Style) ── */}
@@ -156,26 +195,7 @@ const Navbar = memo(() => {
           <div className="flex items-center gap-3 md:gap-4">
             <ThemeToggle />
             
-            <div className="hidden lg:flex items-center">
-              <motion.button
-                whileHover={{ y: -2, scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={(e) => handleNavClick(e, 'Contact')}
-                className="relative group px-8 py-3 rounded-full text-white font-bold text-sm overflow-hidden"
-                style={{ background: 'var(--text-primary)' }}
-              >
-                {/* Gradient Aura */}
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
-                <div className="relative z-10 flex items-center gap-2">
-                  <span style={{ color: 'var(--bg-primary)' }}>Hire Me</span>
-                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" style={{ color: 'var(--bg-primary)' }} />
-                </div>
-                
-                {/* Glow Blur Effect */}
-                <div className="absolute top-full left-1/2 -translate-x-1/2 w-[80%] h-10 bg-blue-500/40 blur-xl opacity-0 group-hover:opacity-70 transition-opacity duration-500" />
-              </motion.button>
-            </div>
+
 
             {/* ── Mobile Trigger ── */}
             <motion.button
@@ -229,16 +249,7 @@ const Navbar = memo(() => {
                   </Link>
                 ))}
               </div>
-              <motion.button
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="w-full mt-6 py-5 rounded-2xl text-white font-black uppercase tracking-[0.2em] shadow-xl shadow-blue-500/20"
-                style={{ background: 'var(--accent)' }}
-                onClick={(e) => handleNavClick(e, 'Contact')}
-              >
-                Launch Project
-              </motion.button>
+
             </motion.div>
           )}
         </AnimatePresence>
