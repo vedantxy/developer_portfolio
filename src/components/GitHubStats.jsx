@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext } from 'react';
 import { motion } from 'motion/react';
 import { ThemeContext } from '../context/ThemeContext';
 import { Github, Star, GitFork, Eye, Code2, Users } from 'lucide-react';
@@ -20,7 +20,7 @@ const STAT_CARDS = [
 ];
 
 function GitHubStats() {
-  const { theme, isTransitioning } = useContext(ThemeContext);
+  const { isTransitioning } = useContext(ThemeContext);
 
   return (
     <section id="github" className="py-24 px-6 relative overflow-hidden" style={{ background: 'transparent' }}>
@@ -52,7 +52,7 @@ function GitHubStats() {
             </h2>
           </div>
           <p className="text-lg mb-6" style={{ color: 'var(--text-secondary)' }}>
-            Code is my craft — here's a snapshot of what I build.
+            Code is my craft — here&apos;s a snapshot of what I build.
           </p>
           <motion.div
             initial={{ width: 0 }}

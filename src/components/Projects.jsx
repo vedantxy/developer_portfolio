@@ -226,4 +226,6 @@ const Projects = memo(() => {
   );
 });
 
+Projects.displayName = 'Projects';
+
 export default Projects;

@@ -1,11 +1,8 @@
-import React, { useContext, memo } from 'react';
+import React, { memo } from 'react';
 import { motion } from 'motion/react';
-import { ThemeContext } from '../context/ThemeContext';
 import './Education.css';
 
 const Education = memo(() => {
-  const { theme } = useContext(ThemeContext);
-  const isDark = theme === 'dark';
 
   return (
     <section id="education" className="education-section py-20 md:py-24 px-6 overflow-hidden">
@@ -232,5 +229,7 @@ const Education = memo(() => {
     </section>
   );
 });
+
+Education.displayName = 'Education';
 
 export default Education;

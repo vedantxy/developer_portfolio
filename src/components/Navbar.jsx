@@ -1,16 +1,19 @@
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import { useState, useEffect } from 'react';
 import { Menu, X, ArrowRight } from 'lucide-react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
 import { useTheme } from '../hooks/useTheme';
 import React, { memo } from 'react';
+
+const NAV_ITEMS = [
+  'Home', 'About', 'Skills', 'Projects', 'Hackathon', 'Education', 'Achievements', 'Certificates', 'Resume', 'Contact'
+];
 
 const Navbar = memo(() => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeItem, setActiveItem] = useState('Home');
   const { scrollY } = useScroll();
-  const navigate = useNavigate();
 
   // Dynamic transforms for premium feel
   const { theme } = useTheme();
@@ -28,9 +31,7 @@ const Navbar = memo(() => {
     theme === 'dark' ? '0 8px 30px rgba(0,0,0,0.3)' : '0 8px 30px rgba(15,23,42,0.04)'
   ]);
 
-  const navItems = [
-    'Home', 'About', 'Skills', 'Projects', 'Hackathon', 'Education', 'Achievements', 'Certificates', 'Resume', 'Contact'
-  ];
+
 
   useEffect(() => {
     let ticking = false;
@@ -40,7 +41,7 @@ const Navbar = memo(() => {
           const scrollPos = window.scrollY + 120;
           let currentSection = 'Home';
           
-          for (const item of navItems) {
+          for (const item of NAV_ITEMS) {
             const id = item === 'Home' ? 'home' : item.toLowerCase();
             const section = document.getElementById(id);
             if (section) {
@@ -63,7 +64,7 @@ const Navbar = memo(() => {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [navItems, activeItem]);
+  }, [activeItem]);
 
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
@@ -168,7 +169,7 @@ const Navbar = memo(() => {
 
           {/* ── Center Navigation (Stripe Style) ── */}
           <div className="hidden lg:flex items-center gap-1 xl:gap-2 px-1.5 py-1.5 rounded-full border shadow-inner" style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border)' }}>
-            {navItems.map((item) => (
+            {NAV_ITEMS.map((item) => (
               <Link
                 key={item}
                 to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
@@ -232,7 +233,7 @@ const Navbar = memo(() => {
               style={{ background: 'var(--glass-bg)', borderColor: 'var(--border)' }}
             >
               <div className="grid grid-cols-2 gap-3">
-                {navItems.map((item) => (
+                {NAV_ITEMS.map((item) => (
                   <Link
                     key={item}
                     to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
@@ -257,5 +258,7 @@ const Navbar = memo(() => {
     </>
   );
 });
+
+Navbar.displayName = 'Navbar';
 
 export default Navbar;

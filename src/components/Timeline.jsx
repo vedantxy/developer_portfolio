@@ -67,7 +67,7 @@ const TIMELINE_DATA = [
 ];
 
 function TimelineCard({ item, idx }) {
-  const { theme, isTransitioning } = useContext(ThemeContext);
+  const { isTransitioning } = useContext(ThemeContext);
   const Icon = item.icon;
   const isLeft = item.side === 'left';
 
@@ -125,7 +125,7 @@ function TimelineCard({ item, idx }) {
 }
 
 function Timeline() {
-  const { theme, isTransitioning } = useContext(ThemeContext);
+  const { isTransitioning } = useContext(ThemeContext);
 
   return (
     <section id="timeline" className="py-24 px-6 relative overflow-hidden" style={{ background: 'transparent' }}>

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useMemo, lazy, Suspense } from 'react';
 import { tsParticles } from '@tsparticles/engine';
 import { loadSlim } from '@tsparticles/slim';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero.jsx';
 import AnalyticsTracker from './components/AnalyticsTracker.jsx';
@@ -25,6 +25,7 @@ const Education = lazy(() => import('./components/Education.jsx'));
 const Certificates = lazy(() => import('./components/Certificates.jsx'));
 const Resume = lazy(() => import('./components/Resume.jsx'));
 const Contact = lazy(() => import('./components/Contact.jsx'));
+const Footer = lazy(() => import('./components/Footer.jsx'));
 
 // Monochrome Gray+White particle configs per theme
 const getParticleOptions = (theme) => {
@@ -110,6 +111,7 @@ const MainContent = ({ sectionFocus }) => {
       <LazySection><Certificates /></LazySection>
       <LazySection><Resume /></LazySection>
       <LazySection><Contact /></LazySection>
+      <LazySection><Footer /></LazySection>
     </div>
   );
 };
@@ -117,7 +119,6 @@ const MainContent = ({ sectionFocus }) => {
 function App() {
   const particlesContainerRef = useRef(null);
   const { theme } = useContext(ThemeContext);
-  const location = useLocation();
 
   const particlesOptions = useMemo(() => getParticleOptions(theme), [theme]);
 

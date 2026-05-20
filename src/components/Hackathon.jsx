@@ -1,7 +1,6 @@
-import React, { useContext, memo } from 'react';
+import React, { memo } from 'react';
 import { motion } from 'motion/react';
-import { ThemeContext } from '../context/ThemeContext';
-import { ExternalLink, Github, Trophy, Cpu, Zap, Target } from 'lucide-react';
+import { ExternalLink, Github, Trophy, Cpu, Zap, Target, Play, Clock, Users, Award, ArrowUpRight } from 'lucide-react';
 
 const HACKATHONS = [
   {
@@ -22,131 +21,219 @@ const HACKATHONS = [
     codeLink: 'https://github.com/vedantxy/ArtPark_CodeForge_Hackathon',
     certificateLink:
       'https://res.cloudinary.com/dv7bazp5k/image/upload/q_auto/f_auto/v1775489564/73e7cdda-ea5d-4ca9-84ab-77fe49695dcb_jkapar.jpg',
+    youtubeLink: 'https://youtu.be/iHOUewlpLHg',
     image:
       'https://www.resumeanalyzerai.com/demo-video-cover.png',
+    metrics: [
+      { icon: <Clock size={14} />, value: '48h', label: 'Build Time' },
+      { icon: <Users size={14} />, value: '500+', label: 'Users' },
+      { icon: <Award size={14} />, value: '1st', label: 'Place' },
+    ],
   },
 ];
 
 const Hackathon = memo(() => {
-  const { theme } = useContext(ThemeContext);
-  const isDark = theme === 'dark';
-
   return (
-    <section id="hackathon" className="py-20 md:py-24 px-6 relative overflow-hidden transition-colors duration-500" style={{ background: 'transparent' }}>
-      {/* Background Grids */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.05]" style={{ backgroundImage: "linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
-      <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-indigo-500/5 blur-[120px] rounded-full" />
+    <section id="hackathon" className="py-24 md:py-32 px-6 md:px-12 lg:px-24 relative overflow-hidden transition-colors duration-500" style={{ background: 'transparent' }}>
+      {/* Background Glows */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-amber-500/5 blur-[140px] rounded-full pointer-events-none" />
 
-      <div className="max-w-[1200px] mx-auto relative z-10">
-        
-        {/* Modern Header (Clean & Minimal) */}
-        <div className="mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col items-start gap-4"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight transition-colors" style={{ color: 'var(--text-primary)' }}>
-              🏆 Hackathons
-            </h2>
-            <p className="text-[#6b7280] text-lg font-medium max-w-2xl">
-              Competing under pressure — building real solutions in record time.
-            </p>
-            <motion.div 
-              initial={{ width: 0 }}
-              whileInView={{ width: '60px' }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-              className="h-1 bg-[#0a0a0a] rounded-full"
-              style={{ background: 'var(--text-primary)' }}
-            />
-          </motion.div>
-        </div>
+      <div className="max-w-[1100px] mx-auto relative z-10">
 
-        {/* Featured Hackathon Card (White-Dominant) */}
+        {/* ── Section Header ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-20 text-center"
+        >
+          <div className="flex items-center justify-center gap-3 mb-5">
+            <div className="w-8 h-[2px] rounded-full bg-amber-500" />
+            <span className="text-[11px] font-black tracking-[0.3em] uppercase text-amber-500">
+              Hackathons
+            </span>
+            <div className="w-8 h-[2px] rounded-full bg-amber-500" />
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.08] mb-5" style={{ color: 'var(--text-primary)' }}>
+            Competing under{' '}
+            <span className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 bg-clip-text text-transparent">
+              pressure
+            </span>
+          </h2>
+          <p className="text-lg font-medium opacity-50 max-w-lg mx-auto" style={{ color: 'var(--text-primary)' }}>
+            Building real solutions in record time — where ideas meet execution.
+          </p>
+        </motion.div>
+
+        {/* ── Featured Hackathon Cards ── */}
         {HACKATHONS.map((hackathon) => (
           <motion.div
             key={hackathon.id}
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            whileHover={{ y: -5 }}
-            transition={{ duration: 0.6 }}
-            className="relative group border border-black/[0.06] rounded-[2.5rem] p-8 md:p-12 shadow-[0_10px_40px_rgba(0,0,0,0.06)] overflow-hidden transition-colors duration-500"
-            style={{ background: isDark ? 'var(--bg-secondary)' : 'white' }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="relative rounded-[2rem] md:rounded-[2.5rem] border border-[var(--border)] overflow-hidden transition-all duration-500 hover:border-amber-500/20 group"
+            style={{ background: 'var(--bg-card)', boxShadow: 'var(--glow)' }}
           >
-            <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-12 md:gap-20">
-              
-              {/* Left Column: Visuals */}
-              <div className="space-y-10">
-                <div 
-                  className="relative aspect-[16/10] rounded-[1.5rem] overflow-hidden border border-black/[0.04] transition-all duration-500"
-                  data-cursor="media"
+            {/* ── Winner Ribbon ── */}
+            <div className="absolute top-6 right-6 z-30">
+              <motion.div
+                initial={{ scale: 0, rotate: -12 }}
+                whileInView={{ scale: 1, rotate: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5, type: 'spring', stiffness: 200, damping: 15 }}
+                className="flex items-center gap-2 px-4 py-2 rounded-2xl border border-amber-500/30 shadow-lg"
+                style={{ background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(249, 115, 22, 0.1) 100%)' }}
+              >
+                <Trophy size={14} className="text-amber-500" />
+                <span className="text-[11px] font-black uppercase tracking-wider text-amber-500">
+                  Winner
+                </span>
+              </motion.div>
+            </div>
+
+            {/* ── Card Hover Glow ── */}
+            <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-[2.5rem]" />
+
+            <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-0">
+
+              {/* ══ Left Column: Image + Details ══ */}
+              <div className="p-6 md:p-10 flex flex-col gap-8">
+
+                {/* Image with Play Button */}
+                <motion.div
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  className="relative aspect-[16/10] rounded-2xl md:rounded-3xl overflow-hidden border border-[var(--border)] group/img"
                 >
-                  <motion.img
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.8 }}
+                  <img
                     src={hackathon.image}
                     alt={hackathon.name}
-                    className="w-full h-full object-cover filter grayscale-[0.9] contrast-[1.05] brightness-[1.02]"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover/img:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-white/10 to-transparent" />
-                </div>
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
 
-                {/* Sub-details (Problem/Solution/Outcome) for Desktop */}
-                <div className="hidden lg:grid grid-cols-1 gap-10 px-2">
-                  <DetailSection 
-                    icon={<Target size={18} className="text-[#9ca3af]" />} 
-                    label="Problem Statement" 
-                    text={hackathon.problem} 
+                  {/* Play Button */}
+                  <a
+                    href={hackathon.youtubeLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute inset-0 flex items-center justify-center"
+                  >
+                    <motion.div
+                      whileHover={{ scale: 1.15 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center shadow-2xl group-hover/img:bg-white/30 transition-all duration-300"
+                    >
+                      <Play size={24} className="text-white ml-1" fill="white" />
+                    </motion.div>
+                  </a>
+
+                  {/* Bottom image badge */}
+                  <div className="absolute bottom-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-xl bg-black/40 backdrop-blur-sm border border-white/10">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-white/80">
+                      Watch Demo
+                    </span>
+                  </div>
+                </motion.div>
+
+                {/* Problem / Solution / Outcome — Glassmorphic Cards */}
+                <div className="flex flex-col gap-4">
+                  <DetailCard
+                    icon={<Target size={16} />}
+                    label="Problem"
+                    text={hackathon.problem}
+                    accentColor="#ef4444"
+                    delay={0.3}
                   />
-                  <DetailSection 
-                    icon={<Zap size={18} className="text-[#9ca3af]" />} 
-                    label="Solution" 
-                    text={hackathon.solution} 
+                  <DetailCard
+                    icon={<Zap size={16} />}
+                    label="Solution"
+                    text={hackathon.solution}
+                    accentColor="#22c55e"
+                    delay={0.4}
+                  />
+                  <DetailCard
+                    icon={<Cpu size={16} />}
+                    label="Outcome"
+                    text={hackathon.outcome}
+                    accentColor="#6366f1"
+                    delay={0.5}
                   />
                 </div>
               </div>
 
-              {/* Right Column: Content & Actions */}
-              <div className="flex flex-col justify-between py-2">
+              {/* ══ Right Column: Content & Actions ══ */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="p-6 md:p-10 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-[var(--border)]"
+              >
                 <div>
-                  <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 bg-[#f3f4f6] rounded-full" style={{ background: isDark ? 'var(--bg-primary)' : '#f3f4f6' }}>
-                    <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#374151]" style={{ color: isDark ? 'var(--text-secondary)' : '#374151' }}>
+                  {/* Theme Badge */}
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 rounded-full border border-[var(--border)] bg-[var(--bg-secondary)]">
+                    <div className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                    <span className="text-[10px] font-black uppercase tracking-[0.15em]" style={{ color: 'var(--text-secondary)' }}>
                       {hackathon.theme}
                     </span>
                   </div>
 
-                  <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight transition-colors" style={{ color: 'var(--text-primary)' }}>
+                  {/* Title */}
+                  <h3 className="text-3xl md:text-4xl font-black mb-3 tracking-tight" style={{ color: 'var(--text-primary)' }}>
                     {hackathon.name}
                   </h3>
-                  <p className="text-[#6b7280] text-base mb-10 leading-relaxed font-medium">
+                  <p className="text-sm font-semibold mb-8 opacity-50" style={{ color: 'var(--text-primary)' }}>
                     Organized by {hackathon.org} • {hackathon.date}
                   </p>
 
-                  {/* Outcome for Mobile & Sidebar for Desktop */}
-                  <div className="lg:hidden mb-10 space-y-10">
-                    <DetailSection label="Problem Statement" text={hackathon.problem} />
-                    <DetailSection label="Solution" text={hackathon.solution} />
+                  {/* ── Impact Metrics ── */}
+                  <div className="flex gap-3 mb-10">
+                    {hackathon.metrics.map((metric, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.4 + i * 0.1 }}
+                        whileHover={{ y: -3, scale: 1.03 }}
+                        className="flex-1 p-4 rounded-2xl border border-[var(--border)] bg-[var(--bg-secondary)] text-center group/metric transition-all duration-300 hover:border-amber-500/20"
+                      >
+                        <div className="flex items-center justify-center mb-2 text-amber-500 group-hover/metric:scale-110 transition-transform">
+                          {metric.icon}
+                        </div>
+                        <div className="text-xl font-black tracking-tight" style={{ color: 'var(--text-primary)' }}>
+                          {metric.value}
+                        </div>
+                        <div className="text-[9px] font-bold uppercase tracking-[0.15em] opacity-40" style={{ color: 'var(--text-primary)' }}>
+                          {metric.label}
+                        </div>
+                      </motion.div>
+                    ))}
                   </div>
 
-                  <DetailSection 
-                    icon={<Cpu size={18} className="text-[#9ca3af]" />} 
-                    label="Outcome" 
-                    text={hackathon.outcome} 
-                  />
-
-                  {/* Tech Stack Chips */}
-                  <div className="mt-12">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#9ca3af] mb-6 ml-1">Developed With</p>
-                    <div className="flex flex-wrap gap-3">
-                      {hackathon.tags.map((tag) => (
+                  {/* ── Tech Stack ── */}
+                  <div className="mb-10">
+                    <span className="text-[10px] font-black uppercase tracking-[0.25em] opacity-30 block mb-4 ml-0.5" style={{ color: 'var(--text-primary)' }}>
+                      Built With
+                    </span>
+                    <div className="flex flex-wrap gap-2.5">
+                      {hackathon.tags.map((tag, i) => (
                         <motion.span
                           key={tag}
-                          whileHover={{ scale: 1.03, background: isDark ? '#1f2937' : '#e5e7eb' }}
-                          className="px-5 py-2.5 bg-[#f3f4f6] rounded-xl text-[13px] font-semibold text-[#374151] cursor-default transition-all"
-                          style={{ background: isDark ? 'var(--bg-primary)' : '#f3f4f6', color: isDark ? 'var(--text-secondary)' : '#374151' }}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: 0.5 + i * 0.06, duration: 0.4 }}
+                          whileHover={{ y: -2, scale: 1.05 }}
+                          className="px-4 py-2 rounded-xl text-[12px] font-bold tracking-wide border border-[var(--border)] bg-[var(--bg-secondary)] hover:border-amber-500/20 hover:bg-amber-500/5 transition-all duration-300"
+                          style={{ color: 'var(--text-secondary)' }}
                         >
                           {tag}
                         </motion.span>
@@ -155,55 +242,53 @@ const Hackathon = memo(() => {
                   </div>
                 </div>
 
-                {/* Action Buttons */}
-                <div className="flex flex-wrap items-center gap-5 mt-16">
+                {/* ── Action Buttons ── */}
+                <div className="flex flex-col gap-3">
+                  {/* Primary: Live Demo */}
                   <motion.a
                     href={hackathon.liveLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    data-magnetic="true"
-                    data-cursor-text="Visit Site"
-                    whileHover={{ scale: 1.03, background: isDark ? '#4f46e5' : '#1a1a1a' }}
+                    whileHover={{ scale: 1.02, y: -2 }}
                     whileTap={{ scale: 0.98 }}
-                    className="flex items-center gap-2 px-10 py-4 bg-[#0a0a0a] text-white rounded-2xl font-bold text-sm shadow-xl transition-all"
-                    style={{ background: isDark ? 'var(--accent-color)' : '#0a0a0a' }}
+                    className="flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 text-white font-black uppercase tracking-wider text-xs shadow-xl shadow-amber-500/20 hover:shadow-amber-500/40 transition-all duration-300"
                   >
-                    <ExternalLink size={18} />
+                    <ExternalLink size={16} />
                     Live Demo
+                    <ArrowUpRight size={14} className="opacity-60" />
                   </motion.a>
 
-                  <motion.a
-                    href={hackathon.codeLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-magnetic="true"
-                    data-cursor-text="GitHub"
-                    whileHover={{ scale: 1.03, background: isDark ? '#1f2937' : '#fafafa' }}
-                    whileTap={{ scale: 0.98 }}
-                    className="flex items-center gap-2 px-10 py-4 border border-[#e5e7eb] text-[#0a0a0a] rounded-2xl font-bold text-sm bg-transparent transition-all"
-                    style={{ borderColor: isDark ? 'var(--border)' : '#e5e7eb', color: 'var(--text-primary)' }}
-                  >
-                    <Github size={18} />
-                    Source Code
-                  </motion.a>
+                  {/* Secondary row */}
+                  <div className="grid grid-cols-2 gap-3">
+                    <motion.a
+                      href={hackathon.codeLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.03, y: -2 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl border border-[var(--border)] font-bold text-xs uppercase tracking-wider hover:border-indigo-500/30 hover:bg-indigo-500/5 transition-all duration-300"
+                      style={{ color: 'var(--text-primary)' }}
+                    >
+                      <Github size={16} />
+                      Source Code
+                    </motion.a>
 
-                  <motion.a
-                    href={hackathon.certificateLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-magnetic="true"
-                    data-cursor-text="Award"
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="flex items-center gap-2 px-10 py-4 border border-[#e5e7eb] text-[#6b7280] rounded-2xl font-bold text-sm hover:border-black/20 hover:text-black transition-all ml-auto lg:ml-0"
-                    style={{ borderColor: isDark ? 'var(--border)' : '#e5e7eb', color: isDark ? 'var(--text-secondary)' : '#6b7280' }}
-                  >
-                    <Trophy size={18} />
-                    Certificate
-                  </motion.a>
+                    <motion.a
+                      href={hackathon.certificateLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.03, y: -2 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl border border-[var(--border)] font-bold text-xs uppercase tracking-wider hover:border-amber-500/30 hover:bg-amber-500/5 transition-all duration-300"
+                      style={{ color: 'var(--text-secondary)' }}
+                    >
+                      <Trophy size={16} />
+                      Certificate
+                    </motion.a>
+                  </div>
                 </div>
-              </div>
 
+              </motion.div>
             </div>
           </motion.div>
         ))}
@@ -212,20 +297,39 @@ const Hackathon = memo(() => {
   );
 });
 
-function DetailSection({ icon, label, text }) {
+/* ── Glassmorphic Detail Card ── */
+function DetailCard({ icon, label, text, accentColor, delay = 0 }) {
   return (
-    <div className="group/item">
-      <div className="flex items-center gap-2 mb-2">
-        {icon}
-        <h4 className="text-[10px] font-black uppercase tracking-[0.25em] transition-colors" style={{ color: 'var(--text-muted)' }}>
-          {label}
-        </h4>
+    <motion.div
+      initial={{ opacity: 0, x: -15 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay }}
+      whileHover={{ x: 4 }}
+      className="relative p-4 md:p-5 rounded-2xl border border-[var(--border)] bg-[var(--bg-secondary)] overflow-hidden group/detail transition-all duration-300 hover:border-opacity-50"
+      style={{ '--detail-accent': accentColor }}
+    >
+      {/* Colored left accent bar */}
+      <div
+        className="absolute left-0 top-3 bottom-3 w-[3px] rounded-full transition-all duration-300 group-hover/detail:top-2 group-hover/detail:bottom-2"
+        style={{ background: accentColor }}
+      />
+
+      <div className="pl-3">
+        <div className="flex items-center gap-2 mb-2">
+          <span style={{ color: accentColor }}>{icon}</span>
+          <h4 className="text-[10px] font-black uppercase tracking-[0.2em]" style={{ color: accentColor }}>
+            {label}
+          </h4>
+        </div>
+        <p className="text-[13px] leading-relaxed font-medium opacity-70" style={{ color: 'var(--text-primary)' }}>
+          {text}
+        </p>
       </div>
-      <p className="text-[13px] md:text-sm leading-relaxed transition-colors" style={{ color: 'var(--text-secondary)' }}>
-        {text}
-      </p>
-    </div>
+    </motion.div>
   );
 }
+
+Hackathon.displayName = 'Hackathon';
 
 export default Hackathon;

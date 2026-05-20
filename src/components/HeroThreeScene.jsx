@@ -163,4 +163,6 @@ const HeroThreeScene = memo(() => {
   );
 });
 
+HeroThreeScene.displayName = 'HeroThreeScene';
+
 export default HeroThreeScene;

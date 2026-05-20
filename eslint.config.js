@@ -38,6 +38,7 @@ export default [
         argsIgnorePattern: '^[A-Z_]' 
       }],
       'react/prop-types': 'off',
+      'react/no-unknown-property': 'off',
     },
   },
 ]

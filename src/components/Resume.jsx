@@ -1,7 +1,5 @@
-import { useContext, useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { ThemeContext } from '../context/ThemeContext';
-import { FileText, X, ExternalLink, Download } from 'lucide-react';
+import { motion } from 'motion/react';
+import { Download } from 'lucide-react';
 
 const RESUME_DRIVE_ID = '1YFi7wZHKKj8DRVWcL4FBWq8gsH5BHpFS';
 const RESUME_EMBED_URL = `https://drive.google.com/file/d/${RESUME_DRIVE_ID}/preview`;
@@ -15,9 +13,6 @@ const HIGHLIGHTS = [
 ];
 
 function Resume() {
-  const { theme, isTransitioning } = useContext(ThemeContext);
-  const isDark = theme === 'dark';
-  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <section id="resume" className="w-full relative overflow-hidden py-16" style={{ background: '#7b97b0' }}>

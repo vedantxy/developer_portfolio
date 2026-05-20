@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { motion, useMotionValue, useSpring, AnimatePresence, useMotionTemplate } from 'motion/react';
+import { motion, useMotionValue, useSpring, AnimatePresence } from 'motion/react';
 
 const BURST_COUNT = 20;
 

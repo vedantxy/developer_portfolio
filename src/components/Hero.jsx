@@ -1,6 +1,5 @@
-import { useContext, useMemo, memo } from 'react';
+import { memo } from 'react';
 import { motion } from 'motion/react';
-import { ThemeContext } from '../context/ThemeContext';
 import { FileText, Mail, ArrowDown } from 'lucide-react';
 import { FaLinkedinIn, FaGithub, FaYoutube } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
@@ -17,24 +16,9 @@ const SOCIAL_LINKS = [
 ];
 
 const Hero = memo(() => {
-  const { isTransitioning } = useContext(ThemeContext);
-
   const handleScrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
-
-
-
-  // Generate random particles for the Anti-Gravity effect
-  const particles = useMemo(() => {
-    return Array.from({ length: 15 }).map((_, i) => ({
-      id: i,
-      left: `${Math.random() * 100}%`,
-      top: `${Math.random() * 100}%`,
-      delay: `${Math.random() * 5}s`,
-      size: `${Math.random() * 4 + 2}px`
-    }));
-  }, []);
 
   return (
     <section
@@ -71,13 +55,12 @@ const Hero = memo(() => {
             <div className="w-full relative mb-8">
               <motion.div
                 initial={{ opacity: 0, x: "-50%", y: 20 }}
-                animate={{ opacity: 0.05, x: "-50%", y: 0 }}
+                animate={{ opacity: 1, x: "-50%", y: 0 }}
                 transition={{ duration: 1.5, ease: "easeOut" }}
-                className="font-black leading-none tracking-tighter select-none pointer-events-none absolute top-0 left-1/2 uppercase whitespace-nowrap"
+                className="font-black leading-none tracking-tighter select-none pointer-events-none absolute top-0 left-1/2 uppercase whitespace-nowrap hero-watermark"
                 style={{ 
                   fontSize: 'clamp(80px, 20vw, 280px)',
                   zIndex: -1,
-                  color: 'var(--text-primary)',
                   transform: 'translateX(-50%)'
                 }}
               >
@@ -241,5 +224,7 @@ const Hero = memo(() => {
     </section>
   );
 });
+
+Hero.displayName = 'Hero';
 
 export default Hero;

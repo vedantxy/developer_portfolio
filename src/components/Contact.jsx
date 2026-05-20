@@ -109,6 +109,7 @@ function Contact() {
               <div className="flex gap-4">
                  <SocialBtn icon={<Linkedin size={20} />} url="https://www.linkedin.com/in/vedant-patel-3b6a4636a/" />
                  <SocialBtn icon={<Github size={20} />} url="https://github.com/vedantxy" />
+                 <SocialBtn icon={<Youtube size={20} />} url="https://www.youtube.com/@VedantPatel-y7k" />
                  <SocialBtn icon={<Twitter size={20} />} url="https://x.com/VedantPate1601" />
                  <SocialBtn icon={<SiLeetcode size={20} />} url="https://leetcode.com/u/Vedant_2403/" />
               </div>
@@ -121,46 +122,46 @@ function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="p-8 md:p-10 rounded-[2.5rem] border border-white/10 bg-[#09090b] shadow-2xl relative group"
+            className="p-8 md:p-10 rounded-[2.5rem] border border-[var(--border)] bg-[var(--bg-card)] shadow-2xl relative group"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent rounded-[2.5rem] pointer-events-none" />
             
             <form ref={formRef} onSubmit={handleSubmit} className="relative z-10 space-y-8">
               <div className="space-y-2">
-                <label className="text-[11px] font-bold uppercase tracking-wider opacity-40 ml-1" style={{ color: 'var(--text-primary)' }}>Your Name</label>
+                <label className="text-[11px] font-bold uppercase tracking-wider ml-1" style={{ color: 'var(--text-secondary)' }}>Your Name</label>
                 <input
                   type="text"
                   name="from_name"
                   value={formData.from_name}
                   onChange={handleChange}
                   placeholder="Vedant Patel"
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-sm font-medium outline-none focus:border-indigo-500/50 focus:bg-white/10 transition-all placeholder:opacity-20"
+                  className="w-full bg-[var(--bg-secondary)] border border-[var(--border)] rounded-2xl px-6 py-4 text-sm font-medium outline-none focus:border-indigo-500/50 focus:bg-[var(--bg-card)] transition-all placeholder:text-[var(--text-muted)] placeholder:opacity-60"
                   style={{ color: 'var(--text-primary)' }}
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="text-[11px] font-bold uppercase tracking-wider opacity-40 ml-1" style={{ color: 'var(--text-primary)' }}>Email Address</label>
+                <label className="text-[11px] font-bold uppercase tracking-wider ml-1" style={{ color: 'var(--text-secondary)' }}>Email Address</label>
                 <input
                   type="email"
                   name="from_email"
                   value={formData.from_email}
                   onChange={handleChange}
                   placeholder="hello@example.com"
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-sm font-medium outline-none focus:border-indigo-500/50 focus:bg-white/10 transition-all placeholder:opacity-20"
+                  className="w-full bg-[var(--bg-secondary)] border border-[var(--border)] rounded-2xl px-6 py-4 text-sm font-medium outline-none focus:border-indigo-500/50 focus:bg-[var(--bg-card)] transition-all placeholder:text-[var(--text-muted)] placeholder:opacity-60"
                   style={{ color: 'var(--text-primary)' }}
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="text-[11px] font-bold uppercase tracking-wider opacity-40 ml-1" style={{ color: 'var(--text-primary)' }}>Message</label>
+                <label className="text-[11px] font-bold uppercase tracking-wider ml-1" style={{ color: 'var(--text-secondary)' }}>Message</label>
                 <textarea
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   rows="4"
                   placeholder="How can I help you?"
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-sm font-medium outline-none focus:border-indigo-500/50 focus:bg-white/10 transition-all resize-none placeholder:opacity-20"
+                  className="w-full bg-[var(--bg-secondary)] border border-[var(--border)] rounded-2xl px-6 py-4 text-sm font-medium outline-none focus:border-indigo-500/50 focus:bg-[var(--bg-card)] transition-all resize-none placeholder:text-[var(--text-muted)] placeholder:opacity-60"
                   style={{ color: 'var(--text-primary)' }}
                 />
               </div>
@@ -181,16 +182,6 @@ function Contact() {
               </motion.button>
             </form>
           </motion.div>
-        </div>
-
-        {/* Minimal Footer */}
-        <div className="mt-24 pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6 opacity-40">
-           <span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: 'var(--text-primary)' }}>
-             © {new Date().getFullYear()} Vedant Patel
-           </span>
-           <span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: 'var(--text-primary)' }}>
-             Built with Precision + React
-           </span>
         </div>
       </div>
 
@@ -213,7 +204,7 @@ function Contact() {
 function ContactInfoItem({ icon, label, value }) {
   return (
     <div className="flex items-center gap-5 group">
-      <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-white/5 border border-white/10 text-indigo-400 group-hover:scale-110 group-hover:bg-indigo-500 group-hover:text-white transition-all duration-500">
+      <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-[var(--bg-secondary)] border border-[var(--border)] text-indigo-500 dark:text-indigo-400 group-hover:scale-110 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-500">
         {icon}
       </div>
       <div className="flex flex-col">
@@ -230,8 +221,9 @@ function SocialBtn({ icon, url }) {
       href={url}
       target="_blank"
       rel="noreferrer"
-      whileHover={{ y: -5 }}
-      className="w-12 h-12 rounded-full flex items-center justify-center bg-white/5 border border-white/10 text-white/40 hover:text-white hover:border-white/30 transition-all duration-300"
+      whileHover={{ y: -5, scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      className="w-12 h-12 rounded-2xl flex items-center justify-center bg-[var(--bg-secondary)] border border-[var(--border)] text-[var(--text-secondary)] hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-500/30 hover:bg-indigo-500/5 transition-all duration-300"
     >
       {icon}
     </motion.a>

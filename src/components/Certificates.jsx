@@ -1,6 +1,5 @@
-import { useContext, useState, useMemo } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ThemeContext } from '../context/ThemeContext';
 import CertificateCard from './CertificateCard';
 import { X, Award, Briefcase, Calendar, Star, CheckCircle2, ExternalLink } from 'lucide-react';
 import cssCert from '../assets/css_certificate.jpg';

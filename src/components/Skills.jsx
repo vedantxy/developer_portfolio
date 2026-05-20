@@ -105,16 +105,14 @@ const SkillCard = memo(({ skill, delay }) => {
   );
 });
 
+SkillCard.displayName = 'SkillCard';
+
 const Skills = memo(() => {
   return (
     <section id="skills" className="py-20 md:py-24 px-6 md:px-12 lg:px-24 flex items-center relative overflow-hidden transition-colors duration-500" style={{ background: 'transparent' }}>
       
-      {/* Background Ecosystem */}
+      {/* Background Glows */}
       <div className="absolute inset-0 pointer-events-none">
-        {/* Subtle grid */}
-        <div className="absolute inset-0 opacity-[0.2]" style={{ backgroundImage: "radial-gradient(var(--border) 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
-        
-        {/* Deep background ambient glows */}
         <div className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-[120px]" />
         <div className="absolute bottom-10 left-10 w-[400px] h-[400px] bg-purple-500/5 rounded-full blur-[120px]" />
       </div>
@@ -181,5 +179,7 @@ const Skills = memo(() => {
     </section>
   );
 });
+
+Skills.displayName = 'Skills';
 
 export default Skills;

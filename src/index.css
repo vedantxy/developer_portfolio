@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@variant dark (&:where(.dark, .dark *));
+
 /* ══════════════════════════════════════════════
    MONOCHROME DESIGN SYSTEM — Gray × White × Black
    3 themes: dark (deep black) | light (pure white) | neon (black + white glow)
@@ -32,6 +34,20 @@ html.light {
   --blob-blue:      #3B82F6;
   --blob-purple:    #8B5CF6;
   --particle-color: #6366f1;
+
+  --grid-color:     rgba(203, 213, 225, 0.5);
+
+  /* Code Editor Syntax */
+  --code-bg:        #1e1e2e;
+  --code-border:    rgba(255, 255, 255, 0.08);
+  --code-line-num:  #a0aec0;
+  --code-keyword:   #c792ea;
+  --code-variable:  #82aaff;
+  --code-property:  #c3e88d;
+  --code-string:    #ffd580;
+  --code-number:    #f78c6c;
+  --code-boolean:   #ff5370;
+  --code-bracket:   #89ddff;
 }
 
 /* ── STRONG NIGHT (Cyber Premium) ── */
@@ -61,6 +77,20 @@ html.dark {
   --blob-purple:    #5b21b6; /* Deeper purple for dark mode */
   --particle-color: #818cf8;
   --gradient-line:  linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.5), transparent);
+
+  --grid-color:     rgba(99, 102, 241, 0.06);
+
+  /* Code Editor Syntax */
+  --code-bg:        #0a0a0f;
+  --code-border:    rgba(99, 102, 241, 0.15);
+  --code-line-num:  #64748b;
+  --code-keyword:   #c792ea;
+  --code-variable:  #82aaff;
+  --code-property:  #c3e88d;
+  --code-string:    #ffd580;
+  --code-number:    #f78c6c;
+  --code-boolean:   #ff5370;
+  --code-bracket:   #89ddff;
 }
 
 /* Hard Shadows for Strong Dark Mode */
@@ -282,9 +312,9 @@ html.neon .space-card:hover {
 
 .bg-grid-pattern {
   background-image: 
-    linear-gradient(to right, var(--text-primary) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--text-primary) 1px, transparent 1px);
-  background-size: 50px 50px;
+    linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+  background-size: 60px 60px;
 }
 
 @keyframes spin-slow {
@@ -377,13 +407,29 @@ html.neon body::before {
 /* ══════════════════════════════════════════════
    SCROLLBAR
 ══════════════════════════════════════════════ */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--bg-secondary); }
-::-webkit-scrollbar-thumb {
-  background: var(--border-glow);
-  border-radius: 2px;
+::-webkit-scrollbar {
+  width: 6px;
 }
-::-webkit-scrollbar-thumb:hover { background: var(--accent-30); }
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--accent) 0%, var(--border-glow) 100%);
+  border-radius: 100px;
+  transition: background 0.3s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--accent) 0%, var(--accent-30) 100%);
+}
+::-webkit-scrollbar-thumb:active {
+  background: var(--accent);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+}
 
 /* ══════════════════════════════════════════════
    REDUCED MOTION
