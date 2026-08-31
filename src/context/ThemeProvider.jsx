@@ -10,7 +10,7 @@ export const ThemeProvider = ({ children }) => {
       
       return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
-    return 'dark'; // Fallback for hydration
+    return 'light'; // Fallback for hydration — default to light mode
   });
 
   const [isTransitioning, setIsTransitioning] = useState(false);
