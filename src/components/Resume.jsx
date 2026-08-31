@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { Download } from 'lucide-react';
 
-const RESUME_DRIVE_ID = '1YFi7wZHKKj8DRVWcL4FBWq8gsH5BHpFS';
+const RESUME_DRIVE_ID = '11Bq7BQVkRGz1B9hu8DkeOuWN5KZFdFki';
 const RESUME_EMBED_URL = `https://drive.google.com/file/d/${RESUME_DRIVE_ID}/preview`;
 const RESUME_DOWNLOAD_URL = `https://drive.google.com/uc?export=download&id=${RESUME_DRIVE_ID}`;
 

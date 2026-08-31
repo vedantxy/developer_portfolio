@@ -20,18 +20,24 @@ const BackgroundSystem = memo(() => {
       {/* 1. Grid Pattern Layer — prominent and clean */}
       <div className="absolute inset-0 bg-grid-pattern opacity-100 pointer-events-none" />
 
-      {/* 2. Blur Blobs (Subtle Glows) */}
+      {/* 2. Blur Blobs (Vivid Glows) */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Top Left - Blue Blob */}
+        {/* Top Left - Deep Blue Blob */}
         <div 
-          className="absolute -top-[10%] -left-[10%] w-[50vw] h-[50vw] rounded-full opacity-[0.08] blur-[140px] animate-blob-1 will-change-transform"
+          className="absolute -top-[10%] -left-[10%] w-[55vw] h-[55vw] rounded-full opacity-[0.18] dark:opacity-[0.22] blur-[120px] animate-blob-1 will-change-transform"
           style={{ background: 'var(--blob-blue)' }}
         />
         
         {/* Bottom Right - Purple Blob */}
         <div 
-          className="absolute -bottom-[15%] -right-[10%] w-[60vw] h-[60vw] rounded-full opacity-[0.08] blur-[160px] animate-blob-2 will-change-transform"
+          className="absolute -bottom-[15%] -right-[10%] w-[60vw] h-[60vw] rounded-full opacity-[0.14] dark:opacity-[0.20] blur-[140px] animate-blob-2 will-change-transform"
           style={{ background: 'var(--blob-purple)' }}
+        />
+
+        {/* Center - Cyan Accent Blob (dark mode only) */}
+        <div 
+          className="absolute top-[40%] left-[30%] w-[40vw] h-[40vw] rounded-full opacity-0 dark:opacity-[0.08] blur-[150px] animate-blob-1 will-change-transform"
+          style={{ background: '#0EA5E9', animationDelay: '5s' }}
         />
       </div>
 

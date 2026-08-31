@@ -12,7 +12,7 @@ class Particle {
     this.size = size || Math.random() * 2 + 1;
     this.alpha = 1;
     this.color = color;
-    this.decay = Math.random() * 0.015 + 0.012; // sleek fast decay
+    this.decay = Math.random() * 0.015 + 0.012;
   }
 
   update() {
@@ -35,37 +35,95 @@ class Particle {
   }
 }
 
+/**
+ * Walk up the DOM from `el` to find the nearest interactive element.
+ * Works correctly for SVG children that may not support .closest()
+ */
+function findInteractive(el) {
+  const INTERACTIVE = ['A', 'BUTTON'];
+  let node = el;
+  while (node && node !== document.body) {
+    // Standard HTML interactive tags
+    if (INTERACTIVE.includes(node.tagName)) return node;
+    // Data-attribute based interactive
+    if (
+      node.getAttribute &&
+      (node.getAttribute('role') === 'button' ||
+        node.hasAttribute('data-cursor-hover') ||
+        node.hasAttribute('data-cursor-text') ||
+        node.getAttribute('data-magnetic') === 'true')
+    ) {
+      return node;
+    }
+    node = node.parentElement;
+  }
+  return null;
+}
+
+function findMedia(el) {
+  let node = el;
+  while (node && node !== document.body) {
+    if (['IMG', 'VIDEO'].includes(node.tagName)) return node;
+    if (node.getAttribute && node.getAttribute('data-cursor') === 'media') return node;
+    node = node.parentElement;
+  }
+  return null;
+}
+
+function findText(el) {
+  const TEXT_TAGS = ['P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'CODE', 'LI'];
+  let node = el;
+  while (node && node !== document.body) {
+    if (TEXT_TAGS.includes(node.tagName)) return node;
+    node = node.parentElement;
+  }
+  return null;
+}
+
 export default function CustomCursor() {
   const canvasRef = useRef(null);
   const particles = useRef([]);
   const requestRef = useRef();
-  
-  const [cursorMode, setCursorMode] = useState('default'); // 'default', 'hover', 'media', 'text', 'magnetic'
-  const [hoverText, setHoverText] = useState("");
+
+  const [cursorMode, setCursorMode] = useState('default');
+  const [hoverText, setHoverText] = useState('');
   const [isClicked, setIsClicked] = useState(false);
   const [isMobile, setIsMobile] = useState(true);
-  
+
+  // Use refs to avoid stale closures in event handlers
+  const cursorModeRef = useRef('default');
+  const hoverTextRef = useRef('');
+
   const mousePos = useRef({ x: -100, y: -100 });
   const prevMousePos = useRef({ x: -100, y: -100 });
   const velocity = useRef(0);
-  
+
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
-  
-  // High-performance spring physics
+
   const springConfig = { damping: 32, stiffness: 350, mass: 0.6 };
   const quickSpring = { damping: 22, stiffness: 700, mass: 0.15 };
-  
+
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
+
+  const setMode = useCallback((mode, text = '') => {
+    if (cursorModeRef.current !== mode) {
+      cursorModeRef.current = mode;
+      setCursorMode(mode);
+    }
+    if (hoverTextRef.current !== text) {
+      hoverTextRef.current = text;
+      setHoverText(text);
+    }
+  }, []);
 
   const animate = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    // Process trailing trail
+
     for (let i = 0; i < particles.current.length; i++) {
       const p = particles.current[i];
       p.update();
@@ -75,7 +133,7 @@ export default function CustomCursor() {
         i--;
       }
     }
-    
+
     requestRef.current = requestAnimationFrame(animate);
   }, []);
 
@@ -100,14 +158,14 @@ export default function CustomCursor() {
         canvasRef.current.height = window.innerHeight;
       }
     };
-    
+
     handleResize();
     window.addEventListener('resize', handleResize);
     requestRef.current = requestAnimationFrame(animate);
-    
+
     const moveCursor = (e) => {
       const { clientX: x, clientY: y } = e;
-      
+
       const dx = x - prevMousePos.current.x;
       const dy = y - prevMousePos.current.y;
       velocity.current = Math.sqrt(dx * dx + dy * dy);
@@ -116,15 +174,17 @@ export default function CustomCursor() {
       let targetX = x;
       let targetY = y;
 
-      // Magnetic hover attraction pull
-      const target = e.target;
-      const magneticElement = target?.closest('[data-magnetic="true"]') || (target?.dataset?.magnetic === "true" ? target : null);
-      
+      // ── Magnetic effect (only for elements with data-magnetic="true") ──
+      const el = e.target;
+      const magneticElement =
+        el?.closest?.('[data-magnetic="true"]') ||
+        (el?.dataset?.magnetic === 'true' ? el : null);
+
       if (magneticElement) {
         const rect = magneticElement.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
-        const pull = 0.38; 
+        const pull = 0.38;
         targetX = x + (centerX - x) * pull;
         targetY = y + (centerY - y) * pull;
       }
@@ -132,8 +192,34 @@ export default function CustomCursor() {
       mousePos.current = { x: targetX, y: targetY };
       cursorX.set(targetX);
       cursorY.set(targetY);
-      
-      // Beautiful Cyber Particle Trail
+
+      // ── Cursor Mode Detection (runs every mousemove — no flicker) ──
+      const target = e.target;
+
+      // Priority 1: Interactive element (button, link, data-cursor-text, etc.)
+      const interactive = findInteractive(target);
+      if (interactive) {
+        const mode = interactive.getAttribute('data-cursor') || 'hover';
+        const text = interactive.getAttribute('data-cursor-text') || '';
+        setMode(mode, text);
+      } else {
+        // Priority 2: Media element
+        const media = findMedia(target);
+        if (media) {
+          setMode('media', 'View');
+        } else {
+          // Priority 3: Text element
+          const text = findText(target);
+          if (text) {
+            setMode('text', '');
+          } else {
+            // Default
+            setMode('default', '');
+          }
+        }
+      }
+
+      // ── Particle Trail ──
       if (velocity.current > 1.8) {
         const colors = ['#06b6d4', '#6366f1'];
         const color = colors[Math.floor(Math.random() * colors.length)];
@@ -150,64 +236,37 @@ export default function CustomCursor() {
         }
       }
     };
-    
+
     const handleClick = (e) => {
       setIsClicked(true);
       setTimeout(() => setIsClicked(false), 250);
-      
+
       const colors = ['#06b6d4', '#6366f1'];
-      // Shockwave particle burst explosion
       for (let i = 0; i < BURST_COUNT; i++) {
         const angle = (Math.PI * 2 * i) / BURST_COUNT;
         const speed = Math.random() * 4.5 + 2;
         const color = colors[Math.floor(Math.random() * colors.length)];
         particles.current.push(new Particle(
-          e.clientX, 
-          e.clientY, 
-          color, 
-          Math.cos(angle) * speed, 
+          e.clientX,
+          e.clientY,
+          color,
+          Math.cos(angle) * speed,
           Math.sin(angle) * speed,
           Math.random() * 2.5 + 1.2
         ));
       }
     };
-    
-    const handleMouseOver = (e) => {
-      const target = e.target;
-      if (!target) return;
-
-      const interactive = target.closest('a, button, [role="button"], [data-cursor-hover], [data-magnetic="true"]');
-      const media = target.closest('img, video, [data-cursor="media"]');
-      const text = target.closest('p, h1, h2, h3, h4, h5, h6, span, code, li');
-
-      if (interactive) {
-        const mode = interactive.getAttribute('data-cursor') || 'hover';
-        setCursorMode(mode);
-        setHoverText(interactive.getAttribute('data-cursor-text') || "");
-      } else if (media) {
-        setCursorMode('media');
-        setHoverText("View");
-      } else if (text) {
-        setCursorMode('text');
-        setHoverText("");
-      } else {
-        setCursorMode('default');
-        setHoverText("");
-      }
-    };
 
     window.addEventListener('mousemove', moveCursor);
     window.addEventListener('mousedown', handleClick);
-    window.addEventListener('mouseover', handleMouseOver);
-    
+
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', moveCursor);
       window.removeEventListener('mousedown', handleClick);
-      window.removeEventListener('mouseover', handleMouseOver);
       cancelAnimationFrame(requestRef.current);
     };
-  }, [animate, cursorX, cursorY, isMobile]);
+  }, [animate, cursorX, cursorY, isMobile, setMode]);
 
   if (isMobile) return null;
 
@@ -219,7 +278,7 @@ export default function CustomCursor() {
         className="fixed inset-0 pointer-events-none z-[9997]"
         style={{ mixBlendMode: 'screen' }}
       />
-      
+
       {/* ── Outer Glowing Ring ── */}
       <motion.div
         className="fixed top-0 left-0 rounded-full pointer-events-none z-[9998]"
@@ -238,12 +297,14 @@ export default function CustomCursor() {
           opacity: cursorMode === 'text' ? 0 : (cursorMode === 'media' ? 0.9 : (cursorMode === 'hover' ? 0.8 : 0.35)),
           backgroundColor: cursorMode === 'hover' ? 'rgba(99, 102, 241, 0.12)' : 'transparent',
           backdropFilter: cursorMode === 'hover' ? 'blur(4px)' : 'none',
-          boxShadow: cursorMode === 'hover' ? '0 0 20px rgba(99, 102, 241, 0.25)' : (cursorMode === 'media' ? '0 0 30px rgba(6, 182, 212, 0.3)' : 'none'),
+          boxShadow: cursorMode === 'hover'
+            ? '0 0 20px rgba(99, 102, 241, 0.25)'
+            : (cursorMode === 'media' ? '0 0 30px rgba(6, 182, 212, 0.3)' : 'none'),
         }}
         transition={springConfig}
       />
 
-      {/* ── Inner Core (Awwwards Style Blend/Glow Dot) ── */}
+      {/* ── Inner Core Dot ── */}
       <motion.div
         className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999]"
         style={{
@@ -261,8 +322,8 @@ export default function CustomCursor() {
         }}
         transition={quickSpring}
       />
-      
-      {/* ── Core Shockwave Glow on Click ── */}
+
+      {/* ── Click Shockwave ── */}
       <AnimatePresence>
         {isClicked && (
           <motion.div
@@ -276,19 +337,19 @@ export default function CustomCursor() {
               translateX: '-50%',
               translateY: '-50%',
               boxShadow: '0 0 20px rgba(6, 182, 212, 0.4), inset 0 0 20px rgba(99, 102, 241, 0.3)',
-              filter: 'blur(1px)'
+              filter: 'blur(1px)',
             }}
           />
         )}
       </AnimatePresence>
 
-      {/* ── Glassy Interactive Label ── */}
+      {/* ── Interactive Label ── */}
       <AnimatePresence>
         {(hoverText || cursorMode === 'media') && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.75, y: 10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.75, y: 10 }}
+            initial={{ opacity: 0, scale: 0.75 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.75 }}
             className="fixed top-0 left-0 pointer-events-none z-[10000] flex items-center justify-center"
             style={{
               x: cursorX,
@@ -298,7 +359,7 @@ export default function CustomCursor() {
             }}
           >
             <span className="text-[10px] font-black uppercase tracking-[0.25em] text-white bg-black/75 px-3 py-1.5 rounded-full backdrop-blur-md border border-white/10 shadow-[0_4px_12px_rgba(0,0,0,0.25)]">
-              {hoverText || (cursorMode === 'media' ? "View" : "")}
+              {hoverText || (cursorMode === 'media' ? 'View' : '')}
             </span>
           </motion.div>
         )}
@@ -306,4 +367,3 @@ export default function CustomCursor() {
     </>
   );
 }
-

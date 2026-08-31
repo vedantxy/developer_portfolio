@@ -6,6 +6,10 @@
   overflow: hidden;
 }
 
+.dark .contact-section {
+  background: transparent;
+}
+
 .contact-grid {
   position: absolute;
   inset: 0;
@@ -14,6 +18,12 @@
     linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
   background-size: 32px 32px;
   pointer-events: none;
+}
+
+.dark .contact-grid {
+  background-image: 
+    linear-gradient(rgba(129,140,248,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(129,140,248,0.06) 1px, transparent 1px);
 }
 
 .contact-blob {
@@ -26,6 +36,10 @@
   pointer-events: none;
 }
 
+.dark .contact-blob {
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+}
+
 .contact-script {
   font-family: 'Caveat', cursive;
 }
@@ -33,6 +47,21 @@
 .contact-form-input:focus {
   border-color: #111 !important;
   box-shadow: 0 0 0 4px rgba(0,0,0,0.03);
+}
+
+.dark .contact-form-input {
+  background: rgba(15, 22, 35, 0.8) !important;
+  border-color: rgba(129, 140, 248, 0.2) !important;
+  color: #F0F4FF !important;
+}
+
+.dark .contact-form-input:focus {
+  border-color: rgba(129, 140, 248, 0.6) !important;
+  box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.1) !important;
+}
+
+.dark .contact-form-input::placeholder {
+  color: #5A6A85 !important;
 }
 
 .social-icon-btn {
@@ -43,6 +72,15 @@
 .social-icon-btn:hover {
   color: #111;
   transform: translateY(-2px) scale(1.1);
+}
+
+.dark .social-icon-btn {
+  color: #94A3B8;
+}
+
+.dark .social-icon-btn:hover {
+  color: #818CF8;
+  filter: drop-shadow(0 0 8px rgba(129, 140, 248, 0.5));
 }
 
 .contact-info-circle {
@@ -56,8 +94,19 @@
   transition: all 0.3s ease;
 }
 
+.dark .contact-info-circle {
+  background: rgba(129, 140, 248, 0.1);
+  border: 1px solid rgba(129, 140, 248, 0.2);
+}
+
 .contact-info-item:hover .contact-info-circle {
   background: #e5e7eb;
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.dark .contact-info-item:hover .contact-info-circle {
+  background: rgba(129, 140, 248, 0.2);
+  border-color: rgba(129, 140, 248, 0.4);
+  box-shadow: 0 0 20px rgba(129, 140, 248, 0.2);
 }

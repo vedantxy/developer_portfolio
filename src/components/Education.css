@@ -16,12 +16,12 @@
 }
 
 html.dark .education-section {
-  --edu-bg: #000000;
-  --edu-card-bg: #0a0a0a;
-  --edu-grid: rgba(99, 102, 241, 0.05);
-  --edu-text-primary: #ffffff;
-  --edu-text-secondary: #94a3b8;
-  --edu-text-muted: #475569;
+  --edu-bg: #070B14;
+  --edu-card-bg: #0F1623;
+  --edu-grid: rgba(129, 140, 248, 0.07);
+  --edu-text-primary: #F0F4FF;
+  --edu-text-secondary: #A8B5D1;
+  --edu-text-muted: #5A6A85;
 }
 
 .neon .education-section {

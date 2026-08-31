@@ -20,15 +20,17 @@ const Navbar = memo(() => {
   const navPadding = useTransform(scrollY, [0, 50], ['20px', '12px']);
   const navBg = useTransform(scrollY, [0, 50], [
     'rgba(248, 250, 252, 0)', 
-    theme === 'dark' ? 'rgba(0, 0, 0, 0.85)' : 'rgba(248, 250, 252, 0.85)'
+    theme === 'dark' ? 'rgba(7, 11, 20, 0.92)' : 'rgba(248, 250, 252, 0.88)'
   ]);
   const navBorderColor = useTransform(scrollY, [0, 50], [
     'rgba(226, 232, 240, 0)', 
-    theme === 'dark' ? 'rgba(99, 102, 241, 0.2)' : 'rgba(226, 232, 240, 0.4)'
+    theme === 'dark' ? 'rgba(129, 140, 248, 0.25)' : 'rgba(226, 232, 240, 0.4)'
   ]);
   const navShadow = useTransform(scrollY, [0, 50], [
     '0px 0px 0px rgba(0,0,0,0)', 
-    theme === 'dark' ? '0 8px 30px rgba(0,0,0,0.3)' : '0 8px 30px rgba(15,23,42,0.04)'
+    theme === 'dark' 
+      ? '0 8px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(129,140,248,0.08)' 
+      : '0 8px 30px rgba(15,23,42,0.05)'
   ]);
 
 

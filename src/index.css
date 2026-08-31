@@ -50,57 +50,205 @@ html.light {
   --code-bracket:   #89ddff;
 }
 
-/* ── STRONG NIGHT (Cyber Premium) ── */
+/* ══════════════════════════════════════════════
+   DEEP SPACE DARK MODE — Premium Cyber Theme
+   Base: Deep Navy (#070B14) not pure black
+   Accent: Electric Indigo + Vivid Cyan
+══════════════════════════════════════════════ */
 html.dark {
-  --bg-primary:     #000000; /* Pure Black for maximum depth */
-  --bg-secondary:   #050505; 
-  --bg-card:        #0a0a0a; 
-  --bg-card-hover:  #0f172a; 
-  --border:         rgba(99, 102, 241, 0.2); /* Indigo glow borders */
-  --border-glow:    rgba(129, 140, 248, 0.6); 
-  --text-primary:   #ffffff; 
-  --text-secondary: #94a3b8;
-  --text-muted:     #475569;
-  --accent:         #6366f1; /* Strong Indigo */
-  --accent-inv:     #000000;
-  --accent-10:      rgba(99, 102, 241, 0.15);
-  --accent-20:      rgba(99, 102, 241, 0.3);
-  --accent-30:      rgba(99, 102, 241, 0.5);
-  --glow:           0 0 40px rgba(99, 102, 241, 0.1);
-  --glow-hover:     0 0 60px rgba(129, 140, 248, 0.25);
-  --glass-bg:       rgba(0, 0, 0, 0.85);
-  --glass-border:   rgba(99, 102, 241, 0.3);
-  --nav-bg:         rgba(0, 0, 0, 0.92);
-  --section-alt:    #050505;
-  --bg-system-gradient: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
-  --blob-blue:      #1e40af; /* Deeper blue for dark mode */
-  --blob-purple:    #5b21b6; /* Deeper purple for dark mode */
+  /* ── Backgrounds ── */
+  --bg-primary:     #070B14;  /* Deep space navy — not pure black */
+  --bg-secondary:   #0D1117;  /* Slightly lighter deep navy */
+  --bg-card:        #0F1623;  /* Card bg — readable lift from bg */
+  --bg-card-hover:  #141D2E;  /* Hover state — noticeable lift */
+
+  /* ── Borders ── */
+  --border:         rgba(99, 102, 241, 0.25);
+  --border-glow:    rgba(99, 102, 241, 0.7);
+
+  /* ── Text — high contrast hierarchy ── */
+  --text-primary:   #F0F4FF;  /* Near white with cool blue tint */
+  --text-secondary: #A8B5D1;  /* Muted but clearly readable */
+  --text-muted:     #5A6A85;  /* Subtle, not invisible */
+
+  /* ── Accent — Vivid Electric Indigo ── */
+  --accent:         #818CF8;  /* Brighter indigo — visible on dark */
+  --accent-2:       #38BDF8;  /* Vivid cyan as secondary accent */
+  --accent-inv:     #070B14;
+  --accent-10:      rgba(129, 140, 248, 0.12);
+  --accent-20:      rgba(129, 140, 248, 0.22);
+  --accent-30:      rgba(129, 140, 248, 0.40);
+
+  /* ── Shadows & Glows ── */
+  --glow:           0 0 40px rgba(129, 140, 248, 0.15);
+  --glow-hover:     0 0 60px rgba(129, 140, 248, 0.35), 0 20px 60px rgba(56, 189, 248, 0.1);
+
+  /* ── Glass ── */
+  --glass-bg:       rgba(15, 22, 35, 0.80);
+  --glass-border:   rgba(129, 140, 248, 0.20);
+
+  /* ── Navigation ── */
+  --nav-bg:         rgba(7, 11, 20, 0.88);
+
+  /* ── Section alternate ── */
+  --section-alt:    #090E1A;
+
+  /* ── Gradient Background ── */
+  --bg-system-gradient: linear-gradient(145deg, #070B14 0%, #0B1020 40%, #0D1425 70%, #070B14 100%);
+
+  /* ── Blobs (more vivid) ── */
+  --blob-blue:      #3B5BDB;
+  --blob-purple:    #7C3AED;
+  --blob-cyan:      #0EA5E9;
+
+  /* ── Particles ── */
   --particle-color: #818cf8;
-  --gradient-line:  linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.5), transparent);
 
-  --grid-color:     rgba(99, 102, 241, 0.06);
+  /* ── Section divider ── */
+  --gradient-line:  linear-gradient(90deg, transparent, rgba(129, 140, 248, 0.6), rgba(56, 189, 248, 0.4), transparent);
 
-  /* Code Editor Syntax */
-  --code-bg:        #0a0a0f;
-  --code-border:    rgba(99, 102, 241, 0.15);
-  --code-line-num:  #64748b;
-  --code-keyword:   #c792ea;
-  --code-variable:  #82aaff;
-  --code-property:  #c3e88d;
-  --code-string:    #ffd580;
-  --code-number:    #f78c6c;
-  --code-boolean:   #ff5370;
-  --code-bracket:   #89ddff;
+  /* ── Grid ── */
+  --grid-color:     rgba(129, 140, 248, 0.07);
+
+  /* ── Code Editor Syntax ── */
+  --code-bg:        #0A0F1E;
+  --code-border:    rgba(129, 140, 248, 0.18);
+  --code-line-num:  #4A5568;
+  --code-keyword:   #C792EA;
+  --code-variable:  #82AAFF;
+  --code-property:  #C3E88D;
+  --code-string:    #FFD580;
+  --code-number:    #F78C6C;
+  --code-boolean:   #FF5370;
+  --code-bracket:   #89DDFF;
 }
 
-/* Hard Shadows for Strong Dark Mode */
+/* ── Dark mode glass card ── */
 html.dark .glass-card {
-  box-shadow: 0 0 30px rgba(99, 102, 241, 0.05), inset 0 0 20px rgba(99, 102, 241, 0.02);
+  background: rgba(15, 22, 35, 0.75);
+  border-color: rgba(129, 140, 248, 0.18);
+  box-shadow:
+    0 0 0 1px rgba(129, 140, 248, 0.08),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(20px);
 }
+html.dark .glass-card:hover {
+  border-color: rgba(129, 140, 248, 0.40);
+  box-shadow:
+    0 0 0 1px rgba(129, 140, 248, 0.20),
+    0 0 40px rgba(129, 140, 248, 0.15),
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
 
-html.dark h1, html.dark h2 {
-  text-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
+/* ── Dark mode space card ── */
+html.dark .space-card {
+  background: var(--bg-card);
+  border-color: rgba(129, 140, 248, 0.14);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+html.dark .space-card:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(129, 140, 248, 0.35);
+  box-shadow:
+    0 0 30px rgba(129, 140, 248, 0.12),
+    0 20px 50px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(129, 140, 248, 0.08);
+}
+
+/* ── Headings glow ── */
+html.dark h1 {
+  text-shadow: 0 0 40px rgba(129, 140, 248, 0.4), 0 0 80px rgba(56, 189, 248, 0.15);
+}
+html.dark h2 {
+  text-shadow: 0 0 30px rgba(129, 140, 248, 0.3);
+}
+html.dark h3 {
+  text-shadow: 0 0 20px rgba(129, 140, 248, 0.2);
+}
+
+/* ── Vibrant section label in dark mode ── */
+html.dark .section-label {
+  color: var(--accent);
+  text-shadow: 0 0 20px rgba(129, 140, 248, 0.5);
+  letter-spacing: 0.4em;
+}
+
+/* ── Tag / badge in dark mode ── */
+html.dark .tag {
+  background: rgba(129, 140, 248, 0.12);
+  border-color: rgba(129, 140, 248, 0.25);
+  color: #A8B5D1;
+}
+html.dark .tag:hover {
+  background: rgba(129, 140, 248, 0.22);
+  color: #F0F4FF;
+  border-color: rgba(129, 140, 248, 0.45);
+  box-shadow: 0 0 16px rgba(129, 140, 248, 0.2);
+}
+
+/* ── Dark mode btn-filled (indigo glow) ── */
+html.dark .btn-filled {
+  background: linear-gradient(135deg, #6366f1, #818cf8);
+  border-color: rgba(129, 140, 248, 0.4);
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
+}
+html.dark .btn-filled:hover {
+  box-shadow: 0 12px 32px rgba(129, 140, 248, 0.5);
+  opacity: 1;
+}
+
+/* ── Dark mode btn-outline ── */
+html.dark .btn-outline {
+  border-color: rgba(129, 140, 248, 0.25);
+  color: #A8B5D1;
+}
+html.dark .btn-outline:hover {
+  border-color: rgba(129, 140, 248, 0.55);
+  color: #F0F4FF;
+  box-shadow: 0 0 24px rgba(129, 140, 248, 0.15);
+}
+
+/* ── Dark mode input/textarea/select ── */
+html.dark input,
+html.dark textarea,
+html.dark select {
+  background: rgba(15, 22, 35, 0.8);
+  border-color: rgba(129, 140, 248, 0.2);
+  color: #F0F4FF;
+}
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: #5A6A85;
+}
+html.dark input:focus,
+html.dark textarea:focus,
+html.dark select:focus {
+  border-color: rgba(129, 140, 248, 0.55);
+  box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.12);
+  outline: none;
+}
+
+/* ── Dark mode text selection ── */
+html.dark ::selection {
+  background: rgba(129, 140, 248, 0.3);
+  color: #F0F4FF;
+}
+
+/* ── Section dividers extra visible in dark ── */
+html.dark .section-line {
+  opacity: 0.8;
+  height: 1px;
+}
+
+/* ── Skill name text in dark ── */
+html.dark .skill-name {
+  color: #A8B5D1;
+  opacity: 1;
+}
+html.dark .skill-item:hover .skill-name {
+  color: #F0F4FF;
 }
 
 /* ══════════════════════════════════════════════
